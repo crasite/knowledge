@@ -2,10 +2,18 @@
   "name": "knowledge",
   "version": "1.0.0",
   "description": "Knowledge website for almost everything",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Thanu Poptiphueng",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.0.39",
+    "express": "^4.16.2",
+    "pug": "^2.0.0-rc.4",
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  }
 }
