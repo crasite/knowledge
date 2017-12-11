@@ -1,0 +1,11 @@
+{
+  "name": "knowledge",
+  "version": "1.0.0",
+  "description": "Knowledge website for almost everything",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thanu Poptiphueng",
+  "license": "ISC"
+}
