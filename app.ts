@@ -11,7 +11,7 @@ app.use(Express.static('./public'))
 app.set('view engine', 'pug')
 
 app.get('/*',(req,res) => {
-    res.send('Hello 2 World')
+    res.render('math')
 })
 
 app.listen(CONFIG.port,() => {

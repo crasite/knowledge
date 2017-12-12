@@ -9,7 +9,10 @@
   "author": "Thanu Poptiphueng",
   "license": "ISC",
   "dependencies": {
+    "@cycle/dom": "^20.1.0",
+    "@cycle/rxjs-run": "^8.0.0",
     "@types/express": "^4.0.39",
+    "cycle-onionify": "^5.0.0",
     "express": "^4.16.2",
     "pug": "^2.0.0-rc.4",
     "rxjs": "^5.5.5",
