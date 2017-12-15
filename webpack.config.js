@@ -12,6 +12,7 @@ module.exports = {
     resolve: {
         extensions: [ ".webpack.js", ".web.js", ".ts", ".tsx", ".js"]
     },
+    devtool: 'inline',
     module: {
         loaders: [
             { test: /\.tsx?$/, loader: "ts-loader" }

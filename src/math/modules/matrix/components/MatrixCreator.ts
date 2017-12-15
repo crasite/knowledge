@@ -12,24 +12,36 @@ export interface Sinks{
 }
 
 export default function main({ DOM }: Sources): Sinks {
-  const action$ = O.merge(
-    DOM.select('.add').events('click').mapTo(1),
-    DOM.select('.remove').events('click').mapTo(-1),
+  const widthAction$ = O.merge(
+    DOM.select('.addColumn').events('click').mapTo(1),
+    DOM.select('.removeColumn').events('click').mapTo(-1),
   ).startWith(0)
-  const model$ = action$.scan((acc,val) => {
+  const heightAction$ = O.merge(
+    DOM.select('.addRow').events('click').mapTo(1),
+    DOM.select('.removeRow').events('click').mapTo(-1),
+  ).startWith(0)
+  const widthModel$ = widthAction$.scan((acc,val) => {
     const newAcc = acc+val
     if(newAcc <= 0) return 1
     return newAcc
   },1)
-  const arrayCollectionDom$ = ArrayCreator({ DOM, size: model$ }).DOM
-  const vdom$ = arrayCollectionDom$.map(view)
+  const heightModel$ = heightAction$.scan((acc,val) => {
+    const newAcc = acc+val
+    if(newAcc <= 0) return 1
+    return newAcc
+  },1)
+
+  const arrayCollectionSink$ = ArrayCreator({ DOM, size: widthModel$ })
+  const vdom$ = arrayCollectionSink$.DOM.map(view)
   return { DOM: vdom$ }
 }
 
 function view(arrayNode:VNode){
   return p([
-    button('.add','+'),
-    button('.remove','-'),
+    button('.addColumn','+'),
+    button('.removeColumn','-'),
+    button('.addRow','+'),
+    button('.removeRow','-'),
     arrayNode
   ])
 }
