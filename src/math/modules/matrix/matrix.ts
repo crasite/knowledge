@@ -12,6 +12,7 @@ import { Observable as O } from "rxjs";
 export function gaussJordan(matrix:number[][]){
     return O.of({matrix,index:0}).expand(({matrix,index}) => {
         if(index == matrix.length) return O.empty()
+        if(matrix.length-1 <= index) return O.empty()
         if(matrix[index][index] == 0) return rearrange(matrix,index)
         return eliminate(matrix,index)
     })
@@ -38,7 +39,7 @@ function eliminate(matrix:number[][],index:number){
         return value/(arr[index])
     })
     matrix[index] = indexRow
-    return O.of({matrix,index,row:0}).expand(({matrix,index,row}) => {
+    let rs = O.of({matrix,index,row:0}).expand(({matrix,index,row}) => {
         if(row == matrix.length) return O.empty()
         if(row == index) return O.of({matrix,index,row:row+1})
         let newMatrix = matrix.map((rowMatrix,currentRow,arr) => {
@@ -48,7 +49,8 @@ function eliminate(matrix:number[][],index:number){
             })
         })
         return O.of({matrix:newMatrix,index,row:row+1})
-    }).last().map(v => ({matrix:v.matrix,index:v.index+1}))
+    })
+    return rs.last().map(v => ({matrix:v.matrix,index:v.index+1}))
 }
 
 /*

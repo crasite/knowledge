@@ -22552,9 +22552,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_run_1 = __webpack_require__(210);
 const DOM_1 = __webpack_require__(63);
 const MatrixCreator_1 = __webpack_require__(306);
+const matrix_1 = __webpack_require__(603);
 function main(source) {
     const matrixCreator = MatrixCreator_1.default({ DOM: source.DOM });
-    const vdom$ = matrixCreator.DOM;
+    const rs = matrixCreator.matrix.switchMap(matrix_1.gaussJordan);
+    const vdom$ = matrixCreator.DOM.combineLatest(rs).map(([v, { matrix, index }]) => {
+        return DOM_1.div([v, DOM_1.p(`${matrix}`)]);
+    });
     matrixCreator.matrix.subscribe(console.log);
     return {
         DOM: vdom$,
@@ -39427,6 +39431,92 @@ function isolate(component, scope) {
 isolate.reset = function () { return (counter = 0); };
 /* harmony default export */ __webpack_exports__["default"] = (isolate);
 //# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 603 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const rxjs_1 = __webpack_require__(307);
+/**
+ * gaussJordan
+ * @param matrix matrix in form [[1,2,3],[4,5,6]]
+ *
+ * example:
+ * -------
+ * let matrix = createMatrix([1,0,0,0,1,0,1,2,0,0,0,1,-1,-1,0],5)
+ * gaussJordan(matrix).subscribe(console.log)
+ */
+function gaussJordan(matrix) {
+    return rxjs_1.Observable.of({ matrix, index: 0 }).expand(({ matrix, index }) => {
+        if (index == matrix.length)
+            return rxjs_1.Observable.empty();
+        if (matrix.length - 1 <= index)
+            return rxjs_1.Observable.empty();
+        if (matrix[index][index] == 0)
+            return rearrange(matrix, index);
+        return eliminate(matrix, index);
+    });
+}
+exports.gaussJordan = gaussJordan;
+function rearrange(matrix, index) {
+    return rxjs_1.Observable.of({ matrix, target: index, index }).expand(({ matrix, target, index }) => {
+        if (index == matrix.length)
+            return rxjs_1.Observable.empty();
+        if (matrix[target][target] != 0)
+            return rxjs_1.Observable.empty();
+        if (matrix[index][target] != 0) {
+            let a = matrix[target];
+            matrix[target] = matrix[index];
+            matrix[index] = a;
+            return rxjs_1.Observable.of({ matrix, target, index });
+        }
+        else {
+            return rxjs_1.Observable.of({ matrix, target, index: index + 1 });
+        }
+    }).last().flatMap(result => {
+        if (result.matrix[index][index] == 0)
+            return rxjs_1.Observable.of({ matrix: result.matrix, index: index + 1 });
+        return rxjs_1.Observable.of({ matrix: result.matrix, index });
+    });
+}
+function eliminate(matrix, index) {
+    let indexRow = matrix[index].map((value, _, arr) => {
+        return value / (arr[index]);
+    });
+    matrix[index] = indexRow;
+    let rs = rxjs_1.Observable.of({ matrix, index, row: 0 }).expand(({ matrix, index, row }) => {
+        if (row == matrix.length)
+            return rxjs_1.Observable.empty();
+        if (row == index)
+            return rxjs_1.Observable.of({ matrix, index, row: row + 1 });
+        let newMatrix = matrix.map((rowMatrix, currentRow, arr) => {
+            if (currentRow == index)
+                return rowMatrix;
+            return rowMatrix.map((value, column) => {
+                return value - (matrix[index][column] * rowMatrix[index]);
+            });
+        });
+        return rxjs_1.Observable.of({ matrix: newMatrix, index, row: row + 1 });
+    });
+    return rs.last().map(v => ({ matrix: v.matrix, index: v.index + 1 }));
+}
+/*
+ * let matrix = createMatrix([1,0,0,0,1,0,1,2,0,0,0,1,-1,-1,0],5)
+*/
+function createMatrix(matrix, width) {
+    if (matrix.length % width != 0)
+        throw new Error("Unvöllständige Matrix");
+    let result = new Array();
+    for (let i = 0; i < matrix.length / width; i++) {
+        result.push(matrix.slice(i * width, i * width + width));
+    }
+    return result;
+}
+exports.createMatrix = createMatrix;
+
 
 /***/ })
 /******/ ]);
