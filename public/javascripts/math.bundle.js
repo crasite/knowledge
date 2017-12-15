@@ -22555,11 +22555,11 @@ const MatrixCreator_1 = __webpack_require__(306);
 const matrix_1 = __webpack_require__(603);
 function main(source) {
     const matrixCreator = MatrixCreator_1.default({ DOM: source.DOM });
-    const rs = matrixCreator.matrix.switchMap(matrix_1.gaussJordan);
+    const rs = matrixCreator.matrix.concatMap(matrix_1.gaussJordan);
     const vdom$ = matrixCreator.DOM.combineLatest(rs).map(([v, { matrix, index }]) => {
-        return DOM_1.div([v, DOM_1.p(`${matrix}`)]);
+        return DOM_1.div([v, matrix_1.matrixDisplayer(matrix)]);
     });
-    matrixCreator.matrix.subscribe(console.log);
+    matrix_1.gaussJordan([[1], [1], [1], [1]]).subscribe(console.log);
     return {
         DOM: vdom$,
     };
@@ -28538,7 +28538,8 @@ function main({ DOM }) {
         else {
             return acc.slice(0, val);
         }
-    }, []);
+    }, []).publishReplay(1);
+    arrayCollectionSink$.connect();
     const vdom$ = arrayCollectionSink$.switchMap(sinks => rxjs_1.Observable.combineLatest(sinks.map(sink => sink.DOM))).map(view);
     const result = arrayCollectionSink$.switchMap(sinks => rxjs_1.Observable.combineLatest(sinks.map(sink => sink.value)));
     return { DOM: vdom$, matrix: result };
@@ -39236,8 +39237,13 @@ function main({ DOM, size }) {
         if (!value)
             return { index, value: 0 };
         return { index, value };
-    }).startWith({ index: 0, value: 0 });
-    const value$ = rxjs_1.Observable.combineLatest(size, action$).scan((acc, [size, { index, value }]) => {
+    }).startWith(undefined);
+    const value$ = rxjs_1.Observable.combineLatest(size, action$).scan((acc, [size, v]) => {
+        let value, index = undefined;
+        if (v) {
+            value = v.value;
+            index = v.index;
+        }
         while (acc.length < size) {
             acc.push(0);
         }
@@ -39245,7 +39251,9 @@ function main({ DOM, size }) {
             acc.pop();
         }
         else {
-            acc[index] = value;
+            if (index != undefined) {
+                acc[index] = value;
+            }
         }
         return acc;
     }, []);
@@ -39440,6 +39448,7 @@ isolate.reset = function () { return (counter = 0); };
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = __webpack_require__(307);
+const DOM_1 = __webpack_require__(63);
 /**
  * gaussJordan
  * @param matrix matrix in form [[1,2,3],[4,5,6]]
@@ -39453,7 +39462,7 @@ function gaussJordan(matrix) {
     return rxjs_1.Observable.of({ matrix, index: 0 }).expand(({ matrix, index }) => {
         if (index == matrix.length)
             return rxjs_1.Observable.empty();
-        if (matrix.length - 1 <= index)
+        if (matrix[0].length <= index)
             return rxjs_1.Observable.empty();
         if (matrix[index][index] == 0)
             return rearrange(matrix, index);
@@ -39516,6 +39525,14 @@ function createMatrix(matrix, width) {
     return result;
 }
 exports.createMatrix = createMatrix;
+/**
+ *  Matrix Displayer
+ */
+function matrixDisplayer(matrix) {
+    const rows = matrix.map(v => DOM_1.p(`${v}`));
+    return DOM_1.div(rows);
+}
+exports.matrixDisplayer = matrixDisplayer;
 
 
 /***/ })

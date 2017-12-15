@@ -39,7 +39,8 @@ export default function main({ DOM }: Sources): Sinks {
     } else {
       return acc.slice(0,val)
     }
-  },[])
+  },[]).publishReplay(1)
+  arrayCollectionSink$.connect()
   const vdom$ = arrayCollectionSink$.switchMap(sinks => O.combineLatest(sinks.map(sink => sink.DOM))).map(view)
   const result = arrayCollectionSink$.switchMap(sinks => O.combineLatest(sinks.map(sink => sink.value)))
   return { DOM: vdom$, matrix:result }

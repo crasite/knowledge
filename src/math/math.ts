@@ -3,15 +3,15 @@ import { makeDOMDriver, div,p} from "@cycle/DOM";
 import isolate from "@cycle/isolate"
 import { default as ValueSelector } from "../general-modules/ValueSelector";
 import MatrixCreator from "./modules/matrix/components/MatrixCreator";
-import { gaussJordan } from "./modules/matrix/matrix";
+import { gaussJordan,matrixDisplayer } from "./modules/matrix/matrix";
 
 function main(source:any){
     const matrixCreator = MatrixCreator({DOM:source.DOM})
-    const rs = matrixCreator.matrix.switchMap(gaussJordan)
+    const rs = matrixCreator.matrix.concatMap(gaussJordan)
     const vdom$ = matrixCreator.DOM.combineLatest(rs).map(([v,{matrix,index}]) => {
-        return div([v,p(`${matrix}`)])
+        return div([v,matrixDisplayer(matrix)])
     })
-    matrixCreator.matrix.subscribe(console.log)
+    gaussJordan([[1],[1],[1],[1]]).subscribe(console.log)
     return {
         DOM:vdom$,
     }

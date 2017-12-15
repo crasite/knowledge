@@ -18,15 +18,22 @@ export default function main({ DOM, size }: Sources): Sinks {
     const value = parseInt((v.currentTarget as HTMLInputElement).value)
     if(!value) return {index,value:0}
     return {index,value}
-  }).startWith({index:0,value:0})
-  const value$ = O.combineLatest(size,action$).scan((acc:number[],[size,{index,value}]) => {
+  }).startWith(undefined)
+  const value$ = O.combineLatest(size,action$).scan((acc:number[],[size,v]) => {
+    let value,index = undefined
+    if(v){
+      value = v.value
+      index = v.index
+    }
     while(acc.length<size){
       acc.push(0)
     }
     if (acc.length > size){
       acc.pop()
     } else {
-      acc[index] = value
+      if(index != undefined){
+        acc[index] = value
+      }
     }
     return acc
   },[])

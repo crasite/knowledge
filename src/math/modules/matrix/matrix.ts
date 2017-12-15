@@ -1,4 +1,5 @@
 import { Observable as O } from "rxjs";
+import { div, p } from "@cycle/DOM";
 
 /**
  * gaussJordan
@@ -12,7 +13,7 @@ import { Observable as O } from "rxjs";
 export function gaussJordan(matrix:number[][]){
     return O.of({matrix,index:0}).expand(({matrix,index}) => {
         if(index == matrix.length) return O.empty()
-        if(matrix.length-1 <= index) return O.empty()
+        if(matrix[0].length <= index) return O.empty()
         if(matrix[index][index] == 0) return rearrange(matrix,index)
         return eliminate(matrix,index)
     })
@@ -63,4 +64,13 @@ export function createMatrix(matrix:number[],width:number){
         result.push(matrix.slice(i*width,i*width+width))
     }
     return result
+}
+
+
+/**
+ *  Matrix Displayer
+ */
+export function matrixDisplayer(matrix:number[][]){
+    const rows = matrix.map(v => p(`${v}`))
+    return div(rows)
 }
