@@ -22553,10 +22553,9 @@ const rxjs_run_1 = __webpack_require__(210);
 const DOM_1 = __webpack_require__(63);
 const MatrixCreator_1 = __webpack_require__(306);
 function main(source) {
-    // const child = isolate(ValueSelector,'selector1')({DOM:source.DOM,props:{default:20,min:0,max:100}})
-    // const child = ValueSelector({DOM:source.DOM,props:{default:20,min:0,max:100}})
     const matrixCreator = MatrixCreator_1.default({ DOM: source.DOM });
     const vdom$ = matrixCreator.DOM;
+    matrixCreator.matrix.subscribe(console.log);
     return {
         DOM: vdom$,
     };
@@ -28509,25 +28508,36 @@ TAG_NAMES.forEach(function (n) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const rxjs_1 = __webpack_require__(307);
 const DOM_1 = __webpack_require__(63);
+const xstream_1 = __webpack_require__(17);
+const isolate_1 = __webpack_require__(602);
 const ArrayCreator_1 = __webpack_require__(597);
 function main({ DOM }) {
     const widthAction$ = rxjs_1.Observable.merge(DOM.select('.addColumn').events('click').mapTo(1), DOM.select('.removeColumn').events('click').mapTo(-1)).startWith(0);
     const heightAction$ = rxjs_1.Observable.merge(DOM.select('.addRow').events('click').mapTo(1), DOM.select('.removeRow').events('click').mapTo(-1)).startWith(0);
-    const widthModel$ = widthAction$.scan((acc, val) => {
+    const widthModel$ = xstream_1.Stream.fromObservable(widthAction$.scan((acc, val) => {
         const newAcc = acc + val;
         if (newAcc <= 0)
             return 1;
         return newAcc;
-    }, 1);
+    }, 1)).remember();
     const heightModel$ = heightAction$.scan((acc, val) => {
         const newAcc = acc + val;
         if (newAcc <= 0)
             return 1;
         return newAcc;
     }, 1);
-    const arrayCollectionSink$ = ArrayCreator_1.default({ DOM, size: widthModel$ });
-    const vdom$ = arrayCollectionSink$.DOM.map(view);
-    return { DOM: vdom$ };
+    const arrayCollectionSink$ = heightModel$.scan((acc, val) => {
+        if (acc.length < val) {
+            const component = isolate_1.default(ArrayCreator_1.default, val)({ DOM, size: widthModel$ });
+            return [...acc, component];
+        }
+        else {
+            return acc.slice(0, val);
+        }
+    }, []);
+    const vdom$ = arrayCollectionSink$.switchMap(sinks => rxjs_1.Observable.combineLatest(sinks.map(sink => sink.DOM))).map(view);
+    const result = arrayCollectionSink$.switchMap(sinks => rxjs_1.Observable.combineLatest(sinks.map(sink => sink.value)));
+    return { DOM: vdom$, matrix: result };
 }
 exports.default = main;
 function view(arrayNode) {
@@ -28536,7 +28546,7 @@ function view(arrayNode) {
         DOM_1.button('.removeColumn', '-'),
         DOM_1.button('.addRow', '+'),
         DOM_1.button('.removeRow', '-'),
-        arrayNode
+        ...arrayNode
     ]);
 }
 
@@ -39224,10 +39234,10 @@ function main({ DOM, size }) {
         return { index, value };
     }).startWith({ index: 0, value: 0 });
     const value$ = rxjs_1.Observable.combineLatest(size, action$).scan((acc, [size, { index, value }]) => {
-        if (acc.length < size) {
+        while (acc.length < size) {
             acc.push(0);
         }
-        else if (acc.length > size) {
+        if (acc.length > size) {
             acc.pop();
         }
         else {
@@ -39247,6 +39257,176 @@ function view(size) {
     return DOM_1.div(childs);
 }
 
+
+/***/ }),
+/* 598 */,
+/* 599 */,
+/* 600 */,
+/* 601 */,
+/* 602 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+function checkIsolateArgs(dataflowComponent, scope) {
+    if (typeof dataflowComponent !== "function") {
+        throw new Error("First argument given to isolate() must be a " +
+            "'dataflowComponent' function");
+    }
+    if (scope === null) {
+        throw new Error("Second argument given to isolate() must not be null");
+    }
+}
+function normalizeScopes(sources, scopes, randomScope) {
+    var perChannel = {};
+    Object.keys(sources).forEach(function (channel) {
+        if (typeof scopes === 'string') {
+            perChannel[channel] = scopes;
+            return;
+        }
+        var candidate = scopes[channel];
+        if (typeof candidate !== 'undefined') {
+            perChannel[channel] = candidate;
+            return;
+        }
+        var wildcard = scopes['*'];
+        if (typeof wildcard !== 'undefined') {
+            perChannel[channel] = wildcard;
+            return;
+        }
+        perChannel[channel] = randomScope;
+    });
+    return perChannel;
+}
+function isolateAllSources(outerSources, scopes) {
+    var innerSources = {};
+    for (var channel in outerSources) {
+        var outerSource = outerSources[channel];
+        if (outerSources.hasOwnProperty(channel) &&
+            outerSource &&
+            scopes[channel] !== null &&
+            typeof outerSource.isolateSource === 'function') {
+            innerSources[channel] = outerSource.isolateSource(outerSource, scopes[channel]);
+        }
+        else if (outerSources.hasOwnProperty(channel)) {
+            innerSources[channel] = outerSources[channel];
+        }
+    }
+    return innerSources;
+}
+function isolateAllSinks(sources, innerSinks, scopes) {
+    var outerSinks = {};
+    for (var channel in innerSinks) {
+        var source = sources[channel];
+        var innerSink = innerSinks[channel];
+        if (innerSinks.hasOwnProperty(channel) &&
+            source &&
+            scopes[channel] !== null &&
+            typeof source.isolateSink === 'function') {
+            outerSinks[channel] = source.isolateSink(innerSink, scopes[channel]);
+        }
+        else if (innerSinks.hasOwnProperty(channel)) {
+            outerSinks[channel] = innerSinks[channel];
+        }
+    }
+    return outerSinks;
+}
+var counter = 0;
+function newScope() {
+    return "cycle" + ++counter;
+}
+/**
+ * Takes a `component` function and a `scope`, and returns an isolated version
+ * of the `component` function.
+ *
+ * When the isolated component is invoked, each source provided to it is
+ * isolated to the given `scope` using `source.isolateSource(source, scope)`,
+ * if possible. Likewise, the sinks returned from the isolated component are
+ * isolated to the given `scope` using `source.isolateSink(sink, scope)`.
+ *
+ * The `scope` can be a string or an object. If it is anything else than those
+ * two types, it will be converted to a string. If `scope` is an object, it
+ * represents "scopes per channel", allowing you to specify a different scope
+ * for each key of sources/sinks. For instance
+ *
+ * ```js
+ * const childSinks = isolate(Child, {DOM: 'foo', HTTP: 'bar'})(sources);
+ * ```
+ *
+ * You can also use a wildcard `'*'` to use as a default for source/sinks
+ * channels that did not receive a specific scope:
+ *
+ * ```js
+ * // Uses 'bar' as the isolation scope for HTTP and other channels
+ * const childSinks = isolate(Child, {DOM: 'foo', '*': 'bar'})(sources);
+ * ```
+ *
+ * If a channel's value is null, then that channel's sources and sinks won't be
+ * isolated. If the wildcard is null and some channels are unspecified, those
+ * channels won't be isolated. If you don't have a wildcard and some channels
+ * are unspecified, then `isolate` will generate a random scope.
+ *
+ * ```js
+ * // Does not isolate HTTP requests
+ * const childSinks = isolate(Child, {DOM: 'foo', HTTP: null})(sources);
+ * ```
+ *
+ * If the `scope` argument is not provided at all, a new scope will be
+ * automatically created. This means that while **`isolate(component, scope)` is
+ * pure** (referentially transparent), **`isolate(component)` is impure** (not
+ * referentially transparent). Two calls to `isolate(Foo, bar)` will generate
+ * the same component. But, two calls to `isolate(Foo)` will generate two
+ * distinct components.
+ *
+ * ```js
+ * // Uses some arbitrary string as the isolation scope for HTTP and other channels
+ * const childSinks = isolate(Child, {DOM: 'foo'})(sources);
+ * ```
+ *
+ * Note that both `isolateSource()` and `isolateSink()` are static members of
+ * `source`. The reason for this is that drivers produce `source` while the
+ * application produces `sink`, and it's the driver's responsibility to
+ * implement `isolateSource()` and `isolateSink()`.
+ *
+ * _Note for Typescript users:_ `isolate` is not currently type-transparent and
+ * will explicitly convert generic type arguments to `any`. To preserve types in
+ * your components, you can use a type assertion:
+ *
+ * ```ts
+ * // if Child is typed `Component<Sources, Sinks>`
+ * const isolatedChild = isolate( Child ) as Component<Sources, Sinks>;
+ * ```
+ *
+ * @param {Function} component a function that takes `sources` as input
+ * and outputs a collection of `sinks`.
+ * @param {String} scope an optional string that is used to isolate each
+ * `sources` and `sinks` when the returned scoped component is invoked.
+ * @return {Function} the scoped component function that, as the original
+ * `component` function, takes `sources` and returns `sinks`.
+ * @function isolate
+ */
+function isolate(component, scope) {
+    if (scope === void 0) { scope = newScope(); }
+    checkIsolateArgs(component, scope);
+    var randomScope = typeof scope === 'object' ? newScope() : '';
+    var scopes = typeof scope === 'string' || typeof scope === 'object'
+        ? scope
+        : scope.toString();
+    return function wrappedComponent(outerSources) {
+        var rest = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            rest[_i - 1] = arguments[_i];
+        }
+        var scopesPerChannel = normalizeScopes(outerSources, scopes, randomScope);
+        var innerSources = isolateAllSources(outerSources, scopesPerChannel);
+        var innerSinks = component.apply(void 0, [innerSources].concat(rest));
+        var outerSinks = isolateAllSinks(outerSources, innerSinks, scopesPerChannel);
+        return outerSinks;
+    };
+}
+isolate.reset = function () { return (counter = 0); };
+/* harmony default export */ __webpack_exports__["default"] = (isolate);
+//# sourceMappingURL=index.js.map
 
 /***/ })
 /******/ ]);

@@ -20,9 +20,10 @@ export default function main({ DOM, size }: Sources): Sinks {
     return {index,value}
   }).startWith({index:0,value:0})
   const value$ = O.combineLatest(size,action$).scan((acc:number[],[size,{index,value}]) => {
-    if(acc.length <size) {
+    while(acc.length<size){
       acc.push(0)
-    } else if (acc.length > size){
+    }
+    if (acc.length > size){
       acc.pop()
     } else {
       acc[index] = value
