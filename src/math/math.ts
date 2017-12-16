@@ -17,10 +17,4 @@ function main(source:any){
     }
 }
 
-gaussJordan([[2,3,2],[2,0,0]]).last().subscribe(v => {
-    // console.log(toFraction(v.matrix[1][2]))
-    // console.log(toFraction(123.132141414))
-    toFraction(v.matrix[1][2])
-})
-
 run(main,{DOM:makeDOMDriver('#main-container')})

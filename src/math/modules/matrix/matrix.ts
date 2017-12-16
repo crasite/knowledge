@@ -1,6 +1,8 @@
 import { Observable as O } from "rxjs";
 import toFraction from "../numberToFraction";
 import { div, p } from "@cycle/DOM";
+import  toVNode from "snabbdom/tovnode";
+import { renderToString } from "katex";
 
 /**
  * gaussJordan
@@ -72,11 +74,23 @@ export function createMatrix(matrix:number[],width:number){
  *  Matrix Displayer
  */
 export function matrixDisplayer(matrix:number[][]){
-    const rows = matrix.map(v => {
-       const rs = v.map(single => {
-           return `${toFraction(single)} `
-       }) 
-       return p(rs)
-    })
-    return div(rows)
+    const pdiv = document.createElement('div')
+    pdiv.innerHTML = renderToString(createMatrixKatex(matrix))
+    return   toVNode(pdiv.childNodes[0])
+    // return div(rows)
+}
+
+function createMatrixKatex(matrix:number[][]){
+    const inbetween = matrix.reduce((acc,mRow) => {
+        return acc+mRow.reduce((acc,val) => {
+            if(acc.length == 0) return toFraction(val)
+            return acc+'&'+toFraction(val)
+        },'')+'\\\\'
+    },'')
+    if(matrix[0].length > 1){
+        const top = '\\left(\\begin{array}{'+'c'.repeat(matrix[0].length-1)+'|c}'
+        const end = '\\end{array}\\right)'
+        return top+inbetween+end
+    }
+    return ''
 }
