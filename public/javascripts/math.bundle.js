@@ -22804,8 +22804,9 @@ function main(source) {
     };
 }
 matrix_1.gaussJordan([[2, 3, 2], [2, 0, 0]]).last().subscribe(v => {
-    console.log(numberToFraction_1.default(v.matrix[1][2]));
-    console.log(numberToFraction_1.default(123.132141414));
+    // console.log(toFraction(v.matrix[1][2]))
+    // console.log(toFraction(123.132141414))
+    numberToFraction_1.default(v.matrix[1][2]);
 });
 rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container') });
 
@@ -39403,7 +39404,7 @@ const DOM_1 = __webpack_require__(44);
 function main({ DOM, size }) {
     const action$ = DOM.select('input').events('input').map(v => {
         const index = parseInt(v.currentTarget.className);
-        const value = parseInt(v.currentTarget.value);
+        const value = parseFloat(v.currentTarget.value);
         if (!value)
             return { index, value: 0 };
         return { index, value };
@@ -39573,7 +39574,6 @@ function findGCD(num1, num2) {
 ;
 function beautify(main, top, denom) {
     let front = '';
-    console.log(main, /0/.test(main));
     if (/-0/.test(main)) {
         return `-${top}\\${denom}`;
     }

@@ -15,7 +15,7 @@ export interface Sinks{
 export default function main({ DOM, size }: Sources): Sinks {
   const action$ = DOM.select('input').events('input').map(v => {
     const index = parseInt((v.currentTarget as HTMLElement).className)
-    const value = parseInt((v.currentTarget as HTMLInputElement).value)
+    const value = parseFloat((v.currentTarget as HTMLInputElement).value)
     if(!value) return {index,value:0}
     return {index,value}
   }).startWith(undefined)

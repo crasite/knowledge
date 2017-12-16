@@ -23,7 +23,6 @@ function findGCD(num1: number, num2: number):number {
 
 function beautify(main:string,top:number,denom:number){
     let front = ''
-    console.log(main,/0/.test(main))
     if (/-0/.test(main)) {
         return `-${top}\\${denom}`
     } else if(!/0/.test(main)){
