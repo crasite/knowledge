@@ -39557,7 +39557,7 @@ function createMatrixKatex(matrix) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 function toFraction(decimalNumber) {
-    const regex = /(-?\d+)\.(\d+?)(\d+)\3+\d?$/;
+    const regex = /(-?\d+)\.(\d+?)(\d+)\3+\d{0,2}$/;
     const regResult = regex.exec(decimalNumber.toString());
     if (!regResult)
         return decimalNumber;
