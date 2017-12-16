@@ -39584,10 +39584,11 @@ function beautify(main, top, denom) {
     if (/-0/.test(main)) {
         return `-${top}/${denom}`;
     }
-    else if (!/0/.test(main)) {
+    else if (!/^0/.test(main)) {
         front = main;
+        return `${front}+${top}/${denom}`;
     }
-    return `${front}+${top}/${denom}`;
+    return `${top}/${denom}`;
 }
 
 
