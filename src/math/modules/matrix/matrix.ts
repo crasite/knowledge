@@ -1,4 +1,5 @@
 import { Observable as O } from "rxjs";
+import toFraction from "../numberToFraction";
 import { div, p } from "@cycle/DOM";
 
 /**
@@ -71,6 +72,11 @@ export function createMatrix(matrix:number[],width:number){
  *  Matrix Displayer
  */
 export function matrixDisplayer(matrix:number[][]){
-    const rows = matrix.map(v => p(`${v}`))
+    const rows = matrix.map(v => {
+       const rs = v.map(single => {
+           return `${toFraction(single)} `
+       }) 
+       return p(rs)
+    })
     return div(rows)
 }
