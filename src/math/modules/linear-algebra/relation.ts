@@ -1,3 +1,4 @@
+import { Observable as O } from "rxjs";
 import { transpose, gaussJordan, checkResult } from "../matrix/matrix";
 
 type Relation = "windschief" | "echte Parallel" | "identisch" | number[]
@@ -5,7 +6,7 @@ type Relation = "windschief" | "echte Parallel" | "identisch" | number[]
 export function relationBetweenLine(line1:number[][],line2:number[][]){
     if(line1.length != 2 || line2.length !=  2) return null
     if(line1[0].length != line1[1].length || line2[0].length != line2[1].length || line1[0].length != line2[0].length) return null
-    return gaussJordan(createEquation(line1,line2)).last().pluck<any,number[][]>("matrix").map(v => {
+    return gaussJordan(createEquation(line1,line2)).last().pluck<any,number[][]>("matrix").map<number[][],Relation>(v => {
         if(checkResult(v)) {
             if(v[0][1] != 0){
                 return "identisch"
@@ -13,7 +14,11 @@ export function relationBetweenLine(line1:number[][],line2:number[][]){
                 return [v[0][2],v[1][2]]
             }
         } else {
-            return "windschief"
+            if(v[1][1] == 0){
+                return "echte Parallel"
+            } else {
+                return "windschief"
+            }
         }
     })
 }
