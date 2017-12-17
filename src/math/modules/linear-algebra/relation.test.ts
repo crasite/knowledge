@@ -24,3 +24,11 @@ test('Intersect line',t => {
         t.deepEqual(v,expect)
     })
 })
+
+test('Real Parallel line',t => {
+    const result = relationBetweenLine([[14,-3,1],[-6,4.5,-9]],[[13,0.5,12],[-4,3,-6]]).toPromise()
+    const expect = 'echte Parallel'
+    return result.then(v => {
+        t.deepEqual(v,expect)
+    })
+})
