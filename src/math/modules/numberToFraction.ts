@@ -3,6 +3,7 @@ export default function toFraction(decimalNumber:number){
     const regResult = regex.exec(decimalNumber.toString())
     if(!regResult) return decimalNumber
     const fraction = createFraction(regResult[2],regResult[3])
+    console.log(regResult[1],fraction[0],fraction[1])
     return beautify(regResult[1],fraction[0],fraction[1])
 }
 

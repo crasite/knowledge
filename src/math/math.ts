@@ -16,5 +16,5 @@ function main(source:any){
         DOM:vdom$,
     }
 }
-
+gaussJordan([[-10,-1,4,-14],[0,1,-1,5]]).subscribe(console.log)
 run(main,{DOM:makeDOMDriver('#main-container')})
