@@ -94,3 +94,33 @@ function createMatrixKatex(matrix:number[][]){
     }
     return ''
 }
+
+/**
+ *  Tranpose Matrix 
+ * @param matrix
+ */
+export function transpose(matrix: number[][]):number[][] {
+    function fillColumn(row:number,max:number,index:number,result:number[]){
+        if(index >= max) return [...result,matrix[index][row]]
+        else return fillColumn(row,max,index+1,[...result,matrix[index][row]])
+    }
+    const result = matrix[0].reduce((acc,val,inx) => {
+        if(inx >= matrix[0].length) return acc
+        return [...acc,fillColumn(inx,matrix.length-1,0,[])]
+    },[])
+    return result
+}
+
+export function checkResult(matrix:number[][]){
+    function validRow(row:number[]){
+        if(row.filter((v,index) => {
+            if(index != row.length-1){
+                return v!=0
+            } 
+            return false
+        }).length > 0) return true
+        if(row[row.length-1] != 0) return false
+        return true
+    }
+    return matrix.every(validRow)
+}
