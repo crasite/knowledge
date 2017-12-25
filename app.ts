@@ -10,8 +10,12 @@ const app = Express()
 app.use(Express.static('./public'))
 app.set('view engine', 'pug')
 
-app.get('/*',(req,res) => {
+
+app.get('/math',(req,res) => {
     res.render('math')
+})
+app.get('/*',(req,res) => {
+    res.render('sample')
 })
 
 app.listen(CONFIG.port,() => {
