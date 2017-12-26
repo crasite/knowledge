@@ -11,8 +11,8 @@ function main(source:any){
     const matrixCreator = MatrixCreator({DOM:source.DOM})
     const rs = matrixCreator.matrix.concatMap(gaussJordan)
     const infoSection = InfoSection({DOM:source.DOM,props:{source:'../markdowns/sample.md'}})
-    const vdom$ = matrixCreator.DOM.combineLatest(rs).map(([v,{matrix,index}]) => {
-        return div([v,matrixDisplayer(matrix)])
+    const vdom$ = matrixCreator.DOM.combineLatest(rs,infoSection.DOM).map(([v,{matrix,index},inf]) => {
+        return div([v,matrixDisplayer(matrix),inf])
     })
     return {
         DOM:vdom$,
