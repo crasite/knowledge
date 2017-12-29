@@ -39548,6 +39548,41 @@ function createMatrixKatex(matrix) {
     }
     return '';
 }
+/**
+ *  Tranpose Matrix
+ * @param matrix
+ */
+function transpose(matrix) {
+    function fillColumn(row, max, index, result) {
+        if (index >= max)
+            return [...result, matrix[index][row]];
+        else
+            return fillColumn(row, max, index + 1, [...result, matrix[index][row]]);
+    }
+    const result = matrix[0].reduce((acc, val, inx) => {
+        if (inx >= matrix[0].length)
+            return acc;
+        return [...acc, fillColumn(inx, matrix.length - 1, 0, [])];
+    }, []);
+    return result;
+}
+exports.transpose = transpose;
+function checkResult(matrix) {
+    function validRow(row) {
+        if (row.filter((v, index) => {
+            if (index != row.length - 1) {
+                return v != 0;
+            }
+            return false;
+        }).length > 0)
+            return true;
+        if (row[row.length - 1] != 0)
+            return false;
+        return true;
+    }
+    return matrix.every(validRow);
+}
+exports.checkResult = checkResult;
 
 
 /***/ }),
