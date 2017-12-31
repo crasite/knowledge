@@ -10,8 +10,11 @@ app.set('view engine', 'pug');
 app.get('/math', (req, res) => {
     res.render('math');
 });
+app.get('/info', (req, res) => {
+    res.render('info');
+});
 app.get('/*', (req, res) => {
-    res.render('sample');
+    res.render('info');
 });
 app.listen(CONFIG.port, () => {
     console.log(`Server start on ${CONFIG.port}`);

@@ -3,7 +3,8 @@ var path = require('path')
 
 module.exports = {
     entry:{
-        math: './src/math/math.ts'
+        math: './src/math/math.ts',
+        info: './src/info.ts'
     } ,
     output: {
         path: path.join(__dirname,'public/javascripts'),
