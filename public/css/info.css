@@ -1,0 +1,7 @@
+.grid {
+    margin: 1cm;
+    width: 200px;
+    height: 200px;
+    border: 1px; 
+    border-style: groove;
+}

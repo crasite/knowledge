@@ -4,7 +4,8 @@ var path = require('path')
 module.exports = {
     entry:{
         math: './src/math/math.ts',
-        offline:'./src/general-modules/offline.ts'
+        offline:'./src/general-modules/offline.ts',
+        info: './src/info.ts'
     } ,
     output: {
         path: path.join(__dirname,'public/javascripts'),
