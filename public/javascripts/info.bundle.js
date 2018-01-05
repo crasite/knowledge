@@ -61889,16 +61889,48 @@ if (typeof module === "object" && module.exports)
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+const rxjs_1 = __webpack_require__(90);
 const rxjs_run_1 = __webpack_require__(225);
 const DOM_1 = __webpack_require__(64);
 const InfoSection_1 = __webpack_require__(608);
+const InputField_1 = __webpack_require__(675);
 function main(source) {
     const infoSection = InfoSection_1.default({ DOM: source.DOM, props: { source: '../markdowns/sample.md' } });
+    const textInput = InputField_1.default({ DOM: source.DOM, props: rxjs_1.Observable.of({ name: 'sample', type: 'text', }) });
     return {
-        DOM: infoSection.DOM,
+        DOM: textInput.DOM,
     };
 }
 rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container') });
+
+
+/***/ }),
+/* 674 */,
+/* 675 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+const DOM_1 = __webpack_require__(64);
+function main(sources) {
+    const { props, DOM } = sources;
+    const action$ = props.flatMap(p => sources.DOM.select(`.${p.name}`).events("input"))
+        .pluck('target').pluck('value').startWith(undefined);
+    const dom$ = view(sources.props);
+    return {
+        DOM: dom$,
+        value: action$
+    };
+}
+exports.default = main;
+function view(props) {
+    return props.map(({ name, type, propList }) => {
+        return DOM_1.p([
+            DOM_1.input(`.${name}`, { attrs: { type: type }, props: propList }),
+        ]);
+    });
+}
 
 
 /***/ })
