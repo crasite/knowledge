@@ -39430,6 +39430,11 @@ function main(sources) {
 exports.default = main;
 function view(props) {
     return props.map(({ name, type, propList }) => {
+        if (type == 'textarea') {
+            return DOM_1.p([
+                DOM_1.textarea(`.${name}`, { props: propList }),
+            ]);
+        }
         return DOM_1.p([
             DOM_1.input(`.${name}`, { attrs: { type: type }, props: propList }),
         ]);
@@ -39451,7 +39456,7 @@ const InputField_1 = __webpack_require__(674);
 const InputArray_1 = __webpack_require__(676);
 function main(sources) {
     const { DOM } = sources;
-    const questionFieldProps = rxjs_1.Observable.of({ name: 'questionField', type: 'text', propList: { style: 'width:500px;' } });
+    const questionFieldProps = rxjs_1.Observable.of({ name: 'questionField', type: 'textarea', propList: { style: 'width:500px;' } });
     const questionField = isolate_1.default(InputField_1.default)({ DOM, props: questionFieldProps });
     const questionFieldValue = questionField.value;
     const addFieldProps = rxjs_1.Observable.of({ name: 'addField', type: 'button', propList: { value: 'Add' } });

@@ -16,7 +16,7 @@ export interface Sinks{
 export default function main(sources: Sources): Sinks {
     const { DOM } = sources
 
-    const questionFieldProps:InputFieldSource['props'] = O.of({name:'questionField',type:'text',propList:{style:'width:500px;'}})
+    const questionFieldProps:InputFieldSource['props'] = O.of({name:'questionField',type:'textarea',propList:{style:'width:500px;'}})
     const questionField = isolate(InputField)({DOM,props:questionFieldProps}) as InputFieldSink
     const questionFieldValue = questionField.value
 

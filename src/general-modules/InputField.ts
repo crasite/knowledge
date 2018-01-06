@@ -1,5 +1,5 @@
 import { Observable as O } from "rxjs";
-import { VNode,DOMSource,makeDOMDriver, div, button, p, input, source} from "@cycle/DOM";
+import { VNode,DOMSource,makeDOMDriver, div, button, p, input, source, textarea} from "@cycle/DOM";
 import { Stream } from "xstream";
 
 export interface Sources{
@@ -31,10 +31,15 @@ export default function main(sources:Sources):Sinks{
   }
 }
 
-function view(props:Sources['props']){
-  return props.map(({name,type,propList}) => {
+function view(props: Sources['props']) {
+  return props.map(({ name, type, propList }) => {
+    if (type == 'textarea') {
+      return p([
+        textarea(`.${name}`, { props: propList }),
+      ])
+    }
     return p([
-      input(`.${name}`,{attrs:{type:type},props:propList}),
+      input(`.${name}`, { attrs: { type: type }, props: propList }),
     ])
   })
 }
