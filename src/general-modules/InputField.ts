@@ -7,8 +7,9 @@ export interface Sources{
   props:O<{
     name:string;
     type:string;
-    propList?:{[propName:string]:string}
+    propList?:{[propName:string]:string};
   }>
+  initialValue?:string
 }
 
 export interface Sinks{
@@ -17,12 +18,12 @@ export interface Sinks{
 }
 
 export default function main(sources:Sources):Sinks{
-  const {props,DOM} = sources
+  const {props,DOM, initialValue} = sources
   const action$ = props.flatMap<any,any>(p => { 
     if(p.type != 'button') return sources.DOM.select(`.${p.name}`).events("input") 
     return sources.DOM.select(`.${p.name}`).events("click").mapTo({target:{value:'1'}})
   })
-  .pluck('target').pluck<any,string>('value').startWith(undefined).share()
+  .pluck('target').pluck<any,string>('value').startWith((initialValue)?initialValue:'').share()
   const dom$ = view(sources.props)
   return {
     DOM:dom$,

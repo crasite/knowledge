@@ -39414,13 +39414,13 @@ rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container') });
 Object.defineProperty(exports, "__esModule", { value: true });
 const DOM_1 = __webpack_require__(61);
 function main(sources) {
-    const { props, DOM } = sources;
+    const { props, DOM, initialValue } = sources;
     const action$ = props.flatMap(p => {
         if (p.type != 'button')
             return sources.DOM.select(`.${p.name}`).events("input");
         return sources.DOM.select(`.${p.name}`).events("click").mapTo({ target: { value: '1' } });
     })
-        .pluck('target').pluck('value').startWith(undefined).share();
+        .pluck('target').pluck('value').startWith((initialValue) ? initialValue : '').share();
     const dom$ = view(sources.props);
     return {
         DOM: dom$,
@@ -39456,19 +39456,20 @@ function main(sources) {
     const questionFieldValue = questionField.value;
     const addFieldProps = rxjs_1.Observable.of({ name: 'addField', type: 'button', propList: { value: 'Add' } });
     const addField = isolate_1.default(InputField_1.default)({ DOM, props: addFieldProps });
-    const addAction = addField.value.filter(v => v != undefined).map(v => parseInt(v));
+    const addAction = addField.value.filter(v => v != '').map(v => parseInt(v));
     const removeFieldProps = rxjs_1.Observable.of({ name: 'removeField', type: 'button', propList: { value: 'Remove' } });
     const removeField = isolate_1.default(InputField_1.default)({ DOM, props: removeFieldProps });
-    const removeAction = removeField.value.filter(v => v != undefined).map(v => parseInt(v) * -1);
+    const removeAction = removeField.value.filter(v => v != '').map(v => parseInt(v) * -1);
     const submitProps = rxjs_1.Observable.of({ name: 'submitField', type: 'button', propList: { value: 'Submit' } });
     const submitField = isolate_1.default(InputField_1.default)({ DOM, props: submitProps });
-    const submitFieldAction = submitField.value;
+    const submitFieldAction = submitField.value.filter(v => v != '');
     const fieldSizeAction = rxjs_1.Observable.merge(addAction, removeAction).scan((acc, val) => {
         return (acc + val > 0) ? acc + val : 0;
     }, 1).startWith(1);
     const answerField = InputArray_1.default({ DOM, size: fieldSizeAction, type: rxjs_1.Observable.of('text'), className: 'inputField' });
-    const result$ = rxjs_1.Observable.combineLatest(questionFieldValue, answerField.value);
-    const view$ = rxjs_1.Observable.combineLatest(questionField.DOM, addField.DOM, removeField.DOM, submitField.DOM, answerField.DOM).map(doms => DOM_1.p(doms));
+    const result$ = submitFieldAction.withLatestFrom(rxjs_1.Observable.combineLatest(questionFieldValue, answerField.value)).map(([, v]) => v);
+    result$.subscribe(console.log);
+    const view$ = rxjs_1.Observable.combineLatest(questionField.DOM, answerField.DOM, addField.DOM, removeField.DOM, submitField.DOM).map(doms => DOM_1.p(doms));
     return {
         DOM: view$,
     };
