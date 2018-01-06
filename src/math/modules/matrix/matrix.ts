@@ -100,7 +100,7 @@ function createMatrixKatex(matrix:number[][]){
  * @param matrix
  */
 export function transpose(matrix: number[][]):number[][] {
-    function fillColumn(row:number,max:number,index:number,result:number[]){
+    function fillColumn(row:number,max:number,index:number,result:number[]):number[]{
         if(index >= max) return [...result,matrix[index][row]]
         else return fillColumn(row,max,index+1,[...result,matrix[index][row]])
     }

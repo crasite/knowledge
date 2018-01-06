@@ -18,8 +18,11 @@ export interface Sinks{
 
 export default function main(sources:Sources):Sinks{
   const {props,DOM} = sources
-  const action$ = props.flatMap(p => sources.DOM.select(`.${p.name}`).events("input"))
-    .pluck('target').pluck<{},string>('value').startWith(undefined)
+  const action$ = props.flatMap<any,any>(p => { 
+    if(p.type != 'button') return sources.DOM.select(`.${p.name}`).events("input") 
+    return sources.DOM.select(`.${p.name}`).events("click").mapTo({target:{value:'1'}})
+  })
+  .pluck('target').pluck<any,string>('value').startWith(undefined).share()
   const dom$ = view(sources.props)
   return {
     DOM:dom$,
