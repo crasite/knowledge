@@ -39543,14 +39543,11 @@ const rxjs_run_1 = __webpack_require__(213);
 const DOM_1 = __webpack_require__(45);
 const Questioner_1 = __webpack_require__(677);
 const dbDriver_1 = __webpack_require__(680);
-const rxjs_1 = __webpack_require__(72);
 function main({ DOM, db }) {
-    const questioner = Questioner_1.default({ DOM });
-    db.subscribe({ next: console.log, error: (e) => console.log('err', e) });
-    const re$ = rxjs_1.Observable.of({ command: 'alldocs', payload: { include_docs: true }, db: 'test', id: 'main' });
+    const questioner = Questioner_1.default({ DOM, db, id: 'q1', dbName: 'math' });
     return {
         DOM: questioner.DOM,
-        db: re$
+        db: questioner.db
     };
 }
 rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container'), db: dbDriver_1.default });
@@ -39569,7 +39566,7 @@ const isolate_1 = __webpack_require__(596);
 const InputField_1 = __webpack_require__(678);
 const InputArray_1 = __webpack_require__(679);
 function main(sources) {
-    const { DOM } = sources;
+    const { DOM, db, id, dbName } = sources;
     const questionFieldProps = rxjs_1.Observable.of({ name: 'questionField', type: 'textarea', propList: { style: 'width:500px;' } });
     const questionField = isolate_1.default(InputField_1.default)({ DOM, props: questionFieldProps });
     const questionFieldValue = questionField.value;
@@ -39586,11 +39583,13 @@ function main(sources) {
         return (acc + val > 0) ? acc + val : 0;
     }, 1).startWith(1);
     const answerField = InputArray_1.default({ DOM, size: fieldSizeAction, type: rxjs_1.Observable.of('text'), className: 'inputField' });
-    const result$ = submitFieldAction.withLatestFrom(rxjs_1.Observable.combineLatest(questionFieldValue, answerField.value)).map(([, v]) => v);
-    result$.subscribe(console.log);
+    const result$ = submitFieldAction.withLatestFrom(rxjs_1.Observable.combineLatest(questionFieldValue, answerField.value)).map(([, v]) => ({ _id: Date.now().toString(), question: v[0], answers: v[1] }));
+    const DBRequest = result$.map(payload => ({ command: 'put', db: dbName, id, payload }));
+    db.subscribe(console.log);
     const view$ = rxjs_1.Observable.combineLatest(questionField.DOM, answerField.DOM, addField.DOM, removeField.DOM, submitField.DOM).map(doms => DOM_1.p(doms));
     return {
         DOM: view$,
+        db: DBRequest
     };
 }
 exports.default = main;
@@ -39704,7 +39703,9 @@ function dbDriver(sink) {
                         return;
                     const db = new pouchdb_1.default(sink.db, { revs_limit: 1, auto_compaction: true });
                     if (sink.command == 'put') {
-                        db.put(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
+                        if (confirm('Add Document?' + JSON.stringify(sink.payload))) {
+                            db.put(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
+                        }
                     }
                     if (sink.command == 'get') {
                         db.get(sink.payload._id).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });

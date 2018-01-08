@@ -19,12 +19,10 @@ interface ISink{
 }
 
 function main({DOM,db}:Source):ISink{
-    const questioner = Questioner({DOM})
-    db.subscribe({next:console.log,error:(e) => console.log('err',e)})
-    const re$ = O.of<DBSink>({command:'alldocs',payload:{include_docs:true},db:'test',id:'main'})
+    const questioner = Questioner({DOM,db,id:'q1',dbName:'math'})
     return {
         DOM:questioner.DOM,
-        db: re$
+        db:questioner.db
     }
 }
 run(main,{DOM:makeDOMDriver('#main-container'),db:dbDriver})

@@ -4,17 +4,22 @@ import isolate from "@cycle/isolate";
 import { Stream } from "xstream";
 import InputField,{ Sources as InputFieldSource, Sinks as InputFieldSink} from "./InputField";
 import InputArray,{ Sources as InputArraySource} from "./InputArray";
+import dbDriver, {TSource as DBSource,TSink as DBSink} from "../general-function/dbDriver";
 
 export interface Sources{
   DOM:DOMSource
+  db:DBSource
+  id:string
+  dbName:string
 }
 
 export interface Sinks{
   DOM:O<VNode>
+  db:O<DBSink>
 }
 
 export default function main(sources: Sources): Sinks {
-    const { DOM } = sources
+    const { DOM,db,id, dbName } = sources
 
     const questionFieldProps:InputFieldSource['props'] = O.of({name:'questionField',type:'textarea',propList:{style:'width:500px;'}})
     const questionField = isolate(InputField)({DOM,props:questionFieldProps}) as InputFieldSink
@@ -37,12 +42,13 @@ export default function main(sources: Sources): Sinks {
     },1).startWith(1)
     const answerField = InputArray({DOM,size:fieldSizeAction,type:O.of('text'),className:'inputField'})
 
-    const result$ = submitFieldAction.withLatestFrom(O.combineLatest(questionFieldValue,answerField.value)).map(([,v]) => v)
-    result$.subscribe(console.log)
-
+    const result$ = submitFieldAction.withLatestFrom(O.combineLatest(questionFieldValue,answerField.value)).map(([,v]) => ({_id:Date.now().toString(),question:v[0],answers:v[1]}))
+    const DBRequest = result$.map<any,DBSink>(payload => ({command:'put',db:dbName,id,payload}))
+    db.subscribe(console.log)
     const view$ = O.combineLatest(questionField.DOM,answerField.DOM,addField.DOM,removeField.DOM,submitField.DOM).map(doms => p(doms))
     return {
         DOM: view$,
+        db:DBRequest
     }
 }
 

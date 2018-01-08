@@ -34,7 +34,9 @@ export default function dbDriver(sink:xs<TSink>){
                     if(sink.db == void 0) return
                     const db = new PouchDB(sink.db, { revs_limit: 1, auto_compaction: true })
                     if (sink.command == 'put') {
-                        db.put(sink.payload).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
+                        if (confirm('Add Document?' + JSON.stringify(sink.payload))) {
+                            db.put(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }) })
+                        }
                     }
                     if (sink.command == 'get') {
                         db.get(sink.payload._id).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
