@@ -39543,13 +39543,17 @@ const rxjs_run_1 = __webpack_require__(213);
 const DOM_1 = __webpack_require__(45);
 const Questioner_1 = __webpack_require__(677);
 const dbDriver_1 = __webpack_require__(680);
-function main({ DOM }) {
+const rxjs_1 = __webpack_require__(72);
+function main({ DOM, db }) {
     const questioner = Questioner_1.default({ DOM });
+    db.subscribe({ next: console.log, error: (e) => console.log('err', e) });
+    const re$ = rxjs_1.Observable.of({ command: 'alldocs', payload: { include_docs: true }, db: 'test', id: 'main' });
     return {
         DOM: questioner.DOM,
+        db: re$
     };
 }
-rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container'), db: dbDriver_1.default('main.db') });
+rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container'), db: dbDriver_1.default });
 
 
 /***/ }),
@@ -39689,13 +39693,35 @@ function view(size, type, className) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const pouchdb_1 = __webpack_require__(681);
-function createDriver(dbName) {
-    const db = new pouchdb_1.default(dbName, { revs_limit: 1, auto_compaction: true });
-    db.put({ _id: '2', version: 1 }).then(_ => db.allDocs()).then(v => console.log(v));
-    return function () {
-    };
+const adapt_1 = __webpack_require__(30);
+const xstream_1 = __webpack_require__(16);
+function dbDriver(sink) {
+    const source = xstream_1.default.create({
+        start: (listener) => {
+            sink.subscribe({
+                next: (sink) => {
+                    if (sink.db == void 0)
+                        return;
+                    const db = new pouchdb_1.default(sink.db, { revs_limit: 1, auto_compaction: true });
+                    if (sink.command == 'put') {
+                        db.put(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
+                    }
+                    if (sink.command == 'get') {
+                        db.get(sink.payload._id).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
+                    }
+                    if (sink.command == 'alldocs') {
+                        db.allDocs(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
+                    }
+                },
+                complete: () => { },
+                error: () => { }
+            });
+        },
+        stop: () => { }
+    });
+    return adapt_1.adapt(source);
 }
-exports.default = createDriver;
+exports.default = dbDriver;
 
 
 /***/ }),

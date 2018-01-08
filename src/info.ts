@@ -3,18 +3,28 @@ import { makeDOMDriver, div,p, object} from "@cycle/DOM";
 import { isolateSource } from "@cycle/DOM/lib/cjs/isolate";
 import Questioner from "./general-modules/Questioner";
 import { DOMSource } from "@cycle/DOM/lib/cjs/DOMSource";
-import makeDbDriver from "./general-function/dbDriver";
+import dbDriver, {TSource as DBSource,TSink as DBSink} from "./general-function/dbDriver";
 import { Driver } from "@cycle/run/lib/cjs/types";
+import { Observable as O } from "rxjs";
+import { VNode } from "snabbdom/vnode";
 
 interface Source{
     DOM: DOMSource
-    db:Driver<any,any>
+    db: DBSource
 }
 
-function main({DOM}:Source){
+interface ISink{
+    DOM:O<VNode>
+    db:O<DBSink>
+}
+
+function main({DOM,db}:Source):ISink{
     const questioner = Questioner({DOM})
+    db.subscribe({next:console.log,error:(e) => console.log('err',e)})
+    const re$ = O.of<DBSink>({command:'alldocs',payload:{include_docs:true},db:'test',id:'main'})
     return {
         DOM:questioner.DOM,
+        db: re$
     }
 }
-run(main,{DOM:makeDOMDriver('#main-container'),db:makeDbDriver('main.db')})
+run(main,{DOM:makeDOMDriver('#main-container'),db:dbDriver})
