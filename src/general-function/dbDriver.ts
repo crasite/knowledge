@@ -62,29 +62,3 @@ export default function createDbDriver(dbname: string) {
         return adapt(source)
     }
 }
-
-//  function dbDriver(sink:xs<TSink>){
-//     const source =  xs.create({
-//         start: (listener) => {
-//             sink.subscribe({
-//                 next: (sink) => {
-//                     if(sink.db == void 0) return
-//                     const db = new PouchDB(sink.db, { revs_limit: 1, auto_compaction: true })
-//                     if (sink.command == 'put') {
-//                         db.put(sink.payload).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
-//                     }
-//                     if (sink.command == 'get') {
-//                         db.get(sink.payload._id).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
-//                     }
-//                     if (sink.command == 'alldocs') {
-//                         db.allDocs(sink.payload).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
-//                     }
-//                 },
-//                 complete: () => { },
-//                 error: () => { }
-//             })
-//         },
-//         stop: () => { }
-//     })
-//     return adapt(source)
-// }
