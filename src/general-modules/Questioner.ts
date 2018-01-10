@@ -10,7 +10,7 @@ export interface Sources{
   DOM:DOMSource
   db:DBSource
   id:string
-  dbName:string
+  collectionName:string
 }
 
 export interface Sinks{
@@ -19,7 +19,7 @@ export interface Sinks{
 }
 
 export default function main(sources: Sources): Sinks {
-    const { DOM,db,id, dbName } = sources
+    const { DOM,db,id, collectionName } = sources
 
     const questionFieldProps:InputFieldSource['props'] = O.of({name:'questionField',type:'textarea',propList:{style:'width:500px;'}})
     const questionField = isolate(InputField)({DOM,props:questionFieldProps}) as InputFieldSink
@@ -43,7 +43,7 @@ export default function main(sources: Sources): Sinks {
     const answerField = InputArray({DOM,size:fieldSizeAction,type:O.of('text'),className:'inputField'})
 
     const result$ = submitFieldAction.withLatestFrom(O.combineLatest(questionFieldValue,answerField.value)).map(([,v]) => ({_id:Date.now().toString(),question:v[0],answers:v[1]}))
-    const DBRequest = result$.map<any,DBSink>(payload => ({command:'put',db:dbName,id,payload}))
+    const DBRequest = result$.map<any,DBSink>(payload => ({command:'put',collection:collectionName,id,payload}))
     db.subscribe(console.log)
     const view$ = O.combineLatest(questionField.DOM,answerField.DOM,addField.DOM,removeField.DOM,submitField.DOM).map(doms => p(doms))
     return {

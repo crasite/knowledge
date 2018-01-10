@@ -19,7 +19,7 @@ interface ISink{
 }
 
 function main({DOM,db}:Source):ISink{
-    const questioner = Questioner({DOM,db,id:'q1',dbName:'math'})
+    const questioner = Questioner({DOM,db,id:'q1',collectionName:'math'})
     return {
         DOM:questioner.DOM,
         db:questioner.db
