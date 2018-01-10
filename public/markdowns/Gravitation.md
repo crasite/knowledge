@@ -1,5 +1,7 @@
 # Gravitation
 
+Konstant $G = 6,67 \times 10^{-11} \large \frac{m^3}{kg \cdot s^2}$
+
 ## Kraft 
 > $\Large \vec F_g = -\frac {GmM}{r^2}\frac {\vec{r}}  r$
 >* Richtung ist umgekehrt von $\vec r$
