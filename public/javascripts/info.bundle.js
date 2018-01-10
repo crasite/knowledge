@@ -39705,10 +39705,13 @@ function createDbDriver(dbname) {
             start: (listener) => {
                 sink.subscribe({
                     next: (sink) => {
+                        console.log(sink.command);
                         if (sink.collection == void 0)
                             return;
                         if (sink.command == 'put') {
-                            db.put(Object.assign({}, sink.payload, { collection: sink.collection })).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.error({ response: e, id: sink.id }); });
+                            if (confirm('Do you want to submit the question?')) {
+                                db.put(Object.assign({}, sink.payload, { collection: sink.collection })).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.error({ response: e, id: sink.id }); });
+                            }
                         }
                         if (sink.command == 'get') {
                             db.find({ selector: { collection: sink.collection, _id: { $eq: sink.payload._id } } }).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.next({ response: e, id: sink.id }); });
