@@ -25,4 +25,4 @@ function main({DOM,db}:Source):ISink{
         db:questioner.db
     }
 }
-run(main,{DOM:makeDOMDriver('#main-container'),db:dbDriver})
+run(main,{DOM:makeDOMDriver('#main-container'),db:dbDriver('main')})
