@@ -72,7 +72,7 @@
 var root_1 = __webpack_require__(9);
 var toSubscriber_1 = __webpack_require__(214);
 var observable_1 = __webpack_require__(43);
-var pipe_1 = __webpack_require__(63);
+var pipe_1 = __webpack_require__(64);
 /**
  * A representation of any set of values over any amount of time. This is the most basic building block
  * of RxJS.
@@ -691,7 +691,7 @@ var isArrayLike_1 = __webpack_require__(93);
 var isPromise_1 = __webpack_require__(94);
 var isObject_1 = __webpack_require__(87);
 var Observable_1 = __webpack_require__(0);
-var iterator_1 = __webpack_require__(28);
+var iterator_1 = __webpack_require__(29);
 var InnerSubscriber_1 = __webpack_require__(315);
 var observable_1 = __webpack_require__(43);
 function subscribeToResult(outerSubscriber, result, outerValue, outerIndex) {
@@ -1318,19 +1318,6 @@ module.exports = function (value) {
 
 /***/ }),
 /* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function (fn) {
-	if (typeof fn !== "function") throw new TypeError(fn + " is not a function");
-	return fn;
-};
-
-
-/***/ }),
-/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3080,6 +3067,19 @@ exports.default = Stream;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = function (fn) {
+	if (typeof fn !== "function") throw new TypeError(fn + " is not a function");
+	return fn;
+};
+
+
+/***/ }),
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3091,7 +3091,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(0);
-var ScalarObservable_1 = __webpack_require__(65);
+var ScalarObservable_1 = __webpack_require__(66);
 var EmptyObservable_1 = __webpack_require__(18);
 var isScheduler_1 = __webpack_require__(12);
 /**
@@ -3359,7 +3359,7 @@ util.inherits = __webpack_require__(24);
 /*</replacement>*/
 
 var Readable = __webpack_require__(102);
-var Writable = __webpack_require__(67);
+var Writable = __webpack_require__(68);
 
 util.inherits(Duplex, Readable);
 
@@ -3441,7 +3441,7 @@ function forEach(xs, f) {
 "use strict";
 
 
-var assign        = __webpack_require__(70)
+var assign        = __webpack_require__(71)
   , normalizeOpts = __webpack_require__(116)
   , isCallable    = __webpack_require__(279)
   , contains      = __webpack_require__(117)
@@ -3932,6 +3932,40 @@ module.exports = function (val) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+Object.defineProperty(exports, "__esModule", { value: true });
+function getGlobal() {
+    var globalObj;
+    if (typeof window !== 'undefined') {
+        globalObj = window;
+    }
+    else if (typeof global !== 'undefined') {
+        globalObj = global;
+    }
+    else {
+        globalObj = this;
+    }
+    globalObj.Cyclejs = globalObj.Cyclejs || {};
+    globalObj = globalObj.Cyclejs;
+    globalObj.adaptStream = globalObj.adaptStream || (function (x) { return x; });
+    return globalObj;
+}
+function setAdapt(f) {
+    getGlobal().adaptStream = f;
+}
+exports.setAdapt = setAdapt;
+function adapt(stream) {
+    return getGlobal().adaptStream(stream);
+}
+exports.adapt = adapt;
+//# sourceMappingURL=adapt.js.map
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 
 var root_1 = __webpack_require__(9);
 function symbolIteratorPonyfill(root) {
@@ -3972,7 +4006,7 @@ exports.$$iterator = exports.iterator;
 //# sourceMappingURL=iterator.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4103,40 +4137,6 @@ var Notification = (function () {
 }());
 exports.Notification = Notification;
 //# sourceMappingURL=Notification.js.map
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-Object.defineProperty(exports, "__esModule", { value: true });
-function getGlobal() {
-    var globalObj;
-    if (typeof window !== 'undefined') {
-        globalObj = window;
-    }
-    else if (typeof global !== 'undefined') {
-        globalObj = global;
-    }
-    else {
-        globalObj = this;
-    }
-    globalObj.Cyclejs = globalObj.Cyclejs || {};
-    globalObj = globalObj.Cyclejs;
-    globalObj.adaptStream = globalObj.adaptStream || (function (x) { return x; });
-    return globalObj;
-}
-function setAdapt(f) {
-    getGlobal().adaptStream = f;
-}
-exports.setAdapt = setAdapt;
-function adapt(stream) {
-    return getGlobal().adaptStream(stream);
-}
-exports.adapt = adapt;
-//# sourceMappingURL=adapt.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
 
 /***/ }),
 /* 31 */
@@ -4925,7 +4925,7 @@ exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError;
 var scan_1 = __webpack_require__(82);
 var takeLast_1 = __webpack_require__(83);
 var defaultIfEmpty_1 = __webpack_require__(77);
-var pipe_1 = __webpack_require__(63);
+var pipe_1 = __webpack_require__(64);
 /* tslint:enable:max-line-length */
 /**
  * Applies an accumulator function over the source Observable, and returns the
@@ -5063,7 +5063,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(1);
-var Notification_1 = __webpack_require__(29);
+var Notification_1 = __webpack_require__(30);
 /**
  *
  * Re-emits all notifications from source Observable with specified scheduler.
@@ -5572,7 +5572,7 @@ var video = __WEBPACK_IMPORTED_MODULE_5__hyperscript_helpers__["a" /* default */
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = fromEvent;
 /* harmony export (immutable) */ __webpack_exports__["b"] = preventDefaultConditional;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xstream__);
 
 function fromEvent(element, eventName, useCapture, preventDefault) {
@@ -6240,7 +6240,7 @@ var isArray_1 = __webpack_require__(13);
 var Subscriber_1 = __webpack_require__(1);
 var OuterSubscriber_1 = __webpack_require__(2);
 var subscribeToResult_1 = __webpack_require__(3);
-var iterator_1 = __webpack_require__(28);
+var iterator_1 = __webpack_require__(29);
 /* tslint:enable:max-line-length */
 /**
  * @param observables
@@ -7115,7 +7115,246 @@ function isUndefined(arg) {
 
 "use strict";
 
-var noop_1 = __webpack_require__(64);
+/* tslint:disable:no-unused-variable */
+// Subject imported before Observable to bypass circular dependency issue since
+// Subject extends Observable and Observable references Subject in it's
+// definition
+var Subject_1 = __webpack_require__(7);
+exports.Subject = Subject_1.Subject;
+exports.AnonymousSubject = Subject_1.AnonymousSubject;
+/* tslint:enable:no-unused-variable */
+var Observable_1 = __webpack_require__(0);
+exports.Observable = Observable_1.Observable;
+// statics
+/* tslint:disable:no-use-before-declare */
+__webpack_require__(307);
+__webpack_require__(310);
+__webpack_require__(313);
+__webpack_require__(316);
+__webpack_require__(317);
+__webpack_require__(320);
+__webpack_require__(322);
+__webpack_require__(90);
+__webpack_require__(325);
+__webpack_require__(328);
+__webpack_require__(331);
+__webpack_require__(333);
+__webpack_require__(336);
+__webpack_require__(339);
+__webpack_require__(344);
+__webpack_require__(345);
+__webpack_require__(346);
+__webpack_require__(349);
+__webpack_require__(350);
+__webpack_require__(352);
+__webpack_require__(355);
+__webpack_require__(358);
+__webpack_require__(361);
+__webpack_require__(364);
+__webpack_require__(366);
+//dom
+__webpack_require__(368);
+__webpack_require__(370);
+//operators
+__webpack_require__(376);
+__webpack_require__(378);
+__webpack_require__(380);
+__webpack_require__(382);
+__webpack_require__(384);
+__webpack_require__(386);
+__webpack_require__(388);
+__webpack_require__(390);
+__webpack_require__(392);
+__webpack_require__(394);
+__webpack_require__(396);
+__webpack_require__(398);
+__webpack_require__(400);
+__webpack_require__(402);
+__webpack_require__(404);
+__webpack_require__(406);
+__webpack_require__(408);
+__webpack_require__(410);
+__webpack_require__(412);
+__webpack_require__(414);
+__webpack_require__(417);
+__webpack_require__(419);
+__webpack_require__(421);
+__webpack_require__(423);
+__webpack_require__(425);
+__webpack_require__(427);
+__webpack_require__(429);
+__webpack_require__(431);
+__webpack_require__(433);
+__webpack_require__(435);
+__webpack_require__(437);
+__webpack_require__(439);
+__webpack_require__(441);
+__webpack_require__(446);
+__webpack_require__(448);
+__webpack_require__(450);
+__webpack_require__(452);
+__webpack_require__(454);
+__webpack_require__(456);
+__webpack_require__(458);
+__webpack_require__(460);
+__webpack_require__(462);
+__webpack_require__(464);
+__webpack_require__(466);
+__webpack_require__(468);
+__webpack_require__(470);
+__webpack_require__(472);
+__webpack_require__(474);
+__webpack_require__(476);
+__webpack_require__(478);
+__webpack_require__(480);
+__webpack_require__(482);
+__webpack_require__(484);
+__webpack_require__(486);
+__webpack_require__(488);
+__webpack_require__(491);
+__webpack_require__(493);
+__webpack_require__(495);
+__webpack_require__(497);
+__webpack_require__(499);
+__webpack_require__(501);
+__webpack_require__(503);
+__webpack_require__(505);
+__webpack_require__(507);
+__webpack_require__(509);
+__webpack_require__(511);
+__webpack_require__(513);
+__webpack_require__(515);
+__webpack_require__(517);
+__webpack_require__(519);
+__webpack_require__(521);
+__webpack_require__(523);
+__webpack_require__(525);
+__webpack_require__(527);
+__webpack_require__(529);
+__webpack_require__(531);
+__webpack_require__(533);
+__webpack_require__(535);
+__webpack_require__(537);
+__webpack_require__(544);
+__webpack_require__(546);
+__webpack_require__(548);
+__webpack_require__(550);
+__webpack_require__(552);
+__webpack_require__(554);
+__webpack_require__(556);
+__webpack_require__(558);
+__webpack_require__(560);
+__webpack_require__(562);
+__webpack_require__(563);
+__webpack_require__(565);
+__webpack_require__(567);
+__webpack_require__(569);
+__webpack_require__(571);
+__webpack_require__(572);
+__webpack_require__(574);
+__webpack_require__(576);
+__webpack_require__(578);
+__webpack_require__(580);
+__webpack_require__(582);
+__webpack_require__(584);
+__webpack_require__(586);
+/* tslint:disable:no-unused-variable */
+var Subscription_1 = __webpack_require__(5);
+exports.Subscription = Subscription_1.Subscription;
+var Subscriber_1 = __webpack_require__(1);
+exports.Subscriber = Subscriber_1.Subscriber;
+var AsyncSubject_1 = __webpack_require__(53);
+exports.AsyncSubject = AsyncSubject_1.AsyncSubject;
+var ReplaySubject_1 = __webpack_require__(59);
+exports.ReplaySubject = ReplaySubject_1.ReplaySubject;
+var BehaviorSubject_1 = __webpack_require__(169);
+exports.BehaviorSubject = BehaviorSubject_1.BehaviorSubject;
+var ConnectableObservable_1 = __webpack_require__(163);
+exports.ConnectableObservable = ConnectableObservable_1.ConnectableObservable;
+var Notification_1 = __webpack_require__(30);
+exports.Notification = Notification_1.Notification;
+var EmptyError_1 = __webpack_require__(60);
+exports.EmptyError = EmptyError_1.EmptyError;
+var ArgumentOutOfRangeError_1 = __webpack_require__(39);
+exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
+var ObjectUnsubscribedError_1 = __webpack_require__(52);
+exports.ObjectUnsubscribedError = ObjectUnsubscribedError_1.ObjectUnsubscribedError;
+var TimeoutError_1 = __webpack_require__(198);
+exports.TimeoutError = TimeoutError_1.TimeoutError;
+var UnsubscriptionError_1 = __webpack_require__(88);
+exports.UnsubscriptionError = UnsubscriptionError_1.UnsubscriptionError;
+var timeInterval_1 = __webpack_require__(195);
+exports.TimeInterval = timeInterval_1.TimeInterval;
+var timestamp_1 = __webpack_require__(86);
+exports.Timestamp = timestamp_1.Timestamp;
+var TestScheduler_1 = __webpack_require__(588);
+exports.TestScheduler = TestScheduler_1.TestScheduler;
+var VirtualTimeScheduler_1 = __webpack_require__(211);
+exports.VirtualTimeScheduler = VirtualTimeScheduler_1.VirtualTimeScheduler;
+var AjaxObservable_1 = __webpack_require__(123);
+exports.AjaxResponse = AjaxObservable_1.AjaxResponse;
+exports.AjaxError = AjaxObservable_1.AjaxError;
+exports.AjaxTimeoutError = AjaxObservable_1.AjaxTimeoutError;
+var pipe_1 = __webpack_require__(64);
+exports.pipe = pipe_1.pipe;
+var asap_1 = __webpack_require__(188);
+var async_1 = __webpack_require__(4);
+var queue_1 = __webpack_require__(124);
+var animationFrame_1 = __webpack_require__(591);
+var rxSubscriber_1 = __webpack_require__(42);
+var iterator_1 = __webpack_require__(29);
+var observable_1 = __webpack_require__(43);
+var _operators = __webpack_require__(595);
+exports.operators = _operators;
+/* tslint:enable:no-unused-variable */
+/**
+ * @typedef {Object} Rx.Scheduler
+ * @property {Scheduler} queue Schedules on a queue in the current event frame
+ * (trampoline scheduler). Use this for iteration operations.
+ * @property {Scheduler} asap Schedules on the micro task queue, which uses the
+ * fastest transport mechanism available, either Node.js' `process.nextTick()`
+ * or Web Worker MessageChannel or setTimeout or others. Use this for
+ * asynchronous conversions.
+ * @property {Scheduler} async Schedules work with `setInterval`. Use this for
+ * time-based operations.
+ * @property {Scheduler} animationFrame Schedules work with `requestAnimationFrame`.
+ * Use this for synchronizing with the platform's painting
+ */
+var Scheduler = {
+    asap: asap_1.asap,
+    queue: queue_1.queue,
+    animationFrame: animationFrame_1.animationFrame,
+    async: async_1.async
+};
+exports.Scheduler = Scheduler;
+/**
+ * @typedef {Object} Rx.Symbol
+ * @property {Symbol|string} rxSubscriber A symbol to use as a property name to
+ * retrieve an "Rx safe" Observer from an object. "Rx safety" can be defined as
+ * an object that has all of the traits of an Rx Subscriber, including the
+ * ability to add and remove subscriptions to the subscription chain and
+ * guarantees involving event triggering (can't "next" after unsubscription,
+ * etc).
+ * @property {Symbol|string} observable A symbol to use as a property name to
+ * retrieve an Observable as defined by the [ECMAScript "Observable" spec](https://github.com/zenparsing/es-observable).
+ * @property {Symbol|string} iterator The ES6 symbol to use as a property name
+ * to retrieve an iterator from an object.
+ */
+var Symbol = {
+    rxSubscriber: rxSubscriber_1.rxSubscriber,
+    observable: observable_1.observable,
+    iterator: iterator_1.iterator
+};
+exports.Symbol = Symbol;
+//# sourceMappingURL=Rx.js.map
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var noop_1 = __webpack_require__(65);
 /* tslint:enable:max-line-length */
 function pipe() {
     var fns = [];
@@ -7141,7 +7380,7 @@ exports.pipeFromArray = pipeFromArray;
 //# sourceMappingURL=pipe.js.map
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7152,7 +7391,7 @@ exports.noop = noop;
 //# sourceMappingURL=noop.js.map
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7216,20 +7455,20 @@ exports.ScalarObservable = ScalarObservable;
 //# sourceMappingURL=ScalarObservable.js.map
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(102);
 exports.Stream = exports;
 exports.Readable = exports;
-exports.Writable = __webpack_require__(67);
+exports.Writable = __webpack_require__(68);
 exports.Duplex = __webpack_require__(20);
 exports.Transform = __webpack_require__(108);
 exports.PassThrough = __webpack_require__(248);
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7897,10 +8136,10 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23), __webpack_require__(68).setImmediate, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23), __webpack_require__(69).setImmediate, __webpack_require__(11)))
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -7959,7 +8198,7 @@ exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7991,7 +8230,7 @@ function selectorParser(node) {
 //# sourceMappingURL=selectorParser.js.map
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8003,15 +8242,15 @@ module.exports = __webpack_require__(274)()
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear    = __webpack_require__(111)
-  , assign   = __webpack_require__(70)
-  , callable = __webpack_require__(15)
+  , assign   = __webpack_require__(71)
+  , callable = __webpack_require__(16)
   , value    = __webpack_require__(14)
   , d        = __webpack_require__(21)
   , autoBind = __webpack_require__(291)
@@ -8114,245 +8353,6 @@ defineProperty(
 	})
 );
 
-
-/***/ }),
-/* 72 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/* tslint:disable:no-unused-variable */
-// Subject imported before Observable to bypass circular dependency issue since
-// Subject extends Observable and Observable references Subject in it's
-// definition
-var Subject_1 = __webpack_require__(7);
-exports.Subject = Subject_1.Subject;
-exports.AnonymousSubject = Subject_1.AnonymousSubject;
-/* tslint:enable:no-unused-variable */
-var Observable_1 = __webpack_require__(0);
-exports.Observable = Observable_1.Observable;
-// statics
-/* tslint:disable:no-use-before-declare */
-__webpack_require__(307);
-__webpack_require__(310);
-__webpack_require__(313);
-__webpack_require__(316);
-__webpack_require__(317);
-__webpack_require__(320);
-__webpack_require__(322);
-__webpack_require__(90);
-__webpack_require__(325);
-__webpack_require__(328);
-__webpack_require__(331);
-__webpack_require__(333);
-__webpack_require__(336);
-__webpack_require__(339);
-__webpack_require__(344);
-__webpack_require__(345);
-__webpack_require__(346);
-__webpack_require__(349);
-__webpack_require__(350);
-__webpack_require__(352);
-__webpack_require__(355);
-__webpack_require__(358);
-__webpack_require__(361);
-__webpack_require__(364);
-__webpack_require__(366);
-//dom
-__webpack_require__(368);
-__webpack_require__(370);
-//operators
-__webpack_require__(376);
-__webpack_require__(378);
-__webpack_require__(380);
-__webpack_require__(382);
-__webpack_require__(384);
-__webpack_require__(386);
-__webpack_require__(388);
-__webpack_require__(390);
-__webpack_require__(392);
-__webpack_require__(394);
-__webpack_require__(396);
-__webpack_require__(398);
-__webpack_require__(400);
-__webpack_require__(402);
-__webpack_require__(404);
-__webpack_require__(406);
-__webpack_require__(408);
-__webpack_require__(410);
-__webpack_require__(412);
-__webpack_require__(414);
-__webpack_require__(417);
-__webpack_require__(419);
-__webpack_require__(421);
-__webpack_require__(423);
-__webpack_require__(425);
-__webpack_require__(427);
-__webpack_require__(429);
-__webpack_require__(431);
-__webpack_require__(433);
-__webpack_require__(435);
-__webpack_require__(437);
-__webpack_require__(439);
-__webpack_require__(441);
-__webpack_require__(446);
-__webpack_require__(448);
-__webpack_require__(450);
-__webpack_require__(452);
-__webpack_require__(454);
-__webpack_require__(456);
-__webpack_require__(458);
-__webpack_require__(460);
-__webpack_require__(462);
-__webpack_require__(464);
-__webpack_require__(466);
-__webpack_require__(468);
-__webpack_require__(470);
-__webpack_require__(472);
-__webpack_require__(474);
-__webpack_require__(476);
-__webpack_require__(478);
-__webpack_require__(480);
-__webpack_require__(482);
-__webpack_require__(484);
-__webpack_require__(486);
-__webpack_require__(488);
-__webpack_require__(491);
-__webpack_require__(493);
-__webpack_require__(495);
-__webpack_require__(497);
-__webpack_require__(499);
-__webpack_require__(501);
-__webpack_require__(503);
-__webpack_require__(505);
-__webpack_require__(507);
-__webpack_require__(509);
-__webpack_require__(511);
-__webpack_require__(513);
-__webpack_require__(515);
-__webpack_require__(517);
-__webpack_require__(519);
-__webpack_require__(521);
-__webpack_require__(523);
-__webpack_require__(525);
-__webpack_require__(527);
-__webpack_require__(529);
-__webpack_require__(531);
-__webpack_require__(533);
-__webpack_require__(535);
-__webpack_require__(537);
-__webpack_require__(544);
-__webpack_require__(546);
-__webpack_require__(548);
-__webpack_require__(550);
-__webpack_require__(552);
-__webpack_require__(554);
-__webpack_require__(556);
-__webpack_require__(558);
-__webpack_require__(560);
-__webpack_require__(562);
-__webpack_require__(563);
-__webpack_require__(565);
-__webpack_require__(567);
-__webpack_require__(569);
-__webpack_require__(571);
-__webpack_require__(572);
-__webpack_require__(574);
-__webpack_require__(576);
-__webpack_require__(578);
-__webpack_require__(580);
-__webpack_require__(582);
-__webpack_require__(584);
-__webpack_require__(586);
-/* tslint:disable:no-unused-variable */
-var Subscription_1 = __webpack_require__(5);
-exports.Subscription = Subscription_1.Subscription;
-var Subscriber_1 = __webpack_require__(1);
-exports.Subscriber = Subscriber_1.Subscriber;
-var AsyncSubject_1 = __webpack_require__(53);
-exports.AsyncSubject = AsyncSubject_1.AsyncSubject;
-var ReplaySubject_1 = __webpack_require__(59);
-exports.ReplaySubject = ReplaySubject_1.ReplaySubject;
-var BehaviorSubject_1 = __webpack_require__(169);
-exports.BehaviorSubject = BehaviorSubject_1.BehaviorSubject;
-var ConnectableObservable_1 = __webpack_require__(163);
-exports.ConnectableObservable = ConnectableObservable_1.ConnectableObservable;
-var Notification_1 = __webpack_require__(29);
-exports.Notification = Notification_1.Notification;
-var EmptyError_1 = __webpack_require__(60);
-exports.EmptyError = EmptyError_1.EmptyError;
-var ArgumentOutOfRangeError_1 = __webpack_require__(39);
-exports.ArgumentOutOfRangeError = ArgumentOutOfRangeError_1.ArgumentOutOfRangeError;
-var ObjectUnsubscribedError_1 = __webpack_require__(52);
-exports.ObjectUnsubscribedError = ObjectUnsubscribedError_1.ObjectUnsubscribedError;
-var TimeoutError_1 = __webpack_require__(198);
-exports.TimeoutError = TimeoutError_1.TimeoutError;
-var UnsubscriptionError_1 = __webpack_require__(88);
-exports.UnsubscriptionError = UnsubscriptionError_1.UnsubscriptionError;
-var timeInterval_1 = __webpack_require__(195);
-exports.TimeInterval = timeInterval_1.TimeInterval;
-var timestamp_1 = __webpack_require__(86);
-exports.Timestamp = timestamp_1.Timestamp;
-var TestScheduler_1 = __webpack_require__(588);
-exports.TestScheduler = TestScheduler_1.TestScheduler;
-var VirtualTimeScheduler_1 = __webpack_require__(211);
-exports.VirtualTimeScheduler = VirtualTimeScheduler_1.VirtualTimeScheduler;
-var AjaxObservable_1 = __webpack_require__(123);
-exports.AjaxResponse = AjaxObservable_1.AjaxResponse;
-exports.AjaxError = AjaxObservable_1.AjaxError;
-exports.AjaxTimeoutError = AjaxObservable_1.AjaxTimeoutError;
-var pipe_1 = __webpack_require__(63);
-exports.pipe = pipe_1.pipe;
-var asap_1 = __webpack_require__(188);
-var async_1 = __webpack_require__(4);
-var queue_1 = __webpack_require__(124);
-var animationFrame_1 = __webpack_require__(591);
-var rxSubscriber_1 = __webpack_require__(42);
-var iterator_1 = __webpack_require__(28);
-var observable_1 = __webpack_require__(43);
-var _operators = __webpack_require__(595);
-exports.operators = _operators;
-/* tslint:enable:no-unused-variable */
-/**
- * @typedef {Object} Rx.Scheduler
- * @property {Scheduler} queue Schedules on a queue in the current event frame
- * (trampoline scheduler). Use this for iteration operations.
- * @property {Scheduler} asap Schedules on the micro task queue, which uses the
- * fastest transport mechanism available, either Node.js' `process.nextTick()`
- * or Web Worker MessageChannel or setTimeout or others. Use this for
- * asynchronous conversions.
- * @property {Scheduler} async Schedules work with `setInterval`. Use this for
- * time-based operations.
- * @property {Scheduler} animationFrame Schedules work with `requestAnimationFrame`.
- * Use this for synchronizing with the platform's painting
- */
-var Scheduler = {
-    asap: asap_1.asap,
-    queue: queue_1.queue,
-    animationFrame: animationFrame_1.animationFrame,
-    async: async_1.async
-};
-exports.Scheduler = Scheduler;
-/**
- * @typedef {Object} Rx.Symbol
- * @property {Symbol|string} rxSubscriber A symbol to use as a property name to
- * retrieve an "Rx safe" Observer from an object. "Rx safety" can be defined as
- * an object that has all of the traits of an Rx Subscriber, including the
- * ability to add and remove subscriptions to the subscription chain and
- * guarantees involving event triggering (can't "next" after unsubscription,
- * etc).
- * @property {Symbol|string} observable A symbol to use as a property name to
- * retrieve an Observable as defined by the [ECMAScript "Observable" spec](https://github.com/zenparsing/es-observable).
- * @property {Symbol|string} iterator The ES6 symbol to use as a property name
- * to retrieve an iterator from an object.
- */
-var Symbol = {
-    rxSubscriber: rxSubscriber_1.rxSubscriber,
-    observable: observable_1.observable,
-    iterator: iterator_1.iterator
-};
-exports.Symbol = Symbol;
-//# sourceMappingURL=Rx.js.map
 
 /***/ }),
 /* 73 */
@@ -9861,7 +9861,7 @@ var PromiseObservable_1 = __webpack_require__(95);
 var IteratorObservable_1 = __webpack_require__(215);
 var ArrayObservable_1 = __webpack_require__(17);
 var ArrayLikeObservable_1 = __webpack_require__(216);
-var iterator_1 = __webpack_require__(28);
+var iterator_1 = __webpack_require__(29);
 var Observable_1 = __webpack_require__(0);
 var observeOn_1 = __webpack_require__(44);
 var observable_1 = __webpack_require__(43);
@@ -10139,7 +10139,7 @@ exports.primitive = primitive;
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MainDOMSource; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cycle_run_lib_adapt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cycle_run_lib_adapt__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__cycle_run_lib_adapt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__cycle_run_lib_adapt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__DocumentDOMSource__ = __webpack_require__(224);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__BodyDOMSource__ = __webpack_require__(225);
@@ -13953,7 +13953,7 @@ function done(stream, er, data) {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = classNameFromVNode;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__selectorParser__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__selectorParser__ = __webpack_require__(70);
 
 function classNameFromVNode(vNode) {
     var _a = Object(__WEBPACK_IMPORTED_MODULE_0__selectorParser__["a" /* selectorParser */])(vNode).className, cn = _a === void 0 ? '' : _a;
@@ -16262,7 +16262,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var async_1 = __webpack_require__(4);
 var isDate_1 = __webpack_require__(57);
 var Subscriber_1 = __webpack_require__(1);
-var Notification_1 = __webpack_require__(29);
+var Notification_1 = __webpack_require__(30);
 /**
  * Delays the emission of items from the source Observable by a given timeout or
  * until a given Date.
@@ -17955,7 +17955,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(1);
-var noop_1 = __webpack_require__(64);
+var noop_1 = __webpack_require__(65);
 /**
  * Ignores all items emitted by the source Observable and only passes calls of `complete` or `error`.
  *
@@ -18390,7 +18390,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(1);
-var Notification_1 = __webpack_require__(29);
+var Notification_1 = __webpack_require__(30);
 /**
  * Represents all of the notifications from the source Observable as `next`
  * emissions marked with their original types within {@link Notification}
@@ -20709,7 +20709,7 @@ var SkipWhileSubscriber = (function (_super) {
 "use strict";
 
 var ArrayObservable_1 = __webpack_require__(17);
-var ScalarObservable_1 = __webpack_require__(65);
+var ScalarObservable_1 = __webpack_require__(66);
 var EmptyObservable_1 = __webpack_require__(18);
 var concat_1 = __webpack_require__(33);
 var isScheduler_1 = __webpack_require__(12);
@@ -22872,7 +22872,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_Observable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_from__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_from___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_observable_from__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cycle_run_lib_adapt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cycle_run_lib_adapt__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cycle_run_lib_adapt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__cycle_run_lib_adapt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cycle_run__ = __webpack_require__(217);
 
@@ -22987,7 +22987,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var root_1 = __webpack_require__(9);
 var Observable_1 = __webpack_require__(0);
-var iterator_1 = __webpack_require__(28);
+var iterator_1 = __webpack_require__(29);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -23155,7 +23155,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(0);
-var ScalarObservable_1 = __webpack_require__(65);
+var ScalarObservable_1 = __webpack_require__(66);
 var EmptyObservable_1 = __webpack_require__(18);
 /**
  * We need this JSDoc comment for affecting ESDoc.
@@ -23226,7 +23226,7 @@ exports.ArrayLikeObservable = ArrayLikeObservable;
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = setup;
 /* unused harmony export run */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xstream__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__adapt__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__microtask__ = __webpack_require__(222);
@@ -23621,9 +23621,9 @@ function thunk(sel, key, fn, args) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DocumentDOMSource; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xstream__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fromEvent__ = __webpack_require__(46);
 
@@ -23666,9 +23666,9 @@ var DocumentDOMSource = /** @class */ (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BodyDOMSource; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xstream__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fromEvent__ = __webpack_require__(46);
 
@@ -23817,7 +23817,7 @@ function totalIsolateSink(sink, fullScope) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventDelegator; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xstream__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ScopeChecker__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__utils__ = __webpack_require__(26);
@@ -24010,7 +24010,7 @@ var EventDelegator = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return makeDOMDriver; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snabbdom__ = __webpack_require__(230);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_snabbdom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_snabbdom__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_xstream__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_xstream_extra_sampleCombine__ = __webpack_require__(232);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_xstream_extra_sampleCombine___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_xstream_extra_sampleCombine__);
@@ -24526,7 +24526,7 @@ exports.default = exports.thunk;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var index_1 = __webpack_require__(16);
+var index_1 = __webpack_require__(15);
 var NO = {};
 var SampleCombineListener = /** @class */ (function () {
     function SampleCombineListener(i, p) {
@@ -24763,7 +24763,7 @@ var VNodeWrapper = /** @class */ (function () {
 /* unused harmony export select */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__curry2__ = __webpack_require__(235);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__findMatches__ = __webpack_require__(236);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__selectorParser__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__selectorParser__ = __webpack_require__(70);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__selectorParser__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__classNameFromVNode__ = __webpack_require__(109);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_3__classNameFromVNode__["a"]; });
@@ -24868,7 +24868,7 @@ function addParent(vNode, isParent, parent) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return language; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_cssauron2__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selectorParser__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__selectorParser__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__classNameFromVNode__ = __webpack_require__(109);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__parent_symbol__ = __webpack_require__(110);
 
@@ -25828,7 +25828,7 @@ var EE = __webpack_require__(62).EventEmitter;
 var inherits = __webpack_require__(24);
 
 inherits(Stream, EE);
-Stream.Readable = __webpack_require__(66);
+Stream.Readable = __webpack_require__(67);
 Stream.Writable = __webpack_require__(249);
 Stream.Duplex = __webpack_require__(250);
 Stream.Transform = __webpack_require__(251);
@@ -26551,7 +26551,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 /* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(67);
+module.exports = __webpack_require__(68);
 
 
 /***/ }),
@@ -26565,14 +26565,14 @@ module.exports = __webpack_require__(20);
 /* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(66).Transform
+module.exports = __webpack_require__(67).Transform
 
 
 /***/ }),
 /* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(66).PassThrough
+module.exports = __webpack_require__(67).PassThrough
 
 
 /***/ }),
@@ -27067,7 +27067,7 @@ module.exports = (function () {
 var clear          = __webpack_require__(111)
   , eIndexOf       = __webpack_require__(264)
   , setPrototypeOf = __webpack_require__(49)
-  , callable       = __webpack_require__(15)
+  , callable       = __webpack_require__(16)
   , validValue     = __webpack_require__(14)
   , d              = __webpack_require__(21)
   , ee             = __webpack_require__(282)
@@ -27514,7 +27514,7 @@ module.exports = function (searchString/*, position*/) {
 
 
 var d        = __webpack_require__(21)
-  , callable = __webpack_require__(15)
+  , callable = __webpack_require__(16)
 
   , apply = Function.prototype.apply, call = Function.prototype.call
   , create = Object.create, defineProperty = Object.defineProperty
@@ -27856,7 +27856,7 @@ module.exports = function (value) {
 
 
 var isArguments = __webpack_require__(50)
-  , callable    = __webpack_require__(15)
+  , callable    = __webpack_require__(16)
   , isString    = __webpack_require__(51)
   , get         = __webpack_require__(289);
 
@@ -27935,7 +27935,7 @@ var setPrototypeOf = __webpack_require__(49)
   , contains       = __webpack_require__(117)
   , d              = __webpack_require__(21)
   , Symbol         = __webpack_require__(19)
-  , Iterator       = __webpack_require__(71);
+  , Iterator       = __webpack_require__(72);
 
 var defineProperty = Object.defineProperty, ArrayIterator;
 
@@ -27972,9 +27972,9 @@ defineProperty(ArrayIterator.prototype, Symbol.toStringTag, d("c", "Array Iterat
 
 var copy             = __webpack_require__(292)
   , normalizeOptions = __webpack_require__(116)
-  , ensureCallable   = __webpack_require__(15)
+  , ensureCallable   = __webpack_require__(16)
   , map              = __webpack_require__(297)
-  , callable         = __webpack_require__(15)
+  , callable         = __webpack_require__(16)
   , validValue       = __webpack_require__(14)
 
   , bind = Function.prototype.bind, defineProperty = Object.defineProperty
@@ -28010,7 +28010,7 @@ module.exports = function (props/*, options*/) {
 
 
 var aFrom  = __webpack_require__(293)
-  , assign = __webpack_require__(70)
+  , assign = __webpack_require__(71)
   , value  = __webpack_require__(14);
 
 module.exports = function (obj/*, propertyNames, options*/) {
@@ -28067,7 +28067,7 @@ var iteratorSymbol = __webpack_require__(19).iterator
   , isArguments    = __webpack_require__(50)
   , isFunction     = __webpack_require__(296)
   , toPosInt       = __webpack_require__(113)
-  , callable       = __webpack_require__(15)
+  , callable       = __webpack_require__(16)
   , validValue     = __webpack_require__(14)
   , isValue        = __webpack_require__(27)
   , isString       = __webpack_require__(51)
@@ -28203,7 +28203,7 @@ module.exports = function (value) {
 "use strict";
 
 
-var callable = __webpack_require__(15)
+var callable = __webpack_require__(16)
   , forEach  = __webpack_require__(298)
   , call     = Function.prototype.call;
 
@@ -28238,7 +28238,7 @@ module.exports = __webpack_require__(299)("forEach");
 
 
 
-var callable                = __webpack_require__(15)
+var callable                = __webpack_require__(16)
   , value                   = __webpack_require__(14)
   , bind                    = Function.prototype.bind
   , call                    = Function.prototype.call
@@ -28277,7 +28277,7 @@ module.exports = function (method, defVal) {
 var setPrototypeOf = __webpack_require__(49)
   , d              = __webpack_require__(21)
   , Symbol         = __webpack_require__(19)
-  , Iterator       = __webpack_require__(71);
+  , Iterator       = __webpack_require__(72);
 
 var defineProperty = Object.defineProperty, StringIterator;
 
@@ -28319,7 +28319,7 @@ defineProperty(StringIterator.prototype, Symbol.toStringTag, d("c", "String Iter
 
 var setPrototypeOf    = __webpack_require__(49)
   , d                 = __webpack_require__(21)
-  , Iterator          = __webpack_require__(71)
+  , Iterator          = __webpack_require__(72)
   , toStringTagSymbol = __webpack_require__(19).toStringTag
   , kinds             = __webpack_require__(302)
 
@@ -28408,9 +28408,9 @@ module.exports = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MockedDOMSource; });
 /* harmony export (immutable) */ __webpack_exports__["b"] = mockDOMSource;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_xstream___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_xstream__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__cycle_run_lib_adapt__);
 
 
@@ -30810,7 +30810,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(0);
-var noop_1 = __webpack_require__(64);
+var noop_1 = __webpack_require__(65);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @extends {Ignored}
@@ -37090,7 +37090,7 @@ var ImmediateDefinition = (function () {
 exports.ImmediateDefinition = ImmediateDefinition;
 exports.Immediate = new ImmediateDefinition(root_1.root);
 //# sourceMappingURL=Immediate.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(68).clearImmediate, __webpack_require__(68).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(69).clearImmediate, __webpack_require__(69).setImmediate))
 
 /***/ }),
 /* 543 */
@@ -38419,7 +38419,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Observable_1 = __webpack_require__(0);
-var Notification_1 = __webpack_require__(29);
+var Notification_1 = __webpack_require__(30);
 var ColdObservable_1 = __webpack_require__(589);
 var HotObservable_1 = __webpack_require__(590);
 var SubscriptionLog_1 = __webpack_require__(209);
@@ -39543,17 +39543,17 @@ const rxjs_run_1 = __webpack_require__(213);
 const DOM_1 = __webpack_require__(45);
 const Questioner_1 = __webpack_require__(677);
 const dbDriver_1 = __webpack_require__(680);
-const rxjs_1 = __webpack_require__(72);
+const rxjs_1 = __webpack_require__(63);
 function main({ DOM, db }) {
     const questioner = Questioner_1.default({ DOM });
     db.subscribe({ next: console.log, error: (e) => console.log('err', e) });
-    const re$ = rxjs_1.Observable.of({ command: 'alldocs', payload: { include_docs: true }, db: 'test', id: 'main' });
+    const re$ = rxjs_1.Observable.of({ command: 'get', payload: { _id: 'sth' }, collection: 'test', id: 'main' });
     return {
         DOM: questioner.DOM,
         db: re$
     };
 }
-rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container'), db: dbDriver_1.default });
+rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container'), db: dbDriver_1.default('main') });
 
 
 /***/ }),
@@ -39563,7 +39563,7 @@ rxjs_run_1.run(main, { DOM: DOM_1.makeDOMDriver('#main-container'), db: dbDriver
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const rxjs_1 = __webpack_require__(72);
+const rxjs_1 = __webpack_require__(63);
 const DOM_1 = __webpack_require__(45);
 const isolate_1 = __webpack_require__(596);
 const InputField_1 = __webpack_require__(678);
@@ -39643,7 +39643,7 @@ function view(props) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const rxjs_1 = __webpack_require__(72);
+const rxjs_1 = __webpack_require__(63);
 const DOM_1 = __webpack_require__(45);
 function main({ DOM, size, type, className }) {
     const action$ = DOM.select('input').events('input').map(v => {
@@ -39693,35 +39693,65 @@ function view(size, type, className) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const pouchdb_1 = __webpack_require__(681);
-const adapt_1 = __webpack_require__(30);
-const xstream_1 = __webpack_require__(16);
-function dbDriver(sink) {
-    const source = xstream_1.default.create({
-        start: (listener) => {
-            sink.subscribe({
-                next: (sink) => {
-                    if (sink.db == void 0)
-                        return;
-                    const db = new pouchdb_1.default(sink.db, { revs_limit: 1, auto_compaction: true });
-                    if (sink.command == 'put') {
-                        db.put(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
-                    }
-                    if (sink.command == 'get') {
-                        db.get(sink.payload._id).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
-                    }
-                    if (sink.command == 'alldocs') {
-                        db.allDocs(sink.payload).then(response => listener.next({ response, id: sink.id })).then(() => db.close()).catch(e => { listener.error({ response: e, id: sink.id }); });
-                    }
-                },
-                complete: () => { },
-                error: () => { }
-            });
-        },
-        stop: () => { }
-    });
-    return adapt_1.adapt(source);
+const pouchdb_find_1 = __webpack_require__(698);
+const adapt_1 = __webpack_require__(28);
+const xstream_1 = __webpack_require__(15);
+pouchdb_1.default.plugin(pouchdb_find_1.default);
+function createDbDriver(dbname) {
+    const db = new pouchdb_1.default(dbname, { revs_limit: 1, auto_compaction: true });
+    db.createIndex({ index: { fields: ['collection'], name: 'collectionIndex' } }).catch();
+    return function dbDriver(sink) {
+        const source = xstream_1.default.create({
+            start: (listener) => {
+                sink.subscribe({
+                    next: (sink) => {
+                        if (sink.collection == void 0)
+                            return;
+                        if (sink.command == 'put') {
+                            db.put(Object.assign({}, sink.payload, { collection: sink.collection })).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.error({ response: e, id: sink.id }); });
+                        }
+                        if (sink.command == 'get') {
+                            db.find({ selector: { collection: sink.collection, _id: { $eq: sink.payload._id } } }).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.next({ response: e, id: sink.id }); });
+                        }
+                        if (sink.command == 'alldocs') {
+                            db.find(Object.assign({}, sink.payload, { selector: { collection: sink.collection } })).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.error({ response: e, id: sink.id }); });
+                        }
+                    },
+                    complete: () => { },
+                    error: () => { }
+                });
+            },
+            stop: () => { db.close(); }
+        });
+        return adapt_1.adapt(source);
+    };
 }
-exports.default = dbDriver;
+exports.default = createDbDriver;
+//  function dbDriver(sink:xs<TSink>){
+//     const source =  xs.create({
+//         start: (listener) => {
+//             sink.subscribe({
+//                 next: (sink) => {
+//                     if(sink.db == void 0) return
+//                     const db = new PouchDB(sink.db, { revs_limit: 1, auto_compaction: true })
+//                     if (sink.command == 'put') {
+//                         db.put(sink.payload).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
+//                     }
+//                     if (sink.command == 'get') {
+//                         db.get(sink.payload._id).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
+//                     }
+//                     if (sink.command == 'alldocs') {
+//                         db.allDocs(sink.payload).then(response => listener.next({response,id:sink.id})).then(() => db.close()).catch(e => {listener.error({response:e,id:sink.id})})
+//                     }
+//                 },
+//                 complete: () => { },
+//                 error: () => { }
+//             })
+//         },
+//         stop: () => { }
+//     })
+//     return adapt(source)
+// } 
 
 
 /***/ }),
@@ -54061,6 +54091,4911 @@ exports.parse = function (str) {
     }
   }
 };
+
+
+/***/ }),
+/* 692 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export adapterFun */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return assign$1; });
+/* unused harmony export bulkGetShim */
+/* unused harmony export changesHandler */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return clone; });
+/* unused harmony export defaultBackOff */
+/* unused harmony export explainError */
+/* unused harmony export filterChange */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return flatten; });
+/* unused harmony export functionName */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return guardedConsole; });
+/* unused harmony export hasLocalStorage */
+/* unused harmony export invalidIdError */
+/* unused harmony export isChromeApp */
+/* unused harmony export isCordova */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return isRemote; });
+/* unused harmony export listenerCount */
+/* unused harmony export normalizeDdocFunctionName */
+/* unused harmony export once */
+/* unused harmony export parseDdocFunctionName */
+/* unused harmony export parseUri */
+/* unused harmony export pick */
+/* unused harmony export rev */
+/* unused harmony export scopeEval */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return toPromise; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return upsert; });
+/* unused harmony export uuid */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid__ = __webpack_require__(682);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_uuid___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_uuid__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_argsarray__ = __webpack_require__(686);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_argsarray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_argsarray__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_pouchdb_collections__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_events__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_events__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_inherits__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_immediate__ = __webpack_require__(611);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_immediate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_immediate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__ = __webpack_require__(699);
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6_immediate___default.a; });
+
+
+
+
+
+
+
+
+
+function isBinaryObject(object) {
+  return (typeof ArrayBuffer !== 'undefined' && object instanceof ArrayBuffer) ||
+    (typeof Blob !== 'undefined' && object instanceof Blob);
+}
+
+function cloneArrayBuffer(buff) {
+  if (typeof buff.slice === 'function') {
+    return buff.slice(0);
+  }
+  // IE10-11 slice() polyfill
+  var target = new ArrayBuffer(buff.byteLength);
+  var targetArray = new Uint8Array(target);
+  var sourceArray = new Uint8Array(buff);
+  targetArray.set(sourceArray);
+  return target;
+}
+
+function cloneBinaryObject(object) {
+  if (object instanceof ArrayBuffer) {
+    return cloneArrayBuffer(object);
+  }
+  var size = object.size;
+  var type = object.type;
+  // Blob
+  if (typeof object.slice === 'function') {
+    return object.slice(0, size, type);
+  }
+  // PhantomJS slice() replacement
+  return object.webkitSlice(0, size, type);
+}
+
+// most of this is borrowed from lodash.isPlainObject:
+// https://github.com/fis-components/lodash.isplainobject/
+// blob/29c358140a74f252aeb08c9eb28bef86f2217d4a/index.js
+
+var funcToString = Function.prototype.toString;
+var objectCtorString = funcToString.call(Object);
+
+function isPlainObject(value) {
+  var proto = Object.getPrototypeOf(value);
+  /* istanbul ignore if */
+  if (proto === null) { // not sure when this happens, but I guess it can
+    return true;
+  }
+  var Ctor = proto.constructor;
+  return (typeof Ctor == 'function' &&
+    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+}
+
+function clone(object) {
+  var newObject;
+  var i;
+  var len;
+
+  if (!object || typeof object !== 'object') {
+    return object;
+  }
+
+  if (Array.isArray(object)) {
+    newObject = [];
+    for (i = 0, len = object.length; i < len; i++) {
+      newObject[i] = clone(object[i]);
+    }
+    return newObject;
+  }
+
+  // special case: to avoid inconsistencies between IndexedDB
+  // and other backends, we automatically stringify Dates
+  if (object instanceof Date) {
+    return object.toISOString();
+  }
+
+  if (isBinaryObject(object)) {
+    return cloneBinaryObject(object);
+  }
+
+  if (!isPlainObject(object)) {
+    return object; // don't clone objects like Workers
+  }
+
+  newObject = {};
+  for (i in object) {
+    /* istanbul ignore else */
+    if (Object.prototype.hasOwnProperty.call(object, i)) {
+      var value = clone(object[i]);
+      if (typeof value !== 'undefined') {
+        newObject[i] = value;
+      }
+    }
+  }
+  return newObject;
+}
+
+function once(fun) {
+  var called = false;
+  return __WEBPACK_IMPORTED_MODULE_2_argsarray___default()(function (args) {
+    /* istanbul ignore if */
+    if (called) {
+      // this is a smoke test and should never actually happen
+      throw new Error('once called more than once');
+    } else {
+      called = true;
+      fun.apply(this, args);
+    }
+  });
+}
+
+function toPromise(func) {
+  //create the function we will be returning
+  return __WEBPACK_IMPORTED_MODULE_2_argsarray___default()(function (args) {
+    // Clone arguments
+    args = clone(args);
+    var self = this;
+    // if the last argument is a function, assume its a callback
+    var usedCB = (typeof args[args.length - 1] === 'function') ? args.pop() : false;
+    var promise = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */](function (fulfill, reject) {
+      var resp;
+      try {
+        var callback = once(function (err, mesg) {
+          if (err) {
+            reject(err);
+          } else {
+            fulfill(mesg);
+          }
+        });
+        // create a callback for this invocation
+        // apply the function in the orig context
+        args.push(callback);
+        resp = func.apply(self, args);
+        if (resp && typeof resp.then === 'function') {
+          fulfill(resp);
+        }
+      } catch (e) {
+        reject(e);
+      }
+    });
+    // if there is a callback, call it back
+    if (usedCB) {
+      promise.then(function (result) {
+        usedCB(null, result);
+      }, usedCB);
+    }
+    return promise;
+  });
+}
+
+function logApiCall(self, name, args) {
+  /* istanbul ignore if */
+  if (self.constructor.listeners('debug').length) {
+    var logArgs = ['api', self.name, name];
+    for (var i = 0; i < args.length - 1; i++) {
+      logArgs.push(args[i]);
+    }
+    self.constructor.emit('debug', logArgs);
+
+    // override the callback itself to log the response
+    var origCallback = args[args.length - 1];
+    args[args.length - 1] = function (err, res) {
+      var responseArgs = ['api', self.name, name];
+      responseArgs = responseArgs.concat(
+        err ? ['error', err] : ['success', res]
+      );
+      self.constructor.emit('debug', responseArgs);
+      origCallback(err, res);
+    };
+  }
+}
+
+function adapterFun(name, callback) {
+  return toPromise(__WEBPACK_IMPORTED_MODULE_2_argsarray___default()(function (args) {
+    if (this._closed) {
+      return __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */].reject(new Error('database is closed'));
+    }
+    if (this._destroyed) {
+      return __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */].reject(new Error('database is destroyed'));
+    }
+    var self = this;
+    logApiCall(self, name, args);
+    if (!this.taskqueue.isReady) {
+      return new __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */](function (fulfill, reject) {
+        self.taskqueue.addTask(function (failed) {
+          if (failed) {
+            reject(failed);
+          } else {
+            fulfill(self[name].apply(self, args));
+          }
+        });
+      });
+    }
+    return callback.apply(this, args);
+  }));
+}
+
+// like underscore/lodash _.pick()
+function pick(obj, arr) {
+  var res = {};
+  for (var i = 0, len = arr.length; i < len; i++) {
+    var prop = arr[i];
+    if (prop in obj) {
+      res[prop] = obj[prop];
+    }
+  }
+  return res;
+}
+
+// Most browsers throttle concurrent requests at 6, so it's silly
+// to shim _bulk_get by trying to launch potentially hundreds of requests
+// and then letting the majority time out. We can handle this ourselves.
+var MAX_NUM_CONCURRENT_REQUESTS = 6;
+
+function identityFunction(x) {
+  return x;
+}
+
+function formatResultForOpenRevsGet(result) {
+  return [{
+    ok: result
+  }];
+}
+
+// shim for P/CouchDB adapters that don't directly implement _bulk_get
+function bulkGet(db, opts, callback) {
+  var requests = opts.docs;
+
+  // consolidate into one request per doc if possible
+  var requestsById = new __WEBPACK_IMPORTED_MODULE_3_pouchdb_collections__["a" /* Map */]();
+  requests.forEach(function (request) {
+    if (requestsById.has(request.id)) {
+      requestsById.get(request.id).push(request);
+    } else {
+      requestsById.set(request.id, [request]);
+    }
+  });
+
+  var numDocs = requestsById.size;
+  var numDone = 0;
+  var perDocResults = new Array(numDocs);
+
+  function collapseResultsAndFinish() {
+    var results = [];
+    perDocResults.forEach(function (res) {
+      res.docs.forEach(function (info) {
+        results.push({
+          id: res.id,
+          docs: [info]
+        });
+      });
+    });
+    callback(null, {results: results});
+  }
+
+  function checkDone() {
+    if (++numDone === numDocs) {
+      collapseResultsAndFinish();
+    }
+  }
+
+  function gotResult(docIndex, id, docs) {
+    perDocResults[docIndex] = {id: id, docs: docs};
+    checkDone();
+  }
+
+  var allRequests = [];
+  requestsById.forEach(function (value, key) {
+    allRequests.push(key);
+  });
+
+  var i = 0;
+
+  function nextBatch() {
+
+    if (i >= allRequests.length) {
+      return;
+    }
+
+    var upTo = Math.min(i + MAX_NUM_CONCURRENT_REQUESTS, allRequests.length);
+    var batch = allRequests.slice(i, upTo);
+    processBatch(batch, i);
+    i += batch.length;
+  }
+
+  function processBatch(batch, offset) {
+    batch.forEach(function (docId, j) {
+      var docIdx = offset + j;
+      var docRequests = requestsById.get(docId);
+
+      // just use the first request as the "template"
+      // TODO: The _bulk_get API allows for more subtle use cases than this,
+      // but for now it is unlikely that there will be a mix of different
+      // "atts_since" or "attachments" in the same request, since it's just
+      // replicate.js that is using this for the moment.
+      // Also, atts_since is aspirational, since we don't support it yet.
+      var docOpts = pick(docRequests[0], ['atts_since', 'attachments']);
+      docOpts.open_revs = docRequests.map(function (request) {
+        // rev is optional, open_revs disallowed
+        return request.rev;
+      });
+
+      // remove falsey / undefined revisions
+      docOpts.open_revs = docOpts.open_revs.filter(identityFunction);
+
+      var formatResult = identityFunction;
+
+      if (docOpts.open_revs.length === 0) {
+        delete docOpts.open_revs;
+
+        // when fetching only the "winning" leaf,
+        // transform the result so it looks like an open_revs
+        // request
+        formatResult = formatResultForOpenRevsGet;
+      }
+
+      // globally-supplied options
+      ['revs', 'attachments', 'binary', 'ajax', 'latest'].forEach(function (param) {
+        if (param in opts) {
+          docOpts[param] = opts[param];
+        }
+      });
+      db.get(docId, docOpts, function (err, res) {
+        var result;
+        /* istanbul ignore if */
+        if (err) {
+          result = [{error: err}];
+        } else {
+          result = formatResult(res);
+        }
+        gotResult(docIdx, docId, result);
+        nextBatch();
+      });
+    });
+  }
+
+  nextBatch();
+
+}
+
+function isChromeApp() {
+  return (typeof chrome !== "undefined" &&
+    typeof chrome.storage !== "undefined" &&
+    typeof chrome.storage.local !== "undefined");
+}
+
+var hasLocal;
+
+if (isChromeApp()) {
+  hasLocal = false;
+} else {
+  try {
+    localStorage.setItem('_pouch_check_localstorage', 1);
+    hasLocal = !!localStorage.getItem('_pouch_check_localstorage');
+  } catch (e) {
+    hasLocal = false;
+  }
+}
+
+function hasLocalStorage() {
+  return hasLocal;
+}
+
+// Custom nextTick() shim for browsers. In node, this will just be process.nextTick(). We
+// avoid using process.nextTick() directly because the polyfill is very large and we don't
+// need all of it (see: https://github.com/defunctzombie/node-process).
+// "immediate" 3.0.8 is used by lie, and it's a smaller version of the latest "immediate"
+// package, so it's the one we use.
+// When we use nextTick() in our codebase, we only care about not releasing Zalgo
+// (see: http://blog.izs.me/post/59142742143/designing-apis-for-asynchrony).
+// Microtask vs macrotask doesn't matter to us. So we're free to use the fastest
+// (least latency) option, which is "immediate" due to use of microtasks.
+// All of our nextTicks are isolated to this one function so we can easily swap out one
+// implementation for another.
+
+__WEBPACK_IMPORTED_MODULE_5_inherits___default()(Changes, __WEBPACK_IMPORTED_MODULE_4_events__["EventEmitter"]);
+
+/* istanbul ignore next */
+function attachBrowserEvents(self) {
+  if (isChromeApp()) {
+    chrome.storage.onChanged.addListener(function (e) {
+      // make sure it's event addressed to us
+      if (e.db_name != null) {
+        //object only has oldValue, newValue members
+        self.emit(e.dbName.newValue);
+      }
+    });
+  } else if (hasLocalStorage()) {
+    if (typeof addEventListener !== 'undefined') {
+      addEventListener("storage", function (e) {
+        self.emit(e.key);
+      });
+    } else { // old IE
+      window.attachEvent("storage", function (e) {
+        self.emit(e.key);
+      });
+    }
+  }
+}
+
+function Changes() {
+  __WEBPACK_IMPORTED_MODULE_4_events__["EventEmitter"].call(this);
+  this._listeners = {};
+
+  attachBrowserEvents(this);
+}
+Changes.prototype.addListener = function (dbName, id, db, opts) {
+  /* istanbul ignore if */
+  if (this._listeners[id]) {
+    return;
+  }
+  var self = this;
+  var inprogress = false;
+  function eventFunction() {
+    /* istanbul ignore if */
+    if (!self._listeners[id]) {
+      return;
+    }
+    if (inprogress) {
+      inprogress = 'waiting';
+      return;
+    }
+    inprogress = true;
+    var changesOpts = pick(opts, [
+      'style', 'include_docs', 'attachments', 'conflicts', 'filter',
+      'doc_ids', 'view', 'since', 'query_params', 'binary'
+    ]);
+
+    /* istanbul ignore next */
+    function onError() {
+      inprogress = false;
+    }
+
+    db.changes(changesOpts).on('change', function (c) {
+      if (c.seq > opts.since && !opts.cancelled) {
+        opts.since = c.seq;
+        opts.onChange(c);
+      }
+    }).on('complete', function () {
+      if (inprogress === 'waiting') {
+        __WEBPACK_IMPORTED_MODULE_6_immediate___default()(eventFunction);
+      }
+      inprogress = false;
+    }).on('error', onError);
+  }
+  this._listeners[id] = eventFunction;
+  this.on(dbName, eventFunction);
+};
+
+Changes.prototype.removeListener = function (dbName, id) {
+  /* istanbul ignore if */
+  if (!(id in this._listeners)) {
+    return;
+  }
+  __WEBPACK_IMPORTED_MODULE_4_events__["EventEmitter"].prototype.removeListener.call(this, dbName,
+    this._listeners[id]);
+  delete this._listeners[id];
+};
+
+
+/* istanbul ignore next */
+Changes.prototype.notifyLocalWindows = function (dbName) {
+  //do a useless change on a storage thing
+  //in order to get other windows's listeners to activate
+  if (isChromeApp()) {
+    chrome.storage.local.set({dbName: dbName});
+  } else if (hasLocalStorage()) {
+    localStorage[dbName] = (localStorage[dbName] === "a") ? "b" : "a";
+  }
+};
+
+Changes.prototype.notify = function (dbName) {
+  this.emit(dbName);
+  this.notifyLocalWindows(dbName);
+};
+
+function guardedConsole(method) {
+  /* istanbul ignore else */
+  if (typeof console !== 'undefined' && typeof console[method] === 'function') {
+    var args = Array.prototype.slice.call(arguments, 1);
+    console[method].apply(console, args);
+  }
+}
+
+function randomNumber(min, max) {
+  var maxTimeout = 600000; // Hard-coded default of 10 minutes
+  min = parseInt(min, 10) || 0;
+  max = parseInt(max, 10);
+  if (max !== max || max <= min) {
+    max = (min || 1) << 1; //doubling
+  } else {
+    max = max + 1;
+  }
+  // In order to not exceed maxTimeout, pick a random value between half of maxTimeout and maxTimeout
+  if (max > maxTimeout) {
+    min = maxTimeout >> 1; // divide by two
+    max = maxTimeout;
+  }
+  var ratio = Math.random();
+  var range = max - min;
+
+  return ~~(range * ratio + min); // ~~ coerces to an int, but fast.
+}
+
+function defaultBackOff(min) {
+  var max = 0;
+  if (!min) {
+    max = 2000;
+  }
+  return randomNumber(min, max);
+}
+
+// designed to give info to browser users, who are disturbed
+// when they see http errors in the console
+function explainError(status, str) {
+  guardedConsole('info', 'The above ' + status + ' is totally normal. ' + str);
+}
+
+var assign;
+{
+  if (typeof Object.assign === 'function') {
+    assign = Object.assign;
+  } else {
+    // lite Object.assign polyfill based on
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+    assign = function (target) {
+      var to = Object(target);
+
+      for (var index = 1; index < arguments.length; index++) {
+        var nextSource = arguments[index];
+
+        if (nextSource != null) { // Skip over if undefined or null
+          for (var nextKey in nextSource) {
+            // Avoid bugs when hasOwnProperty is shadowed
+            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
+              to[nextKey] = nextSource[nextKey];
+            }
+          }
+        }
+      }
+      return to;
+    };
+  }
+}
+
+var assign$1 = assign;
+
+function tryFilter(filter, doc, req) {
+  try {
+    return !filter(doc, req);
+  } catch (err) {
+    var msg = 'Filter function threw: ' + err.toString();
+    return Object(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["e" /* createError */])(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["a" /* BAD_REQUEST */], msg);
+  }
+}
+
+function filterChange(opts) {
+  var req = {};
+  var hasFilter = opts.filter && typeof opts.filter === 'function';
+  req.query = opts.query_params;
+
+  return function filter(change) {
+    if (!change.doc) {
+      // CSG sends events on the changes feed that don't have documents,
+      // this hack makes a whole lot of existing code robust.
+      change.doc = {};
+    }
+
+    var filterReturn = hasFilter && tryFilter(opts.filter, change.doc, req);
+
+    if (typeof filterReturn === 'object') {
+      return filterReturn;
+    }
+
+    if (filterReturn) {
+      return false;
+    }
+
+    if (!opts.include_docs) {
+      delete change.doc;
+    } else if (!opts.attachments) {
+      for (var att in change.doc._attachments) {
+        /* istanbul ignore else */
+        if (change.doc._attachments.hasOwnProperty(att)) {
+          change.doc._attachments[att].stub = true;
+        }
+      }
+    }
+    return true;
+  };
+}
+
+function flatten(arrs) {
+  var res = [];
+  for (var i = 0, len = arrs.length; i < len; i++) {
+    res = res.concat(arrs[i]);
+  }
+  return res;
+}
+
+// shim for Function.prototype.name,
+// for browsers that don't support it like IE
+
+/* istanbul ignore next */
+function f() {}
+
+var hasName = f.name;
+var res;
+
+// We dont run coverage in IE
+/* istanbul ignore else */
+if (hasName) {
+  res = function (fun) {
+    return fun.name;
+  };
+} else {
+  res = function (fun) {
+    return fun.toString().match(/^\s*function\s*(\S*)\s*\(/)[1];
+  };
+}
+
+var res$1 = res;
+
+// Determine id an ID is valid
+//   - invalid IDs begin with an underescore that does not begin '_design' or
+//     '_local'
+//   - any other string value is a valid id
+// Returns the specific error object for each case
+function invalidIdError(id) {
+  var err;
+  if (!id) {
+    err = Object(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["e" /* createError */])(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["c" /* MISSING_ID */]);
+  } else if (typeof id !== 'string') {
+    err = Object(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["e" /* createError */])(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["b" /* INVALID_ID */]);
+  } else if (/^_/.test(id) && !(/^_(design|local)/).test(id)) {
+    err = Object(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["e" /* createError */])(__WEBPACK_IMPORTED_MODULE_7_pouchdb_errors__["d" /* RESERVED_ID */]);
+  }
+  if (err) {
+    throw err;
+  }
+}
+
+function isCordova() {
+  return (typeof cordova !== "undefined" ||
+  typeof PhoneGap !== "undefined" ||
+  typeof phonegap !== "undefined");
+}
+
+// Checks if a PouchDB object is "remote" or not. This is
+// designed to opt-in to certain optimizations, such as
+// avoiding checks for "dependentDbs" and other things that
+// we know only apply to local databases. In general, "remote"
+// should be true for the http adapter, and for third-party
+// adapters with similar expensive boundaries to cross for
+// every API call, such as socket-pouch and worker-pouch.
+// Previously, this was handled via db.type() === 'http'
+// which is now deprecated.
+
+function isRemote(db) {
+  if (typeof db._remote === 'boolean') {
+    return db._remote;
+  }
+  /* istanbul ignore next */
+  if (typeof db.type === 'function') {
+    guardedConsole('warn',
+      'db.type() is deprecated and will be removed in ' +
+      'a future version of PouchDB');
+    return db.type() === 'http';
+  }
+  /* istanbul ignore next */
+  return false;
+}
+
+function listenerCount(ee, type) {
+  return 'listenerCount' in ee ? ee.listenerCount(type) :
+                                 __WEBPACK_IMPORTED_MODULE_4_events__["EventEmitter"].listenerCount(ee, type);
+}
+
+function parseDesignDocFunctionName(s) {
+  if (!s) {
+    return null;
+  }
+  var parts = s.split('/');
+  if (parts.length === 2) {
+    return parts;
+  }
+  if (parts.length === 1) {
+    return [s, s];
+  }
+  return null;
+}
+
+function normalizeDesignDocFunctionName(s) {
+  var normalized = parseDesignDocFunctionName(s);
+  return normalized ? normalized.join('/') : null;
+}
+
+// originally parseUri 1.2.2, now patched by us
+// (c) Steven Levithan <stevenlevithan.com>
+// MIT License
+var keys = ["source", "protocol", "authority", "userInfo", "user", "password",
+    "host", "port", "relative", "path", "directory", "file", "query", "anchor"];
+var qName ="queryKey";
+var qParser = /(?:^|&)([^&=]*)=?([^&]*)/g;
+
+// use the "loose" parser
+/* eslint maxlen: 0, no-useless-escape: 0 */
+var parser = /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/;
+
+function parseUri(str) {
+  var m = parser.exec(str);
+  var uri = {};
+  var i = 14;
+
+  while (i--) {
+    var key = keys[i];
+    var value = m[i] || "";
+    var encoded = ['user', 'password'].indexOf(key) !== -1;
+    uri[key] = encoded ? decodeURIComponent(value) : value;
+  }
+
+  uri[qName] = {};
+  uri[keys[12]].replace(qParser, function ($0, $1, $2) {
+    if ($1) {
+      uri[qName][$1] = $2;
+    }
+  });
+
+  return uri;
+}
+
+// Based on https://github.com/alexdavid/scope-eval v0.0.3
+// (source: https://unpkg.com/scope-eval@0.0.3/scope_eval.js)
+// This is basically just a wrapper around new Function()
+
+function scopeEval(source, scope) {
+  var keys = [];
+  var values = [];
+  for (var key in scope) {
+    if (scope.hasOwnProperty(key)) {
+      keys.push(key);
+      values.push(scope[key]);
+    }
+  }
+  keys.push(source);
+  return Function.apply(null, keys).apply(null, values);
+}
+
+// this is essentially the "update sugar" function from daleharvey/pouchdb#1388
+// the diffFun tells us what delta to apply to the doc.  it either returns
+// the doc, or false if it doesn't need to do an update after all
+function upsert(db, docId, diffFun) {
+  return new __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */](function (fulfill, reject) {
+    db.get(docId, function (err, doc) {
+      if (err) {
+        /* istanbul ignore next */
+        if (err.status !== 404) {
+          return reject(err);
+        }
+        doc = {};
+      }
+
+      // the user might change the _rev, so save it for posterity
+      var docRev = doc._rev;
+      var newDoc = diffFun(doc);
+
+      if (!newDoc) {
+        // if the diffFun returns falsy, we short-circuit as
+        // an optimization
+        return fulfill({updated: false, rev: docRev});
+      }
+
+      // users aren't allowed to modify these values,
+      // so reset them here
+      newDoc._id = docId;
+      newDoc._rev = docRev;
+      fulfill(tryAndPut(db, newDoc, diffFun));
+    });
+  });
+}
+
+function tryAndPut(db, doc, diffFun) {
+  return db.put(doc).then(function (res) {
+    return {
+      updated: true,
+      rev: res.rev
+    };
+  }, function (err) {
+    /* istanbul ignore next */
+    if (err.status !== 409) {
+      throw err;
+    }
+    return upsert(db, doc._id, diffFun);
+  });
+}
+
+function rev() {
+  return __WEBPACK_IMPORTED_MODULE_0_uuid___default.a.v4().replace(/-/g, '').toLowerCase();
+}
+
+var uuid = __WEBPACK_IMPORTED_MODULE_0_uuid___default.a.v4;
+
+
+
+
+/***/ }),
+/* 693 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lie__ = __webpack_require__(685);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lie___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lie__);
+
+
+/* istanbul ignore next */
+var PouchPromise = typeof Promise === 'function' ? Promise : __WEBPACK_IMPORTED_MODULE_0_lie___default.a;
+
+/* harmony default export */ __webpack_exports__["a"] = (PouchPromise);
+
+
+/***/ }),
+/* 694 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ExportedSet; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ExportedMap; });
+function mangle(key) {
+  return '$' + key;
+}
+function unmangle(key) {
+  return key.substring(1);
+}
+function Map$1() {
+  this._store = {};
+}
+Map$1.prototype.get = function (key) {
+  var mangled = mangle(key);
+  return this._store[mangled];
+};
+Map$1.prototype.set = function (key, value) {
+  var mangled = mangle(key);
+  this._store[mangled] = value;
+  return true;
+};
+Map$1.prototype.has = function (key) {
+  var mangled = mangle(key);
+  return mangled in this._store;
+};
+Map$1.prototype.delete = function (key) {
+  var mangled = mangle(key);
+  var res = mangled in this._store;
+  delete this._store[mangled];
+  return res;
+};
+Map$1.prototype.forEach = function (cb) {
+  var keys = Object.keys(this._store);
+  for (var i = 0, len = keys.length; i < len; i++) {
+    var key = keys[i];
+    var value = this._store[key];
+    key = unmangle(key);
+    cb(value, key);
+  }
+};
+Object.defineProperty(Map$1.prototype, 'size', {
+  get: function () {
+    return Object.keys(this._store).length;
+  }
+});
+
+function Set$1(array) {
+  this._store = new Map$1();
+
+  // init with an array
+  if (array && Array.isArray(array)) {
+    for (var i = 0, len = array.length; i < len; i++) {
+      this.add(array[i]);
+    }
+  }
+}
+Set$1.prototype.add = function (key) {
+  return this._store.set(key, true);
+};
+Set$1.prototype.has = function (key) {
+  return this._store.has(key);
+};
+Set$1.prototype.forEach = function (cb) {
+  this._store.forEach(function (value, key) {
+    cb(key);
+  });
+};
+Object.defineProperty(Set$1.prototype, 'size', {
+  get: function () {
+    return this._store.size;
+  }
+});
+
+/* global Map,Set,Symbol */
+// Based on https://kangax.github.io/compat-table/es6/ we can sniff out
+// incomplete Map/Set implementations which would otherwise cause our tests to fail.
+// Notably they fail in IE11 and iOS 8.4, which this prevents.
+function supportsMapAndSet() {
+  if (typeof Symbol === 'undefined' || typeof Map === 'undefined' || typeof Set === 'undefined') {
+    return false;
+  }
+  var prop = Object.getOwnPropertyDescriptor(Map, Symbol.species);
+  return prop && 'get' in prop && Map[Symbol.species] === Map;
+}
+
+// based on https://github.com/montagejs/collections
+/* global Map,Set */
+
+var ExportedSet;
+var ExportedMap;
+
+{
+  if (supportsMapAndSet()) { // prefer built-in Map/Set
+    ExportedSet = Set;
+    ExportedMap = Map;
+  } else { // fall back to our polyfill
+    ExportedSet = Set$1;
+    ExportedMap = Map$1;
+  }
+}
+
+
+
+
+/***/ }),
+/* 695 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return collate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return normalizeKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return toIndexableString; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return parseIndexableString; });
+function pad(str, padWith, upToLength) {
+  var padding = '';
+  var targetLength = upToLength - str.length;
+  /* istanbul ignore next */
+  while (padding.length < targetLength) {
+    padding += padWith;
+  }
+  return padding;
+}
+
+function padLeft(str, padWith, upToLength) {
+  var padding = pad(str, padWith, upToLength);
+  return padding + str;
+}
+
+var MIN_MAGNITUDE = -324; // verified by -Number.MIN_VALUE
+var MAGNITUDE_DIGITS = 3; // ditto
+var SEP = ''; // set to '_' for easier debugging 
+
+function collate(a, b) {
+
+  if (a === b) {
+    return 0;
+  }
+
+  a = normalizeKey(a);
+  b = normalizeKey(b);
+
+  var ai = collationIndex(a);
+  var bi = collationIndex(b);
+  if ((ai - bi) !== 0) {
+    return ai - bi;
+  }
+  switch (typeof a) {
+    case 'number':
+      return a - b;
+    case 'boolean':
+      return a < b ? -1 : 1;
+    case 'string':
+      return stringCollate(a, b);
+  }
+  return Array.isArray(a) ? arrayCollate(a, b) : objectCollate(a, b);
+}
+
+// couch considers null/NaN/Infinity/-Infinity === undefined,
+// for the purposes of mapreduce indexes. also, dates get stringified.
+function normalizeKey(key) {
+  switch (typeof key) {
+    case 'undefined':
+      return null;
+    case 'number':
+      if (key === Infinity || key === -Infinity || isNaN(key)) {
+        return null;
+      }
+      return key;
+    case 'object':
+      var origKey = key;
+      if (Array.isArray(key)) {
+        var len = key.length;
+        key = new Array(len);
+        for (var i = 0; i < len; i++) {
+          key[i] = normalizeKey(origKey[i]);
+        }
+      /* istanbul ignore next */
+      } else if (key instanceof Date) {
+        return key.toJSON();
+      } else if (key !== null) { // generic object
+        key = {};
+        for (var k in origKey) {
+          if (origKey.hasOwnProperty(k)) {
+            var val = origKey[k];
+            if (typeof val !== 'undefined') {
+              key[k] = normalizeKey(val);
+            }
+          }
+        }
+      }
+  }
+  return key;
+}
+
+function indexify(key) {
+  if (key !== null) {
+    switch (typeof key) {
+      case 'boolean':
+        return key ? 1 : 0;
+      case 'number':
+        return numToIndexableString(key);
+      case 'string':
+        // We've to be sure that key does not contain \u0000
+        // Do order-preserving replacements:
+        // 0 -> 1, 1
+        // 1 -> 1, 2
+        // 2 -> 2, 2
+        return key
+          .replace(/\u0002/g, '\u0002\u0002')
+          .replace(/\u0001/g, '\u0001\u0002')
+          .replace(/\u0000/g, '\u0001\u0001');
+      case 'object':
+        var isArray = Array.isArray(key);
+        var arr = isArray ? key : Object.keys(key);
+        var i = -1;
+        var len = arr.length;
+        var result = '';
+        if (isArray) {
+          while (++i < len) {
+            result += toIndexableString(arr[i]);
+          }
+        } else {
+          while (++i < len) {
+            var objKey = arr[i];
+            result += toIndexableString(objKey) +
+                toIndexableString(key[objKey]);
+          }
+        }
+        return result;
+    }
+  }
+  return '';
+}
+
+// convert the given key to a string that would be appropriate
+// for lexical sorting, e.g. within a database, where the
+// sorting is the same given by the collate() function.
+function toIndexableString(key) {
+  var zero = '\u0000';
+  key = normalizeKey(key);
+  return collationIndex(key) + SEP + indexify(key) + zero;
+}
+
+function parseNumber(str, i) {
+  var originalIdx = i;
+  var num;
+  var zero = str[i] === '1';
+  if (zero) {
+    num = 0;
+    i++;
+  } else {
+    var neg = str[i] === '0';
+    i++;
+    var numAsString = '';
+    var magAsString = str.substring(i, i + MAGNITUDE_DIGITS);
+    var magnitude = parseInt(magAsString, 10) + MIN_MAGNITUDE;
+    /* istanbul ignore next */
+    if (neg) {
+      magnitude = -magnitude;
+    }
+    i += MAGNITUDE_DIGITS;
+    while (true) {
+      var ch = str[i];
+      if (ch === '\u0000') {
+        break;
+      } else {
+        numAsString += ch;
+      }
+      i++;
+    }
+    numAsString = numAsString.split('.');
+    if (numAsString.length === 1) {
+      num = parseInt(numAsString, 10);
+    } else {
+      /* istanbul ignore next */
+      num = parseFloat(numAsString[0] + '.' + numAsString[1]);
+    }
+    /* istanbul ignore next */
+    if (neg) {
+      num = num - 10;
+    }
+    /* istanbul ignore next */
+    if (magnitude !== 0) {
+      // parseFloat is more reliable than pow due to rounding errors
+      // e.g. Number.MAX_VALUE would return Infinity if we did
+      // num * Math.pow(10, magnitude);
+      num = parseFloat(num + 'e' + magnitude);
+    }
+  }
+  return {num: num, length : i - originalIdx};
+}
+
+// move up the stack while parsing
+// this function moved outside of parseIndexableString for performance
+function pop(stack, metaStack) {
+  var obj = stack.pop();
+
+  if (metaStack.length) {
+    var lastMetaElement = metaStack[metaStack.length - 1];
+    if (obj === lastMetaElement.element) {
+      // popping a meta-element, e.g. an object whose value is another object
+      metaStack.pop();
+      lastMetaElement = metaStack[metaStack.length - 1];
+    }
+    var element = lastMetaElement.element;
+    var lastElementIndex = lastMetaElement.index;
+    if (Array.isArray(element)) {
+      element.push(obj);
+    } else if (lastElementIndex === stack.length - 2) { // obj with key+value
+      var key = stack.pop();
+      element[key] = obj;
+    } else {
+      stack.push(obj); // obj with key only
+    }
+  }
+}
+
+function parseIndexableString(str) {
+  var stack = [];
+  var metaStack = []; // stack for arrays and objects
+  var i = 0;
+
+  /*eslint no-constant-condition: ["error", { "checkLoops": false }]*/
+  while (true) {
+    var collationIndex = str[i++];
+    if (collationIndex === '\u0000') {
+      if (stack.length === 1) {
+        return stack.pop();
+      } else {
+        pop(stack, metaStack);
+        continue;
+      }
+    }
+    switch (collationIndex) {
+      case '1':
+        stack.push(null);
+        break;
+      case '2':
+        stack.push(str[i] === '1');
+        i++;
+        break;
+      case '3':
+        var parsedNum = parseNumber(str, i);
+        stack.push(parsedNum.num);
+        i += parsedNum.length;
+        break;
+      case '4':
+        var parsedStr = '';
+        /*eslint no-constant-condition: ["error", { "checkLoops": false }]*/
+        while (true) {
+          var ch = str[i];
+          if (ch === '\u0000') {
+            break;
+          }
+          parsedStr += ch;
+          i++;
+        }
+        // perform the reverse of the order-preserving replacement
+        // algorithm (see above)
+        parsedStr = parsedStr.replace(/\u0001\u0001/g, '\u0000')
+          .replace(/\u0001\u0002/g, '\u0001')
+          .replace(/\u0002\u0002/g, '\u0002');
+        stack.push(parsedStr);
+        break;
+      case '5':
+        var arrayElement = { element: [], index: stack.length };
+        stack.push(arrayElement.element);
+        metaStack.push(arrayElement);
+        break;
+      case '6':
+        var objElement = { element: {}, index: stack.length };
+        stack.push(objElement.element);
+        metaStack.push(objElement);
+        break;
+      /* istanbul ignore next */
+      default:
+        throw new Error(
+          'bad collationIndex or unexpectedly reached end of input: ' +
+            collationIndex);
+    }
+  }
+}
+
+function arrayCollate(a, b) {
+  var len = Math.min(a.length, b.length);
+  for (var i = 0; i < len; i++) {
+    var sort = collate(a[i], b[i]);
+    if (sort !== 0) {
+      return sort;
+    }
+  }
+  return (a.length === b.length) ? 0 :
+    (a.length > b.length) ? 1 : -1;
+}
+function stringCollate(a, b) {
+  // See: https://github.com/daleharvey/pouchdb/issues/40
+  // This is incompatible with the CouchDB implementation, but its the
+  // best we can do for now
+  return (a === b) ? 0 : ((a > b) ? 1 : -1);
+}
+function objectCollate(a, b) {
+  var ak = Object.keys(a), bk = Object.keys(b);
+  var len = Math.min(ak.length, bk.length);
+  for (var i = 0; i < len; i++) {
+    // First sort the keys
+    var sort = collate(ak[i], bk[i]);
+    if (sort !== 0) {
+      return sort;
+    }
+    // if the keys are equal sort the values
+    sort = collate(a[ak[i]], b[bk[i]]);
+    if (sort !== 0) {
+      return sort;
+    }
+
+  }
+  return (ak.length === bk.length) ? 0 :
+    (ak.length > bk.length) ? 1 : -1;
+}
+// The collation is defined by erlangs ordered terms
+// the atoms null, true, false come first, then numbers, strings,
+// arrays, then objects
+// null/undefined/NaN/Infinity/-Infinity are all considered null
+function collationIndex(x) {
+  var id = ['boolean', 'number', 'string', 'object'];
+  var idx = id.indexOf(typeof x);
+  //false if -1 otherwise true, but fast!!!!1
+  if (~idx) {
+    if (x === null) {
+      return 1;
+    }
+    if (Array.isArray(x)) {
+      return 5;
+    }
+    return idx < 3 ? (idx + 2) : (idx + 3);
+  }
+  /* istanbul ignore next */
+  if (Array.isArray(x)) {
+    return 5;
+  }
+}
+
+// conversion:
+// x yyy zz...zz
+// x = 0 for negative, 1 for 0, 2 for positive
+// y = exponent (for negative numbers negated) moved so that it's >= 0
+// z = mantisse
+function numToIndexableString(num) {
+
+  if (num === 0) {
+    return '1';
+  }
+
+  // convert number to exponential format for easier and
+  // more succinct string sorting
+  var expFormat = num.toExponential().split(/e\+?/);
+  var magnitude = parseInt(expFormat[1], 10);
+
+  var neg = num < 0;
+
+  var result = neg ? '0' : '2';
+
+  // first sort by magnitude
+  // it's easier if all magnitudes are positive
+  var magForComparison = ((neg ? -magnitude : magnitude) - MIN_MAGNITUDE);
+  var magString = padLeft((magForComparison).toString(), '0', MAGNITUDE_DIGITS);
+
+  result += SEP + magString;
+
+  // then sort by the factor
+  var factor = Math.abs(parseFloat(expFormat[0])); // [1..10)
+  /* istanbul ignore next */
+  if (neg) { // for negative reverse ordering
+    factor = 10 - factor;
+  }
+
+  var factorStr = factor.toFixed(20);
+
+  // strip zeros from the end
+  factorStr = factorStr.replace(/\.?0+$/, '');
+
+  result += SEP + factorStr;
+
+  return result;
+}
+
+
+
+
+/***/ }),
+/* 696 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export atob */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return thisBtoa; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return b64ToBluffer; });
+/* unused harmony export binaryStringToArrayBuffer */
+/* unused harmony export binaryStringToBlobOrBuffer */
+/* unused harmony export blob */
+/* unused harmony export blobOrBufferToBase64 */
+/* unused harmony export blobOrBufferToBinaryString */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return readAsArrayBuffer; });
+/* unused harmony export readAsBinaryString */
+/* unused harmony export typedBuffer */
+var thisAtob = function (str) {
+  return atob(str);
+};
+
+var thisBtoa = function (str) {
+  return btoa(str);
+};
+
+// Abstracts constructing a Blob object, so it also works in older
+// browsers that don't support the native Blob constructor (e.g.
+// old QtWebKit versions, Android < 4.4).
+function createBlob(parts, properties) {
+  /* global BlobBuilder,MSBlobBuilder,MozBlobBuilder,WebKitBlobBuilder */
+  parts = parts || [];
+  properties = properties || {};
+  try {
+    return new Blob(parts, properties);
+  } catch (e) {
+    if (e.name !== "TypeError") {
+      throw e;
+    }
+    var Builder = typeof BlobBuilder !== 'undefined' ? BlobBuilder :
+                  typeof MSBlobBuilder !== 'undefined' ? MSBlobBuilder :
+                  typeof MozBlobBuilder !== 'undefined' ? MozBlobBuilder :
+                  WebKitBlobBuilder;
+    var builder = new Builder();
+    for (var i = 0; i < parts.length; i += 1) {
+      builder.append(parts[i]);
+    }
+    return builder.getBlob(properties.type);
+  }
+}
+
+// From http://stackoverflow.com/questions/14967647/ (continues on next line)
+// encode-decode-image-with-base64-breaks-image (2013-04-21)
+function binaryStringToArrayBuffer(bin) {
+  var length = bin.length;
+  var buf = new ArrayBuffer(length);
+  var arr = new Uint8Array(buf);
+  for (var i = 0; i < length; i++) {
+    arr[i] = bin.charCodeAt(i);
+  }
+  return buf;
+}
+
+function binStringToBluffer(binString, type) {
+  return createBlob([binaryStringToArrayBuffer(binString)], {type: type});
+}
+
+function b64ToBluffer(b64, type) {
+  return binStringToBluffer(thisAtob(b64), type);
+}
+
+//Can't find original post, but this is close
+//http://stackoverflow.com/questions/6965107/ (continues on next line)
+//converting-between-strings-and-arraybuffers
+function arrayBufferToBinaryString(buffer) {
+  var binary = '';
+  var bytes = new Uint8Array(buffer);
+  var length = bytes.byteLength;
+  for (var i = 0; i < length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return binary;
+}
+
+// shim for browsers that don't support it
+function readAsBinaryString(blob, callback) {
+  if (typeof FileReader === 'undefined') {
+    // fix for Firefox in a web worker
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=901097
+    return callback(arrayBufferToBinaryString(
+      new FileReaderSync().readAsArrayBuffer(blob)));
+  }
+
+  var reader = new FileReader();
+  var hasBinaryString = typeof reader.readAsBinaryString === 'function';
+  reader.onloadend = function (e) {
+    var result = e.target.result || '';
+    if (hasBinaryString) {
+      return callback(result);
+    }
+    callback(arrayBufferToBinaryString(result));
+  };
+  if (hasBinaryString) {
+    reader.readAsBinaryString(blob);
+  } else {
+    reader.readAsArrayBuffer(blob);
+  }
+}
+
+function blobToBinaryString(blobOrBuffer, callback) {
+  readAsBinaryString(blobOrBuffer, function (bin) {
+    callback(bin);
+  });
+}
+
+function blobToBase64(blobOrBuffer, callback) {
+  blobToBinaryString(blobOrBuffer, function (base64) {
+    callback(thisBtoa(base64));
+  });
+}
+
+// simplified API. universal browser support is assumed
+function readAsArrayBuffer(blob, callback) {
+  if (typeof FileReader === 'undefined') {
+    // fix for Firefox in a web worker:
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=901097
+    return callback(new FileReaderSync().readAsArrayBuffer(blob));
+  }
+
+  var reader = new FileReader();
+  reader.onloadend = function (e) {
+    var result = e.target.result || new ArrayBuffer(0);
+    callback(result);
+  };
+  reader.readAsArrayBuffer(blob);
+}
+
+// this is not used in the browser
+function typedBuffer() {
+}
+
+
+
+
+/***/ }),
+/* 697 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/* unused harmony export binaryMd5 */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return stringMd5; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pouchdb_binary_utils__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_spark_md5__ = __webpack_require__(690);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_spark_md5___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_spark_md5__);
+
+
+
+var setImmediateShim = global.setImmediate || global.setTimeout;
+var MD5_CHUNK_SIZE = 32768;
+
+function rawToBase64(raw) {
+  return Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_binary_utils__["b" /* btoa */])(raw);
+}
+
+function sliceBlob(blob, start, end) {
+  if (blob.webkitSlice) {
+    return blob.webkitSlice(start, end);
+  }
+  return blob.slice(start, end);
+}
+
+function appendBlob(buffer, blob, start, end, callback) {
+  if (start > 0 || end < blob.size) {
+    // only slice blob if we really need to
+    blob = sliceBlob(blob, start, end);
+  }
+  Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_binary_utils__["c" /* readAsArrayBuffer */])(blob, function (arrayBuffer) {
+    buffer.append(arrayBuffer);
+    callback();
+  });
+}
+
+function appendString(buffer, string, start, end, callback) {
+  if (start > 0 || end < string.length) {
+    // only create a substring if we really need to
+    string = string.substring(start, end);
+  }
+  buffer.appendBinary(string);
+  callback();
+}
+
+function binaryMd5(data, callback) {
+  var inputIsString = typeof data === 'string';
+  var len = inputIsString ? data.length : data.size;
+  var chunkSize = Math.min(MD5_CHUNK_SIZE, len);
+  var chunks = Math.ceil(len / chunkSize);
+  var currentChunk = 0;
+  var buffer = inputIsString ? new __WEBPACK_IMPORTED_MODULE_1_spark_md5___default.a() : new __WEBPACK_IMPORTED_MODULE_1_spark_md5___default.a.ArrayBuffer();
+
+  var append = inputIsString ? appendString : appendBlob;
+
+  function next() {
+    setImmediateShim(loadNextChunk);
+  }
+
+  function done() {
+    var raw = buffer.end(true);
+    var base64 = rawToBase64(raw);
+    callback(base64);
+    buffer.destroy();
+  }
+
+  function loadNextChunk() {
+    var start = currentChunk * chunkSize;
+    var end = start + chunkSize;
+    currentChunk++;
+    if (currentChunk < chunks) {
+      append(buffer, data, start, end, next);
+    } else {
+      append(buffer, data, start, end, done);
+    }
+  }
+  loadNextChunk();
+}
+
+function stringMd5(string) {
+  return __WEBPACK_IMPORTED_MODULE_1_spark_md5___default.a.hash(string);
+}
+
+
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(11)))
+
+/***/ }),
+/* 698 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__ = __webpack_require__(700);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_pouchdb_abstract_mapreduce__ = __webpack_require__(701);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__ = __webpack_require__(695);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_pouchdb_md5__ = __webpack_require__(697);
+
+
+
+
+
+
+
+// we restucture the supplied JSON considerably, because the official
+// Mango API is very particular about a lot of this stuff, but we like
+// to be liberal with what we accept in order to prevent mental
+// breakdowns in our users
+function massageCreateIndexRequest(requestDef) {
+  requestDef = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["b" /* clone */])(requestDef);
+
+  if (!requestDef.index) {
+    requestDef.index = {};
+  }
+
+  ['type', 'name', 'ddoc'].forEach(function (key) {
+    if (requestDef.index[key]) {
+      requestDef[key] = requestDef.index[key];
+      delete requestDef.index[key];
+    }
+  });
+
+  if (requestDef.fields) {
+    requestDef.index.fields = requestDef.fields;
+    delete requestDef.fields;
+  }
+
+  if (!requestDef.type) {
+    requestDef.type = 'json';
+  }
+  return requestDef;
+}
+
+function createIndex(db, requestDef, callback) {
+  requestDef = massageCreateIndexRequest(requestDef);
+
+  db.request({
+    method: 'POST',
+    url: '_index',
+    body: requestDef
+  }, callback);
+}
+
+function find(db, requestDef, callback) {
+  db.request({
+    method: 'POST',
+    url: '_find',
+    body: requestDef
+  }, callback);
+}
+
+function explain(db, requestDef, callback) {
+  db.request({
+    method: 'POST',
+    url: '_explain',
+    body: requestDef
+  }, callback);
+}
+
+function getIndexes(db, callback) {
+  db.request({
+    method: 'GET',
+    url: '_index'
+  }, callback);
+}
+
+function deleteIndex(db, indexDef, callback) {
+
+
+  var ddoc = indexDef.ddoc;
+  var type = indexDef.type || 'json';
+  var name = indexDef.name;
+
+  if (!ddoc) {
+    return callback(new Error('you must provide an index\'s ddoc'));
+  }
+
+  if (!name) {
+    return callback(new Error('you must provide an index\'s name'));
+  }
+
+  var url = '_index/' + [ddoc, type, name].map(encodeURIComponent).join('/');
+
+  db.request({
+    method: 'DELETE',
+    url: url
+  }, callback);
+}
+
+function getArguments(fun) {
+  return function () {
+    var len = arguments.length;
+    var args = new Array(len);
+    var i = -1;
+    while (++i < len) {
+      args[i] = arguments[i];
+    }
+    return fun.call(this, args);
+  };
+}
+function callbackify(fun) {
+  return getArguments(function (args) {
+    var cb = args.pop();
+    var promise = fun.apply(this, args);
+    promisedCallback(promise, cb);
+    return promise;
+  });
+}
+
+function promisedCallback(promise, callback) {
+  promise.then(function (res) {
+    process.nextTick(function () {
+      callback(null, res);
+    });
+  }, function (reason) {
+    process.nextTick(function () {
+      callback(reason);
+    });
+  });
+  return promise;
+}
+
+var flatten = getArguments(function (args) {
+  var res = [];
+  for (var i = 0, len = args.length; i < len; i++) {
+    var subArr = args[i];
+    if (Array.isArray(subArr)) {
+      res = res.concat(flatten.apply(null, subArr));
+    } else {
+      res.push(subArr);
+    }
+  }
+  return res;
+});
+
+function mergeObjects(arr) {
+  var res = {};
+  for (var i = 0, len = arr.length; i < len; i++) {
+    res = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["a" /* assign */])(res, arr[i]);
+  }
+  return res;
+}
+
+// Selects a list of fields defined in dot notation from one doc
+// and copies them to a new doc. Like underscore _.pick but supports nesting.
+function pick(obj, arr) {
+  var res = {};
+  for (var i = 0, len = arr.length; i < len; i++) {
+    var parsedField = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["g" /* parseField */])(arr[i]);
+    var value = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["c" /* getFieldFromDoc */])(obj, parsedField);
+    if (typeof value !== 'undefined') {
+      Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["h" /* setFieldInDoc */])(res, parsedField, value);
+    }
+  }
+  return res;
+}
+
+// e.g. ['a'], ['a', 'b'] is true, but ['b'], ['a', 'b'] is false
+function oneArrayIsSubArrayOfOther(left, right) {
+
+  for (var i = 0, len = Math.min(left.length, right.length); i < len; i++) {
+    if (left[i] !== right[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// e.g.['a', 'b', 'c'], ['a', 'b'] is false
+function oneArrayIsStrictSubArrayOfOther(left, right) {
+
+  if (left.length > right.length) {
+    return false;
+  }
+
+  return oneArrayIsSubArrayOfOther(left, right);
+}
+
+// same as above, but treat the left array as an unordered set
+// e.g. ['b', 'a'], ['a', 'b', 'c'] is true, but ['c'], ['a', 'b', 'c'] is false
+function oneSetIsSubArrayOfOther(left, right) {
+  left = left.slice();
+  for (var i = 0, len = right.length; i < len; i++) {
+    var field = right[i];
+    if (!left.length) {
+      break;
+    }
+    var leftIdx = left.indexOf(field);
+    if (leftIdx === -1) {
+      return false;
+    } else {
+      left.splice(leftIdx, 1);
+    }
+  }
+  return true;
+}
+
+function arrayToObject(arr) {
+  var res = {};
+  for (var i = 0, len = arr.length; i < len; i++) {
+    res[arr[i]] = true;
+  }
+  return res;
+}
+
+function max(arr, fun) {
+  var max = null;
+  var maxScore = -1;
+  for (var i = 0, len = arr.length; i < len; i++) {
+    var element = arr[i];
+    var score = fun(element);
+    if (score > maxScore) {
+      maxScore = score;
+      max = element;
+    }
+  }
+  return max;
+}
+
+function arrayEquals(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+  for (var i = 0, len = arr1.length; i < len; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function uniq(arr) {
+  var obj = {};
+  for (var i = 0; i < arr.length; i++) {
+    obj['$' + arr[i]] = true;
+  }
+  return Object.keys(obj).map(function (key) {
+    return key.substring(1);
+  });
+}
+
+//
+// One thing about these mappers:
+//
+// Per the advice of John-David Dalton (http://youtu.be/NthmeLEhDDM),
+// what you want to do in this case is optimize for the smallest possible
+// function, since that's the thing that gets run over and over again.
+//
+// This code would be a lot simpler if all the if/elses were inside
+// the function, but it would also be a lot less performant.
+//
+
+
+function createDeepMultiMapper(fields, emit) {
+  return function (doc) {
+    var toEmit = [];
+    for (var i = 0, iLen = fields.length; i < iLen; i++) {
+      var parsedField = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["g" /* parseField */])(fields[i]);
+      var value = doc;
+      for (var j = 0, jLen = parsedField.length; j < jLen; j++) {
+        var key = parsedField[j];
+        value = value[key];
+        if (!value) {
+          return; // don't emit
+        }
+      }
+      toEmit.push(value);
+    }
+    emit(toEmit);
+  };
+}
+
+function createDeepSingleMapper(field, emit) {
+  var parsedField = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["g" /* parseField */])(field);
+  return function (doc) {
+    var value = doc;
+    for (var i = 0, len = parsedField.length; i < len; i++) {
+      var key = parsedField[i];
+      value = value[key];
+      if (!value) {
+        return; // do nothing
+      }
+    }
+    emit(value);
+  };
+}
+
+function createShallowSingleMapper(field, emit) {
+  return function (doc) {
+    emit(doc[field]);
+  };
+}
+
+function createShallowMultiMapper(fields, emit) {
+  return function (doc) {
+    var toEmit = [];
+    for (var i = 0, len = fields.length; i < len; i++) {
+      toEmit.push(doc[fields[i]]);
+    }
+    emit(toEmit);
+  };
+}
+
+function checkShallow(fields) {
+  for (var i = 0, len = fields.length; i < len; i++) {
+    var field = fields[i];
+    if (field.indexOf('.') !== -1) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function createMapper(fields, emit) {
+  var isShallow = checkShallow(fields);
+  var isSingle = fields.length === 1;
+
+  // notice we try to optimize for the most common case,
+  // i.e. single shallow indexes
+  if (isShallow) {
+    if (isSingle) {
+      return createShallowSingleMapper(fields[0], emit);
+    } else { // multi
+      return createShallowMultiMapper(fields, emit);
+    }
+  } else { // deep
+    if (isSingle) {
+      return createDeepSingleMapper(fields[0], emit);
+    } else { // multi
+      return createDeepMultiMapper(fields, emit);
+    }
+  }
+}
+
+function mapper(mapFunDef, emit) {
+  // mapFunDef is a list of fields
+
+  var fields = Object.keys(mapFunDef.fields);
+
+  return createMapper(fields, emit);
+}
+
+/* istanbul ignore next */
+function reducer(/*reduceFunDef*/) {
+  throw new Error('reduce not supported');
+}
+
+function ddocValidator(ddoc, viewName) {
+  var view = ddoc.views[viewName];
+  // This doesn't actually need to be here apparently, but
+  // I feel safer keeping it.
+  /* istanbul ignore if */
+  if (!view.map || !view.map.fields) {
+    throw new Error('ddoc ' + ddoc._id +' with view ' + viewName +
+      ' doesn\'t have map.fields defined. ' +
+      'maybe it wasn\'t created by this plugin?');
+  }
+}
+
+var abstractMapper = Object(__WEBPACK_IMPORTED_MODULE_3_pouchdb_abstract_mapreduce__["a" /* default */])(
+  /* localDocName */ 'indexes',
+  mapper,
+  reducer,
+  ddocValidator
+);
+
+// normalize the "sort" value
+function massageSort(sort) {
+  if (!Array.isArray(sort)) {
+    throw new Error('invalid sort json - should be an array');
+  }
+  return sort.map(function (sorting) {
+    if (typeof sorting === 'string') {
+      var obj = {};
+      obj[sorting] = 'asc';
+      return obj;
+    } else {
+      return sorting;
+    }
+  });
+}
+
+function massageUseIndex(useIndex) {
+  var cleanedUseIndex = [];
+  if (typeof useIndex === 'string') {
+    cleanedUseIndex.push(useIndex);
+  } else {
+    cleanedUseIndex = useIndex;
+  }
+
+  return cleanedUseIndex.map(function (name) {
+    return name.replace('_design/', '');
+  });
+}
+
+function massageIndexDef(indexDef) {
+  indexDef.fields = indexDef.fields.map(function (field) {
+    if (typeof field === 'string') {
+      var obj = {};
+      obj[field] = 'asc';
+      return obj;
+    }
+    return field;
+  });
+  return indexDef;
+}
+
+function getKeyFromDoc(doc, index) {
+  var res = [];
+  for (var i = 0; i < index.def.fields.length; i++) {
+    var field = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */])(index.def.fields[i]);
+    res.push(doc[field]);
+  }
+  return res;
+}
+
+// have to do this manually because REASONS. I don't know why
+// CouchDB didn't implement inclusive_start
+function filterInclusiveStart(rows, targetValue, index) {
+  var indexFields = index.def.fields;
+  for (var i = 0, len = rows.length; i < len; i++) {
+    var row = rows[i];
+
+    // shave off any docs at the beginning that are <= the
+    // target value
+
+    var docKey = getKeyFromDoc(row.doc, index);
+    if (indexFields.length === 1) {
+      docKey = docKey[0]; // only one field, not multi-field
+    } else { // more than one field in index
+      // in the case where e.g. the user is searching {$gt: {a: 1}}
+      // but the index is [a, b], then we need to shorten the doc key
+      while (docKey.length > targetValue.length) {
+        docKey.pop();
+      }
+    }
+    //ABS as we just looking for values that don't match
+    if (Math.abs(Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(docKey, targetValue)) > 0) {
+      // no need to filter any further; we're past the key
+      break;
+    }
+  }
+  return i > 0 ? rows.slice(i) : rows;
+}
+
+function reverseOptions(opts) {
+  var newOpts = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["b" /* clone */])(opts);
+  delete newOpts.startkey;
+  delete newOpts.endkey;
+  delete newOpts.inclusive_start;
+  delete newOpts.inclusive_end;
+
+  if ('endkey' in opts) {
+    newOpts.startkey = opts.endkey;
+  }
+  if ('startkey' in opts) {
+    newOpts.endkey = opts.startkey;
+  }
+  if ('inclusive_start' in opts) {
+    newOpts.inclusive_end = opts.inclusive_start;
+  }
+  if ('inclusive_end' in opts) {
+    newOpts.inclusive_start = opts.inclusive_end;
+  }
+  return newOpts;
+}
+
+function validateIndex(index) {
+  var ascFields = index.fields.filter(function (field) {
+    return Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["e" /* getValue */])(field) === 'asc';
+  });
+  if (ascFields.length !== 0 && ascFields.length !== index.fields.length) {
+    throw new Error('unsupported mixed sorting');
+  }
+}
+
+function validateSort(requestDef, index) {
+  if (index.defaultUsed && requestDef.sort) {
+    var noneIdSorts = requestDef.sort.filter(function (sortItem) {
+      return Object.keys(sortItem)[0] !== '_id';
+    }).map(function (sortItem) {
+      return Object.keys(sortItem)[0];
+    });
+
+    if (noneIdSorts.length > 0) {
+      throw new Error('Cannot sort on field(s) "' + noneIdSorts.join(',') +
+      '" when using the default index');
+    }
+  }
+
+  if (index.defaultUsed) {
+    return;
+  }
+}
+
+function validateFindRequest(requestDef) {
+  if (typeof requestDef.selector !== 'object') {
+    throw new Error('you must provide a selector when you find()');
+  }
+
+  /*var selectors = requestDef.selector['$and'] || [requestDef.selector];
+  for (var i = 0; i < selectors.length; i++) {
+    var selector = selectors[i];
+    var keys = Object.keys(selector);
+    if (keys.length === 0) {
+      throw new Error('invalid empty selector');
+    }
+    //var selection = selector[keys[0]];
+    /*if (Object.keys(selection).length !== 1) {
+      throw new Error('invalid selector: ' + JSON.stringify(selection) +
+        ' - it must have exactly one key/value');
+    }
+  }*/
+}
+
+// determine the maximum number of fields
+// we're going to need to query, e.g. if the user
+// has selection ['a'] and sorting ['a', 'b'], then we
+// need to use the longer of the two: ['a', 'b']
+function getUserFields(selector, sort) {
+  var selectorFields = Object.keys(selector);
+  var sortFields = sort? sort.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */]) : [];
+  var userFields;
+  if (selectorFields.length >= sortFields.length) {
+    userFields = selectorFields;
+  } else {
+    userFields = sortFields;
+  }
+
+  if (sortFields.length === 0) {
+    return {
+      fields: userFields
+    };
+  }
+
+  // sort according to the user's preferred sorting
+  userFields = userFields.sort(function (left, right) {
+    var leftIdx = sortFields.indexOf(left);
+    if (leftIdx === -1) {
+      leftIdx = Number.MAX_VALUE;
+    }
+    var rightIdx = sortFields.indexOf(right);
+    if (rightIdx === -1) {
+      rightIdx = Number.MAX_VALUE;
+    }
+    return leftIdx < rightIdx ? -1 : leftIdx > rightIdx ? 1 : 0;
+  });
+
+  return {
+    fields: userFields,
+    sortOrder: sort.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */])
+  };
+}
+
+function createIndex$1(db, requestDef) {
+  requestDef = massageCreateIndexRequest(requestDef);
+  var originalIndexDef = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["b" /* clone */])(requestDef.index);
+  requestDef.index = massageIndexDef(requestDef.index);
+
+  validateIndex(requestDef.index);
+
+  // calculating md5 is expensive - memoize and only
+  // run if required
+  var md5;
+  function getMd5() {
+    return md5 || (md5 = Object(__WEBPACK_IMPORTED_MODULE_5_pouchdb_md5__["a" /* stringMd5 */])(JSON.stringify(requestDef)));
+  }
+
+  var viewName = requestDef.name || ('idx-' + getMd5());
+
+  var ddocName = requestDef.ddoc || ('idx-' + getMd5());
+  var ddocId = '_design/' + ddocName;
+
+  var hasInvalidLanguage = false;
+  var viewExists = false;
+
+  function updateDdoc(doc) {
+    if (doc._rev && doc.language !== 'query') {
+      hasInvalidLanguage = true;
+    }
+    doc.language = 'query';
+    doc.views = doc.views || {};
+
+    viewExists = !!doc.views[viewName];
+
+    if (viewExists) {
+      return false;
+    }
+
+    doc.views[viewName] = {
+      map: {
+        fields: mergeObjects(requestDef.index.fields)
+      },
+      reduce: '_count',
+      options: {
+        def: originalIndexDef
+      }
+    };
+
+    return doc;
+  }
+
+  db.constructor.emit('debug', ['find', 'creating index', ddocId]);
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["h" /* upsert */])(db, ddocId, updateDdoc).then(function () {
+    if (hasInvalidLanguage) {
+      throw new Error('invalid language for ddoc with id "' +
+      ddocId +
+      '" (should be "query")');
+    }
+  }).then(function () {
+    // kick off a build
+    // TODO: abstract-pouchdb-mapreduce should support auto-updating
+    // TODO: should also use update_after, but pouchdb/pouchdb#3415 blocks me
+    var signature = ddocName + '/' + viewName;
+    return abstractMapper.query.call(db, signature, {
+      limit: 0,
+      reduce: false
+    }).then(function () {
+      return {
+        id: ddocId,
+        name: viewName,
+        result: viewExists ? 'exists' : 'created'
+      };
+    });
+  });
+}
+
+function getIndexes$1(db) {
+  // just search through all the design docs and filter in-memory.
+  // hopefully there aren't that many ddocs.
+  return db.allDocs({
+    startkey: '_design/',
+    endkey: '_design/\uffff',
+    include_docs: true
+  }).then(function (allDocsRes) {
+    var res = {
+      indexes: [{
+        ddoc: null,
+        name: '_all_docs',
+        type: 'special',
+        def: {
+          fields: [{_id: 'asc'}]
+        }
+      }]
+    };
+
+    res.indexes = flatten(res.indexes, allDocsRes.rows.filter(function (row) {
+      return row.doc.language === 'query';
+    }).map(function (row) {
+      var viewNames = row.doc.views !== undefined ? Object.keys(row.doc.views) : [];
+
+      return viewNames.map(function (viewName) {
+        var view = row.doc.views[viewName];
+        return {
+          ddoc: row.id,
+          name: viewName,
+          type: 'json',
+          def: massageIndexDef(view.options.def)
+        };
+      });
+    }));
+
+    // these are sorted by view name for some reason
+    res.indexes.sort(function (left, right) {
+      return Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["a" /* compare */])(left.name, right.name);
+    });
+    res.total_rows = res.indexes.length;
+    return res;
+  });
+}
+
+// couchdb lowest collation value
+var COLLATE_LO = null;
+
+// couchdb highest collation value (TODO: well not really, but close enough amirite)
+var COLLATE_HI = {"\uffff": {}};
+
+// couchdb second-lowest collation value
+
+function checkFieldInIndex(index, field) {
+  var indexFields = index.def.fields.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */]);
+  for (var i = 0, len = indexFields.length; i < len; i++) {
+    var indexField = indexFields[i];
+    if (field === indexField) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// so when you do e.g. $eq/$eq, we can do it entirely in the database.
+// but when you do e.g. $gt/$eq, the first part can be done
+// in the database, but the second part has to be done in-memory,
+// because $gt has forced us to lose precision.
+// so that's what this determines
+function userOperatorLosesPrecision(selector, field) {
+  var matcher = selector[field];
+  var userOperator = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */])(matcher);
+
+  return userOperator !== '$eq';
+}
+
+// sort the user fields by their position in the index,
+// if they're in the index
+function sortFieldsByIndex(userFields, index) {
+  var indexFields = index.def.fields.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */]);
+
+  return userFields.slice().sort(function (a, b) {
+    var aIdx = indexFields.indexOf(a);
+    var bIdx = indexFields.indexOf(b);
+    if (aIdx === -1) {
+      aIdx = Number.MAX_VALUE;
+    }
+    if (bIdx === -1) {
+      bIdx = Number.MAX_VALUE;
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["a" /* compare */])(aIdx, bIdx);
+  });
+}
+
+// first pass to try to find fields that will need to be sorted in-memory
+function getBasicInMemoryFields(index, selector, userFields) {
+
+  userFields = sortFieldsByIndex(userFields, index);
+
+  // check if any of the user selectors lose precision
+  var needToFilterInMemory = false;
+  for (var i = 0, len = userFields.length; i < len; i++) {
+    var field = userFields[i];
+    if (needToFilterInMemory || !checkFieldInIndex(index, field)) {
+      return userFields.slice(i);
+    }
+    if (i < len - 1 && userOperatorLosesPrecision(selector, field)) {
+      needToFilterInMemory = true;
+    }
+  }
+  return [];
+}
+
+function getInMemoryFieldsFromNe(selector) {
+  var fields = [];
+  Object.keys(selector).forEach(function (field) {
+    var matcher = selector[field];
+    Object.keys(matcher).forEach(function (operator) {
+      if (operator === '$ne') {
+        fields.push(field);
+      }
+    });
+  });
+  return fields;
+}
+
+function getInMemoryFields(coreInMemoryFields, index, selector, userFields) {
+  var result = flatten(
+    // in-memory fields reported as necessary by the query planner
+    coreInMemoryFields,
+    // combine with another pass that checks for any we may have missed
+    getBasicInMemoryFields(index, selector, userFields),
+    // combine with another pass that checks for $ne's
+    getInMemoryFieldsFromNe(selector)
+  );
+
+  return sortFieldsByIndex(uniq(result), index);
+}
+
+// check that at least one field in the user's query is represented
+// in the index. order matters in the case of sorts
+function checkIndexFieldsMatch(indexFields, sortOrder, fields) {
+  if (sortOrder) {
+    // array has to be a strict subarray of index array. furthermore,
+    // the sortOrder fields need to all be represented in the index
+    var sortMatches = oneArrayIsStrictSubArrayOfOther(sortOrder, indexFields);
+    var selectorMatches = oneArrayIsSubArrayOfOther(fields, indexFields);
+
+    return sortMatches && selectorMatches;
+  }
+
+  // all of the user's specified fields still need to be
+  // on the left side of the index array, although the order
+  // doesn't matter
+  return oneSetIsSubArrayOfOther(fields, indexFields);
+}
+
+var logicalMatchers = ['$eq', '$gt', '$gte', '$lt', '$lte'];
+function isNonLogicalMatcher(matcher) {
+  return logicalMatchers.indexOf(matcher) === -1;
+}
+
+// check all the index fields for usages of '$ne'
+// e.g. if the user queries {foo: {$ne: 'foo'}, bar: {$eq: 'bar'}},
+// then we can neither use an index on ['foo'] nor an index on
+// ['foo', 'bar'], but we can use an index on ['bar'] or ['bar', 'foo']
+function checkFieldsLogicallySound(indexFields, selector) {
+  var firstField = indexFields[0];
+  var matcher = selector[firstField];
+
+  if (typeof matcher === 'undefined') {
+    return true;
+  }
+
+  var hasLogicalOperator = Object.keys(matcher).some(function (matcherKey) {
+    return !(isNonLogicalMatcher(matcherKey));
+  });
+
+  if (!hasLogicalOperator) {
+    return false;
+  }
+
+  var isInvalidNe = Object.keys(matcher).length === 1 &&
+    Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */])(matcher) === '$ne';
+
+  return !isInvalidNe;
+}
+
+function checkIndexMatches(index, sortOrder, fields, selector) {
+
+  var indexFields = index.def.fields.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */]);
+
+  var fieldsMatch = checkIndexFieldsMatch(indexFields, sortOrder, fields);
+
+  if (!fieldsMatch) {
+    return false;
+  }
+
+  return checkFieldsLogicallySound(indexFields, selector);
+}
+
+//
+// the algorithm is very simple:
+// take all the fields the user supplies, and if those fields
+// are a strict subset of the fields in some index,
+// then use that index
+//
+//
+function findMatchingIndexes(selector, userFields, sortOrder, indexes) {
+
+  return indexes.reduce(function (res, index) {
+    var indexMatches = checkIndexMatches(index, sortOrder, userFields, selector);
+    if (indexMatches) {
+      res.push(index);
+    }
+    return res;
+  }, []);
+}
+
+// find the best index, i.e. the one that matches the most fields
+// in the user's query
+function findBestMatchingIndex(selector, userFields, sortOrder, indexes, useIndex) {
+
+  var matchingIndexes = findMatchingIndexes(selector, userFields, sortOrder, indexes);
+
+  if (matchingIndexes.length === 0) {
+    if (useIndex) {
+      throw {
+        error: "no_usable_index",
+        message: "There is no index available for this selector."
+      };
+    }
+    //return `all_docs` as a default index;
+    //I'm assuming that _all_docs is always first
+    var defaultIndex = indexes[0];
+    defaultIndex.defaultUsed = true;
+    return defaultIndex;
+  }
+  if (matchingIndexes.length === 1 && !useIndex) {
+    return matchingIndexes[0];
+  }
+
+  var userFieldsMap = arrayToObject(userFields);
+
+  function scoreIndex(index) {
+    var indexFields = index.def.fields.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */]);
+    var score = 0;
+    for (var i = 0, len = indexFields.length; i < len; i++) {
+      var indexField = indexFields[i];
+      if (userFieldsMap[indexField]) {
+        score++;
+      }
+    }
+    return score;
+  }
+
+  if (useIndex) {
+    var useIndexDdoc = '_design/' + useIndex[0];
+    var useIndexName = useIndex.length === 2 ? useIndex[1] : false;
+    var index = matchingIndexes.find(function (index) {
+      if (useIndexName && index.ddoc === useIndexDdoc && useIndexName === index.name) {
+        return true;
+      }
+
+      if (index.ddoc === useIndexDdoc) {
+        return true;
+      }
+
+      return false;
+    });
+
+    if (!index) {
+      throw {
+        error: "unknown_error",
+        message: "Could not find that index or could not use that index for the query"
+      };
+    }
+    return index;
+  }
+
+  return max(matchingIndexes, scoreIndex);
+}
+
+function getSingleFieldQueryOptsFor(userOperator, userValue) {
+  switch (userOperator) {
+    case '$eq':
+      return {key: userValue};
+    case '$lte':
+      return {endkey: userValue};
+    case '$gte':
+      return {startkey: userValue};
+    case '$lt':
+      return {
+        endkey: userValue,
+        inclusive_end: false
+      };
+    case '$gt':
+      return {
+        startkey: userValue,
+        inclusive_start: false
+      };
+  }
+}
+
+function getSingleFieldCoreQueryPlan(selector, index) {
+  var field = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */])(index.def.fields[0]);
+  //ignoring this because the test to exercise the branch is skipped at the moment
+  /* istanbul ignore next */
+  var matcher = selector[field] || {};
+  var inMemoryFields = [];
+
+  var userOperators = Object.keys(matcher);
+
+  var combinedOpts;
+
+  userOperators.forEach(function (userOperator) {
+
+    if (isNonLogicalMatcher(userOperator)) {
+      inMemoryFields.push(field);
+      return;
+    }
+
+    var userValue = matcher[userOperator];
+
+    var newQueryOpts = getSingleFieldQueryOptsFor(userOperator, userValue);
+
+    if (combinedOpts) {
+      combinedOpts = mergeObjects([combinedOpts, newQueryOpts]);
+    } else {
+      combinedOpts = newQueryOpts;
+    }
+  });
+
+  return {
+    queryOpts: combinedOpts,
+    inMemoryFields: inMemoryFields
+  };
+}
+
+function getMultiFieldCoreQueryPlan(userOperator, userValue) {
+  switch (userOperator) {
+    case '$eq':
+      return {
+        startkey: userValue,
+        endkey: userValue
+      };
+    case '$lte':
+      return {
+        endkey: userValue
+      };
+    case '$gte':
+      return {
+        startkey: userValue
+      };
+    case '$lt':
+      return {
+        endkey: userValue,
+        inclusive_end: false
+      };
+    case '$gt':
+      return {
+        startkey: userValue,
+        inclusive_start: false
+      };
+  }
+}
+
+function getMultiFieldQueryOpts(selector, index) {
+
+  var indexFields = index.def.fields.map(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["d" /* getKey */]);
+
+  var inMemoryFields = [];
+  var startkey = [];
+  var endkey = [];
+  var inclusiveStart;
+  var inclusiveEnd;
+
+
+  function finish(i) {
+
+    if (inclusiveStart !== false) {
+      startkey.push(COLLATE_LO);
+    }
+    if (inclusiveEnd !== false) {
+      endkey.push(COLLATE_HI);
+    }
+    // keep track of the fields where we lost specificity,
+    // and therefore need to filter in-memory
+    inMemoryFields = indexFields.slice(i);
+  }
+
+  for (var i = 0, len = indexFields.length; i < len; i++) {
+    var indexField = indexFields[i];
+
+    var matcher = selector[indexField];
+
+    if (!matcher || !Object.keys(matcher).length) { // fewer fields in user query than in index
+      finish(i);
+      break;
+    } else if (i > 0) {
+      if (Object.keys(matcher).some(isNonLogicalMatcher)) { // non-logical are ignored
+        finish(i);
+        break;
+      }
+      var usingGtlt = (
+        '$gt' in matcher || '$gte' in matcher ||
+        '$lt' in matcher || '$lte' in matcher);
+      var previousKeys = Object.keys(selector[indexFields[i - 1]]);
+      var previousWasEq = arrayEquals(previousKeys, ['$eq']);
+      var previousWasSame = arrayEquals(previousKeys, Object.keys(matcher));
+      var gtltLostSpecificity = usingGtlt && !previousWasEq && !previousWasSame;
+      if (gtltLostSpecificity) {
+        finish(i);
+        break;
+      }
+    }
+
+    var userOperators = Object.keys(matcher);
+
+    var combinedOpts = null;
+
+    for (var j = 0; j < userOperators.length; j++) {
+      var userOperator = userOperators[j];
+      var userValue = matcher[userOperator];
+
+      var newOpts = getMultiFieldCoreQueryPlan(userOperator, userValue);
+
+      if (combinedOpts) {
+        combinedOpts = mergeObjects([combinedOpts, newOpts]);
+      } else {
+        combinedOpts = newOpts;
+      }
+    }
+
+    startkey.push('startkey' in combinedOpts ? combinedOpts.startkey : COLLATE_LO);
+    endkey.push('endkey' in combinedOpts ? combinedOpts.endkey : COLLATE_HI);
+    if ('inclusive_start' in combinedOpts) {
+      inclusiveStart = combinedOpts.inclusive_start;
+    }
+    if ('inclusive_end' in combinedOpts) {
+      inclusiveEnd = combinedOpts.inclusive_end;
+    }
+  }
+
+  var res = {
+    startkey: startkey,
+    endkey: endkey
+  };
+
+  if (typeof inclusiveStart !== 'undefined') {
+    res.inclusive_start = inclusiveStart;
+  }
+  if (typeof inclusiveEnd !== 'undefined') {
+    res.inclusive_end = inclusiveEnd;
+  }
+
+  return {
+    queryOpts: res,
+    inMemoryFields: inMemoryFields
+  };
+}
+
+function getDefaultQueryPlan(selector) {
+  //using default index, so all fields need to be done in memory
+  return {
+    queryOpts: {startkey: null},
+    inMemoryFields: [Object.keys(selector)]
+  };
+}
+
+function getCoreQueryPlan(selector, index) {
+  if (index.defaultUsed) {
+    return getDefaultQueryPlan(selector, index);
+  }
+
+  if (index.def.fields.length === 1) {
+    // one field in index, so the value was indexed as a singleton
+    return getSingleFieldCoreQueryPlan(selector, index);
+  }
+  // else index has multiple fields, so the value was indexed as an array
+  return getMultiFieldQueryOpts(selector, index);
+}
+
+function planQuery(request, indexes) {
+
+  var selector = request.selector;
+  var sort = request.sort;
+
+  var userFieldsRes = getUserFields(selector, sort);
+
+  var userFields = userFieldsRes.fields;
+  var sortOrder = userFieldsRes.sortOrder;
+  var index = findBestMatchingIndex(selector, userFields, sortOrder, indexes, request.use_index);
+
+  var coreQueryPlan = getCoreQueryPlan(selector, index);
+  var queryOpts = coreQueryPlan.queryOpts;
+  var coreInMemoryFields = coreQueryPlan.inMemoryFields;
+
+  var inMemoryFields = getInMemoryFields(coreInMemoryFields, index, selector, userFields);
+
+  var res = {
+    queryOpts: queryOpts,
+    index: index,
+    inMemoryFields: inMemoryFields
+  };
+  return res;
+}
+
+function indexToSignature(index) {
+  // remove '_design/'
+  return index.ddoc.substring(8) + '/' + index.name;
+}
+
+function doAllDocs(db, originalOpts) {
+  var opts = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["b" /* clone */])(originalOpts);
+
+  // CouchDB responds in weird ways when you provide a non-string to _id;
+  // we mimic the behavior for consistency. See issue66 tests for details.
+
+  if (opts.descending) {
+    if ('endkey' in opts && typeof opts.endkey !== 'string') {
+      opts.endkey = '';
+    }
+    if ('startkey' in opts && typeof opts.startkey !== 'string') {
+      opts.limit = 0;
+    }
+  } else {
+    if ('startkey' in opts && typeof opts.startkey !== 'string') {
+      opts.startkey = '';
+    }
+    if ('endkey' in opts && typeof opts.endkey !== 'string') {
+      opts.limit = 0;
+    }
+  }
+  if ('key' in opts && typeof opts.key !== 'string') {
+    opts.limit = 0;
+  }
+
+  return db.allDocs(opts)
+  .then(function (res) {
+    // filter out any design docs that _all_docs might return
+    res.rows = res.rows.filter(function (row) {
+      return !/^_design\//.test(row.id);
+    });
+    return res;
+  });
+}
+
+function find$1(db, requestDef, explain) {
+  if (requestDef.selector) {
+    requestDef.selector = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["f" /* massageSelector */])(requestDef.selector);
+  }
+
+  if (requestDef.sort) {
+    requestDef.sort = massageSort(requestDef.sort);
+  }
+
+  if (requestDef.use_index) {
+    requestDef.use_index = massageUseIndex(requestDef.use_index);
+  }
+
+  validateFindRequest(requestDef);
+
+  return getIndexes$1(db).then(function (getIndexesRes) {
+
+    db.constructor.emit('debug', ['find', 'planning query', requestDef]);
+    var queryPlan = planQuery(requestDef, getIndexesRes.indexes);
+    db.constructor.emit('debug', ['find', 'query plan', queryPlan]);
+
+    var indexToUse = queryPlan.index;
+
+    validateSort(requestDef, indexToUse);
+
+    var opts = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["a" /* assign */])({
+      include_docs: true,
+      reduce: false
+    }, queryPlan.queryOpts);
+
+    if ('startkey' in opts && 'endkey' in opts &&
+        Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(opts.startkey, opts.endkey) > 0) {
+      // can't possibly return any results, startkey > endkey
+      return {docs: []};
+    }
+
+    var isDescending = requestDef.sort &&
+      typeof requestDef.sort[0] !== 'string' &&
+      Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["e" /* getValue */])(requestDef.sort[0]) === 'desc';
+
+    if (isDescending) {
+      // either all descending or all ascending
+      opts.descending = true;
+      opts = reverseOptions(opts);
+    }
+
+    if (!queryPlan.inMemoryFields.length) {
+      // no in-memory filtering necessary, so we can let the
+      // database do the limit/skip for us
+      if ('limit' in requestDef) {
+        opts.limit = requestDef.limit;
+      }
+      if ('skip' in requestDef) {
+        opts.skip = requestDef.skip;
+      }
+    }
+
+    if (explain) {
+      return __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */].resolve(queryPlan, opts);
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_1_pouchdb_promise__["a" /* default */].resolve().then(function () {
+      if (indexToUse.name === '_all_docs') {
+        return doAllDocs(db, opts);
+      } else {
+        var signature = indexToSignature(indexToUse);
+        return abstractMapper.query.call(db, signature, opts);
+      }
+    }).then(function (res) {
+      if (opts.inclusive_start === false) {
+        // may have to manually filter the first one,
+        // since couchdb has no true inclusive_start option
+        res.rows = filterInclusiveStart(res.rows, opts.startkey, indexToUse);
+      }
+
+      if (queryPlan.inMemoryFields.length) {
+        // need to filter some stuff in-memory
+        res.rows = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_selector_core__["b" /* filterInMemoryFields */])(res.rows, requestDef, queryPlan.inMemoryFields);
+      }
+
+      var resp = {
+        docs: res.rows.map(function (row) {
+          var doc = row.doc;
+          if (requestDef.fields) {
+            return pick(doc, requestDef.fields);
+          }
+          return doc;
+        })
+      };
+
+      if (indexToUse.defaultUsed) {
+        resp.warning = 'no matching index found, create an index to optimize query time';
+      }
+
+      return resp;
+    });
+  });
+}
+
+function explain$1(db, requestDef) {
+  return find$1(db, requestDef, true)
+  .then(function (queryPlan) {
+    return {
+      dbname: db.name,
+      index: queryPlan.index,
+      selector: requestDef.selector,
+      range: {
+        start_key: queryPlan.queryOpts.startkey,
+        end_key: queryPlan.queryOpts.endkey,
+      },
+      opts: {
+        use_index: requestDef.use_index || [],
+        bookmark: "nil", //hardcoded to match CouchDB since its not supported,
+        limit: requestDef.limit,
+        skip: requestDef.skip,
+        sort: requestDef.sort || {},
+        fields: requestDef.fields,
+        conflicts: false, //hardcoded to match CouchDB since its not supported,
+        r: [49], // hardcoded to match CouchDB since its not support
+      },
+      limit: requestDef.limit,
+      skip: requestDef.skip || 0,
+      fields: requestDef.fields,
+    };
+  });
+}
+
+function deleteIndex$1(db, index) {
+
+  if (!index.ddoc) {
+    throw new Error('you must supply an index.ddoc when deleting');
+  }
+
+  if (!index.name) {
+    throw new Error('you must supply an index.name when deleting');
+  }
+
+  var docId = index.ddoc;
+  var viewName = index.name;
+
+  function deltaFun(doc) {
+    if (Object.keys(doc.views).length === 1 && doc.views[viewName]) {
+      // only one view in this ddoc, delete the whole ddoc
+      return {_id: docId, _deleted: true};
+    }
+    // more than one view here, just remove the view
+    delete doc.views[viewName];
+    return doc;
+  }
+
+  return Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["h" /* upsert */])(db, docId, deltaFun).then(function () {
+    return abstractMapper.viewCleanup.apply(db);
+  }).then(function () {
+    return {ok: true};
+  });
+}
+
+var createIndexAsCallback = callbackify(createIndex$1);
+var findAsCallback = callbackify(find$1);
+var explainAsCallback = callbackify(explain$1);
+var getIndexesAsCallback = callbackify(getIndexes$1);
+var deleteIndexAsCallback = callbackify(deleteIndex$1);
+
+var plugin = {};
+plugin.createIndex = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["g" /* toPromise */])(function (requestDef, callback) {
+
+  if (typeof requestDef !== 'object') {
+    return callback(new Error('you must provide an index to create'));
+  }
+
+  var createIndex$$1 = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["e" /* isRemote */])(this) ?
+    createIndex : createIndexAsCallback;
+  createIndex$$1(this, requestDef, callback);
+});
+
+plugin.find = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["g" /* toPromise */])(function (requestDef, callback) {
+
+  if (typeof callback === 'undefined') {
+    callback = requestDef;
+    requestDef = undefined;
+  }
+
+  if (typeof requestDef !== 'object') {
+    return callback(new Error('you must provide search parameters to find()'));
+  }
+
+  var find$$1 = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["e" /* isRemote */])(this) ? find : findAsCallback;
+  find$$1(this, requestDef, callback);
+});
+
+plugin.explain = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["g" /* toPromise */])(function (requestDef, callback) {
+
+  if (typeof callback === 'undefined') {
+    callback = requestDef;
+    requestDef = undefined;
+  }
+
+  if (typeof requestDef !== 'object') {
+    return callback(new Error('you must provide search parameters to explain()'));
+  }
+
+  var find$$1 = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["e" /* isRemote */])(this) ? explain : explainAsCallback;
+  find$$1(this, requestDef, callback);
+});
+
+plugin.getIndexes = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["g" /* toPromise */])(function (callback) {
+
+  var getIndexes$$1 = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["e" /* isRemote */])(this) ? getIndexes : getIndexesAsCallback;
+  getIndexes$$1(this, callback);
+});
+
+plugin.deleteIndex = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["g" /* toPromise */])(function (indexDef, callback) {
+
+  if (typeof indexDef !== 'object') {
+    return callback(new Error('you must provide an index to delete'));
+  }
+
+  var deleteIndex$$1 = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["e" /* isRemote */])(this) ?
+    deleteIndex : deleteIndexAsCallback;
+  deleteIndex$$1(this, indexDef, callback);
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (plugin);
+
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(23)))
+
+/***/ }),
+/* 699 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export UNAUTHORIZED */
+/* unused harmony export MISSING_BULK_DOCS */
+/* unused harmony export MISSING_DOC */
+/* unused harmony export REV_CONFLICT */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return INVALID_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MISSING_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return RESERVED_ID; });
+/* unused harmony export NOT_OPEN */
+/* unused harmony export UNKNOWN_ERROR */
+/* unused harmony export BAD_ARG */
+/* unused harmony export INVALID_REQUEST */
+/* unused harmony export QUERY_PARSE_ERROR */
+/* unused harmony export DOC_VALIDATION */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BAD_REQUEST; });
+/* unused harmony export NOT_AN_OBJECT */
+/* unused harmony export DB_MISSING */
+/* unused harmony export WSQ_ERROR */
+/* unused harmony export LDB_ERROR */
+/* unused harmony export FORBIDDEN */
+/* unused harmony export INVALID_REV */
+/* unused harmony export FILE_EXISTS */
+/* unused harmony export MISSING_STUB */
+/* unused harmony export IDB_ERROR */
+/* unused harmony export INVALID_URL */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return createError; });
+/* unused harmony export generateErrorFromResponse */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_inherits__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_inherits__);
+
+
+__WEBPACK_IMPORTED_MODULE_0_inherits___default()(PouchError, Error);
+
+function PouchError(status, error, reason) {
+  Error.call(this, reason);
+  this.status = status;
+  this.name = error;
+  this.message = reason;
+  this.error = true;
+}
+
+PouchError.prototype.toString = function () {
+  return JSON.stringify({
+    status: this.status,
+    name: this.name,
+    message: this.message,
+    reason: this.reason
+  });
+};
+
+var UNAUTHORIZED = new PouchError(401, 'unauthorized', "Name or password is incorrect.");
+var MISSING_BULK_DOCS = new PouchError(400, 'bad_request', "Missing JSON list of 'docs'");
+var MISSING_DOC = new PouchError(404, 'not_found', 'missing');
+var REV_CONFLICT = new PouchError(409, 'conflict', 'Document update conflict');
+var INVALID_ID = new PouchError(400, 'bad_request', '_id field must contain a string');
+var MISSING_ID = new PouchError(412, 'missing_id', '_id is required for puts');
+var RESERVED_ID = new PouchError(400, 'bad_request', 'Only reserved document ids may start with underscore.');
+var NOT_OPEN = new PouchError(412, 'precondition_failed', 'Database not open');
+var UNKNOWN_ERROR = new PouchError(500, 'unknown_error', 'Database encountered an unknown error');
+var BAD_ARG = new PouchError(500, 'badarg', 'Some query argument is invalid');
+var INVALID_REQUEST = new PouchError(400, 'invalid_request', 'Request was invalid');
+var QUERY_PARSE_ERROR = new PouchError(400, 'query_parse_error', 'Some query parameter is invalid');
+var DOC_VALIDATION = new PouchError(500, 'doc_validation', 'Bad special document member');
+var BAD_REQUEST = new PouchError(400, 'bad_request', 'Something wrong with the request');
+var NOT_AN_OBJECT = new PouchError(400, 'bad_request', 'Document must be a JSON object');
+var DB_MISSING = new PouchError(404, 'not_found', 'Database not found');
+var IDB_ERROR = new PouchError(500, 'indexed_db_went_bad', 'unknown');
+var WSQ_ERROR = new PouchError(500, 'web_sql_went_bad', 'unknown');
+var LDB_ERROR = new PouchError(500, 'levelDB_went_went_bad', 'unknown');
+var FORBIDDEN = new PouchError(403, 'forbidden', 'Forbidden by design doc validate_doc_update function');
+var INVALID_REV = new PouchError(400, 'bad_request', 'Invalid rev format');
+var FILE_EXISTS = new PouchError(412, 'file_exists', 'The database could not be created, the file already exists.');
+var MISSING_STUB = new PouchError(412, 'missing_stub', 'A pre-existing attachment stub wasn\'t found');
+var INVALID_URL = new PouchError(413, 'invalid_url', 'Provided URL is invalid');
+
+function createError(error, reason) {
+  function CustomPouchError(reason) {
+    // inherit error properties from our parent error manually
+    // so as to allow proper JSON parsing.
+    /* jshint ignore:start */
+    for (var p in error) {
+      if (typeof error[p] !== 'function') {
+        this[p] = error[p];
+      }
+    }
+    /* jshint ignore:end */
+    if (reason !== undefined) {
+      this.reason = reason;
+    }
+  }
+  CustomPouchError.prototype = PouchError.prototype;
+  return new CustomPouchError(reason);
+}
+
+function generateErrorFromResponse(err) {
+
+  if (typeof err !== 'object') {
+    var data = err;
+    err = UNKNOWN_ERROR;
+    err.data = data;
+  }
+
+  if ('error' in err && err.error === 'conflict') {
+    err.name = 'conflict';
+    err.status = 409;
+  }
+
+  if (!('name' in err)) {
+    err.name = err.error || 'unknown';
+  }
+
+  if (!('status' in err)) {
+    err.status = 500;
+  }
+
+  if (!('message' in err)) {
+    err.message = err.message || err.reason;
+  }
+
+  return err;
+}
+
+
+
+
+/***/ }),
+/* 700 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return massageSelector; });
+/* unused harmony export matchesSelector */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return filterInMemoryFields; });
+/* unused harmony export createFieldSorter */
+/* unused harmony export rowFilter */
+/* unused harmony export isCombinationalField */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return getKey; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return getValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getFieldFromDoc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return setFieldInDoc; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return compare; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return parseField; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__ = __webpack_require__(695);
+
+
+
+// this would just be "return doc[field]", but fields
+// can be "deep" due to dot notation
+function getFieldFromDoc(doc, parsedField) {
+  var value = doc;
+  for (var i = 0, len = parsedField.length; i < len; i++) {
+    var key = parsedField[i];
+    value = value[key];
+    if (!value) {
+      break;
+    }
+  }
+  return value;
+}
+
+function setFieldInDoc(doc, parsedField, value) {
+  for (var i = 0, len = parsedField.length; i < len-1; i++) {
+    var elem = parsedField[i];
+    doc = doc[elem] = {};
+  }
+  doc[parsedField[len-1]] = value;
+}
+
+function compare(left, right) {
+  return left < right ? -1 : left > right ? 1 : 0;
+}
+
+// Converts a string in dot notation to an array of its components, with backslash escaping
+function parseField(fieldName) {
+  // fields may be deep (e.g. "foo.bar.baz"), so parse
+  var fields = [];
+  var current = '';
+  for (var i = 0, len = fieldName.length; i < len; i++) {
+    var ch = fieldName[i];
+    if (ch === '.') {
+      if (i > 0 && fieldName[i - 1] === '\\') { // escaped delimiter
+        current = current.substring(0, current.length - 1) + '.';
+      } else { // not escaped, so delimiter
+        fields.push(current);
+        current = '';
+      }
+    } else { // normal character
+      current += ch;
+    }
+  }
+  fields.push(current);
+  return fields;
+}
+
+var combinationFields = ['$or', '$nor', '$not'];
+function isCombinationalField(field) {
+  return combinationFields.indexOf(field) > -1;
+}
+
+function getKey(obj) {
+  return Object.keys(obj)[0];
+}
+
+function getValue(obj) {
+  return obj[getKey(obj)];
+}
+
+
+// flatten an array of selectors joined by an $and operator
+function mergeAndedSelectors(selectors) {
+
+  // sort to ensure that e.g. if the user specified
+  // $and: [{$gt: 'a'}, {$gt: 'b'}], then it's collapsed into
+  // just {$gt: 'b'}
+  var res = {};
+
+  selectors.forEach(function (selector) {
+    Object.keys(selector).forEach(function (field) {
+      var matcher = selector[field];
+      if (typeof matcher !== 'object') {
+        matcher = {$eq: matcher};
+      }
+
+      if (isCombinationalField(field)) {
+        if (matcher instanceof Array) {
+          res[field] = matcher.map(function (m) {
+            return mergeAndedSelectors([m]);
+          });
+        } else {
+          res[field] = mergeAndedSelectors([matcher]);
+        }
+      } else {
+        var fieldMatchers = res[field] = res[field] || {};
+        Object.keys(matcher).forEach(function (operator) {
+          var value = matcher[operator];
+
+          if (operator === '$gt' || operator === '$gte') {
+            return mergeGtGte(operator, value, fieldMatchers);
+          } else if (operator === '$lt' || operator === '$lte') {
+            return mergeLtLte(operator, value, fieldMatchers);
+          } else if (operator === '$ne') {
+            return mergeNe(value, fieldMatchers);
+          } else if (operator === '$eq') {
+            return mergeEq(value, fieldMatchers);
+          }
+          fieldMatchers[operator] = value;
+        });
+      }
+    });
+  });
+
+  return res;
+}
+
+
+
+// collapse logically equivalent gt/gte values
+function mergeGtGte(operator, value, fieldMatchers) {
+  if (typeof fieldMatchers.$eq !== 'undefined') {
+    return; // do nothing
+  }
+  if (typeof fieldMatchers.$gte !== 'undefined') {
+    if (operator === '$gte') {
+      if (value > fieldMatchers.$gte) { // more specificity
+        fieldMatchers.$gte = value;
+      }
+    } else { // operator === '$gt'
+      if (value >= fieldMatchers.$gte) { // more specificity
+        delete fieldMatchers.$gte;
+        fieldMatchers.$gt = value;
+      }
+    }
+  } else if (typeof fieldMatchers.$gt !== 'undefined') {
+    if (operator === '$gte') {
+      if (value > fieldMatchers.$gt) { // more specificity
+        delete fieldMatchers.$gt;
+        fieldMatchers.$gte = value;
+      }
+    } else { // operator === '$gt'
+      if (value > fieldMatchers.$gt) { // more specificity
+        fieldMatchers.$gt = value;
+      }
+    }
+  } else {
+    fieldMatchers[operator] = value;
+  }
+}
+
+// collapse logically equivalent lt/lte values
+function mergeLtLte(operator, value, fieldMatchers) {
+  if (typeof fieldMatchers.$eq !== 'undefined') {
+    return; // do nothing
+  }
+  if (typeof fieldMatchers.$lte !== 'undefined') {
+    if (operator === '$lte') {
+      if (value < fieldMatchers.$lte) { // more specificity
+        fieldMatchers.$lte = value;
+      }
+    } else { // operator === '$gt'
+      if (value <= fieldMatchers.$lte) { // more specificity
+        delete fieldMatchers.$lte;
+        fieldMatchers.$lt = value;
+      }
+    }
+  } else if (typeof fieldMatchers.$lt !== 'undefined') {
+    if (operator === '$lte') {
+      if (value < fieldMatchers.$lt) { // more specificity
+        delete fieldMatchers.$lt;
+        fieldMatchers.$lte = value;
+      }
+    } else { // operator === '$gt'
+      if (value < fieldMatchers.$lt) { // more specificity
+        fieldMatchers.$lt = value;
+      }
+    }
+  } else {
+    fieldMatchers[operator] = value;
+  }
+}
+
+// combine $ne values into one array
+function mergeNe(value, fieldMatchers) {
+  if ('$ne' in fieldMatchers) {
+    // there are many things this could "not" be
+    fieldMatchers.$ne.push(value);
+  } else { // doesn't exist yet
+    fieldMatchers.$ne = [value];
+  }
+}
+
+// add $eq into the mix
+function mergeEq(value, fieldMatchers) {
+  // these all have less specificity than the $eq
+  // TODO: check for user errors here
+  delete fieldMatchers.$gt;
+  delete fieldMatchers.$gte;
+  delete fieldMatchers.$lt;
+  delete fieldMatchers.$lte;
+  delete fieldMatchers.$ne;
+  fieldMatchers.$eq = value;
+}
+
+
+//
+// normalize the selector
+//
+function massageSelector(input) {
+  var result = Object(__WEBPACK_IMPORTED_MODULE_0_pouchdb_utils__["b" /* clone */])(input);
+  var wasAnded = false;
+  if ('$and' in result) {
+    result = mergeAndedSelectors(result['$and']);
+    wasAnded = true;
+  }
+
+  ['$or', '$nor'].forEach(function (orOrNor) {
+    if (orOrNor in result) {
+      // message each individual selector
+      // e.g. {foo: 'bar'} becomes {foo: {$eq: 'bar'}}
+      result[orOrNor].forEach(function (subSelector) {
+        var fields = Object.keys(subSelector);
+        for (var i = 0; i < fields.length; i++) {
+          var field = fields[i];
+          var matcher = subSelector[field];
+          if (typeof matcher !== 'object' || matcher === null) {
+            subSelector[field] = {$eq: matcher};
+          }
+        }
+      });
+    }
+  });
+
+  if ('$not' in result) {
+    //This feels a little like forcing, but it will work for now,
+    //I would like to come back to this and make the merging of selectors a little more generic
+    result['$not'] = mergeAndedSelectors([result['$not']]);
+  }
+
+  var fields = Object.keys(result);
+
+  for (var i = 0; i < fields.length; i++) {
+    var field = fields[i];
+    var matcher = result[field];
+
+    if (typeof matcher !== 'object' || matcher === null) {
+      matcher = {$eq: matcher};
+    } else if ('$ne' in matcher && !wasAnded) {
+      // I put these in an array, since there may be more than one
+      // but in the "mergeAnded" operation, I already take care of that
+      matcher.$ne = [matcher.$ne];
+    }
+    result[field] = matcher;
+  }
+
+  return result;
+}
+
+// create a comparator based on the sort object
+function createFieldSorter(sort) {
+
+  function getFieldValuesAsArray(doc) {
+    return sort.map(function (sorting) {
+      var fieldName = getKey(sorting);
+      var parsedField = parseField(fieldName);
+      var docFieldValue = getFieldFromDoc(doc, parsedField);
+      return docFieldValue;
+    });
+  }
+
+  return function (aRow, bRow) {
+    var aFieldValues = getFieldValuesAsArray(aRow.doc);
+    var bFieldValues = getFieldValuesAsArray(bRow.doc);
+    var collation = Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(aFieldValues, bFieldValues);
+    if (collation !== 0) {
+      return collation;
+    }
+    // this is what mango seems to do
+    return compare(aRow.doc._id, bRow.doc._id);
+  };
+}
+
+function filterInMemoryFields(rows, requestDef, inMemoryFields) {
+  rows = rows.filter(function (row) {
+    return rowFilter(row.doc, requestDef.selector, inMemoryFields);
+  });
+
+  if (requestDef.sort) {
+    // in-memory sort
+    var fieldSorter = createFieldSorter(requestDef.sort);
+    rows = rows.sort(fieldSorter);
+    if (typeof requestDef.sort[0] !== 'string' &&
+        getValue(requestDef.sort[0]) === 'desc') {
+      rows = rows.reverse();
+    }
+  }
+
+  if ('limit' in requestDef || 'skip' in requestDef) {
+    // have to do the limit in-memory
+    var skip = requestDef.skip || 0;
+    var limit = ('limit' in requestDef ? requestDef.limit : rows.length) + skip;
+    rows = rows.slice(skip, limit);
+  }
+  return rows;
+}
+
+function rowFilter(doc, selector, inMemoryFields) {
+  return inMemoryFields.every(function (field) {
+    var matcher = selector[field];
+    var parsedField = parseField(field);
+    var docFieldValue = getFieldFromDoc(doc, parsedField);
+    if (isCombinationalField(field)) {
+      return matchCominationalSelector(field, matcher, doc);
+    }
+
+    return matchSelector(matcher, doc, parsedField, docFieldValue);
+  });
+}
+
+function matchSelector(matcher, doc, parsedField, docFieldValue) {
+  if (!matcher) {
+    // no filtering necessary; this field is just needed for sorting
+    return true;
+  }
+
+  return Object.keys(matcher).every(function (userOperator) {
+    var userValue = matcher[userOperator];
+    return match(userOperator, doc, userValue, parsedField, docFieldValue);
+  });
+}
+
+function matchCominationalSelector(field, matcher, doc) {
+
+  if (field === '$or') {
+    return matcher.some(function (orMatchers) {
+      return rowFilter(doc, orMatchers, Object.keys(orMatchers));
+    });
+  }
+
+  if (field === '$not') {
+    return !rowFilter(doc, matcher, Object.keys(matcher));
+  }
+
+  //`$nor`
+  return !matcher.find(function (orMatchers) {
+    return rowFilter(doc, orMatchers, Object.keys(orMatchers));
+  });
+
+}
+
+function match(userOperator, doc, userValue, parsedField, docFieldValue) {
+  if (!matchers[userOperator]) {
+    throw new Error('unknown operator "' + userOperator +
+      '" - should be one of $eq, $lte, $lt, $gt, $gte, $exists, $ne, $in, ' +
+      '$nin, $size, $mod, $regex, $elemMatch, $type, $allMatch or $all');
+  }
+  return matchers[userOperator](doc, userValue, parsedField, docFieldValue);
+}
+
+function fieldExists(docFieldValue) {
+  return typeof docFieldValue !== 'undefined' && docFieldValue !== null;
+}
+
+function fieldIsNotUndefined(docFieldValue) {
+  return typeof docFieldValue !== 'undefined';
+}
+
+function modField(docFieldValue, userValue) {
+  var divisor = userValue[0];
+  var mod = userValue[1];
+  if (divisor === 0) {
+    throw new Error('Bad divisor, cannot divide by zero');
+  }
+
+  if (parseInt(divisor, 10) !== divisor ) {
+    throw new Error('Divisor is not an integer');
+  }
+
+  if (parseInt(mod, 10) !== mod ) {
+    throw new Error('Modulus is not an integer');
+  }
+
+  if (parseInt(docFieldValue, 10) !== docFieldValue) {
+    return false;
+  }
+
+  return docFieldValue % divisor === mod;
+}
+
+function arrayContainsValue(docFieldValue, userValue) {
+  return userValue.some(function (val) {
+    if (docFieldValue instanceof Array) {
+      return docFieldValue.indexOf(val) > -1;
+    }
+
+    return docFieldValue === val;
+  });
+}
+
+function arrayContainsAllValues(docFieldValue, userValue) {
+  return userValue.every(function (val) {
+    return docFieldValue.indexOf(val) > -1;
+  });
+}
+
+function arraySize(docFieldValue, userValue) {
+  return docFieldValue.length === userValue;
+}
+
+function regexMatch(docFieldValue, userValue) {
+  var re = new RegExp(userValue);
+
+  return re.test(docFieldValue);
+}
+
+function typeMatch(docFieldValue, userValue) {
+
+  switch (userValue) {
+    case 'null':
+      return docFieldValue === null;
+    case 'boolean':
+      return typeof (docFieldValue) === 'boolean';
+    case 'number':
+      return typeof (docFieldValue) === 'number';
+    case 'string':
+      return typeof (docFieldValue) === 'string';
+    case 'array':
+      return docFieldValue instanceof Array;
+    case 'object':
+      return ({}).toString.call(docFieldValue) === '[object Object]';
+  }
+
+  throw new Error(userValue + ' not supported as a type.' +
+                  'Please use one of object, string, array, number, boolean or null.');
+
+}
+
+var matchers = {
+
+  '$elemMatch': function (doc, userValue, parsedField, docFieldValue) {
+    if (!Array.isArray(docFieldValue)) {
+      return false;
+    }
+
+    if (docFieldValue.length === 0) {
+      return false;
+    }
+
+    if (typeof docFieldValue[0] === 'object') {
+      return docFieldValue.some(function (val) {
+        return rowFilter(val, userValue, Object.keys(userValue));
+      });
+    }
+
+    return docFieldValue.some(function (val) {
+      return matchSelector(userValue, doc, parsedField, val);
+    });
+  },
+
+  '$allMatch': function (doc, userValue, parsedField, docFieldValue) {
+    if (!Array.isArray(docFieldValue)) {
+      return false;
+    }
+
+    /* istanbul ignore next */
+    if (docFieldValue.length === 0) {
+      return false;
+    }
+
+    if (typeof docFieldValue[0] === 'object') {
+      return docFieldValue.every(function (val) {
+        return rowFilter(val, userValue, Object.keys(userValue));
+      });
+    }
+
+    return docFieldValue.every(function (val) {
+      return matchSelector(userValue, doc, parsedField, val);
+    });
+  },
+
+  '$eq': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldIsNotUndefined(docFieldValue) && Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(docFieldValue, userValue) === 0;
+  },
+
+  '$gte': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldIsNotUndefined(docFieldValue) && Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(docFieldValue, userValue) >= 0;
+  },
+
+  '$gt': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldIsNotUndefined(docFieldValue) && Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(docFieldValue, userValue) > 0;
+  },
+
+  '$lte': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldIsNotUndefined(docFieldValue) && Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(docFieldValue, userValue) <= 0;
+  },
+
+  '$lt': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldIsNotUndefined(docFieldValue) && Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(docFieldValue, userValue) < 0;
+  },
+
+  '$exists': function (doc, userValue, parsedField, docFieldValue) {
+    //a field that is null is still considered to exist
+    if (userValue) {
+      return fieldIsNotUndefined(docFieldValue);
+    }
+
+    return !fieldIsNotUndefined(docFieldValue);
+  },
+
+  '$mod': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldExists(docFieldValue) && modField(docFieldValue, userValue);
+  },
+
+  '$ne': function (doc, userValue, parsedField, docFieldValue) {
+    return userValue.every(function (neValue) {
+      return Object(__WEBPACK_IMPORTED_MODULE_1_pouchdb_collate__["a" /* collate */])(docFieldValue, neValue) !== 0;
+    });
+  },
+  '$in': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldExists(docFieldValue) && arrayContainsValue(docFieldValue, userValue);
+  },
+
+  '$nin': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldExists(docFieldValue) && !arrayContainsValue(docFieldValue, userValue);
+  },
+
+  '$size': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldExists(docFieldValue) && arraySize(docFieldValue, userValue);
+  },
+
+  '$all': function (doc, userValue, parsedField, docFieldValue) {
+    return Array.isArray(docFieldValue) && arrayContainsAllValues(docFieldValue, userValue);
+  },
+
+  '$regex': function (doc, userValue, parsedField, docFieldValue) {
+    return fieldExists(docFieldValue) && regexMatch(docFieldValue, userValue);
+  },
+
+  '$type': function (doc, userValue, parsedField, docFieldValue) {
+    return typeMatch(docFieldValue, userValue);
+  }
+};
+
+// return true if the given doc matches the supplied selector
+function matchesSelector(doc, selector) {
+  /* istanbul ignore if */
+  if (typeof selector !== 'object') {
+    // match the CouchDB error message
+    throw new Error('Selector error: expected a JSON object');
+  }
+
+  selector = massageSelector(selector);
+  var row = {
+    'doc': doc
+  };
+
+  var rowsMatched = filterInMemoryFields([row], { 'selector': selector }, Object.keys(selector));
+  return rowsMatched && rowsMatched.length === 1;
+}
+
+
+
+
+/***/ }),
+/* 701 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__ = __webpack_require__(693);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_pouchdb_binary_utils__ = __webpack_require__(696);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__ = __webpack_require__(695);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_pouchdb_md5__ = __webpack_require__(697);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__ = __webpack_require__(702);
+
+
+
+
+
+
+
+
+/*
+ * Simple task queue to sequentialize actions. Assumes
+ * callbacks will eventually fire (once).
+ */
+
+
+function TaskQueue() {
+  this.promise = new __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */](function (fulfill) {fulfill(); });
+}
+TaskQueue.prototype.add = function (promiseFactory) {
+  this.promise = this.promise.catch(function () {
+    // just recover
+  }).then(function () {
+    return promiseFactory();
+  });
+  return this.promise;
+};
+TaskQueue.prototype.finish = function () {
+  return this.promise;
+};
+
+function stringify(input) {
+  if (!input) {
+    return 'undefined'; // backwards compat for empty reduce
+  }
+  // for backwards compat with mapreduce, functions/strings are stringified
+  // as-is. everything else is JSON-stringified.
+  switch (typeof input) {
+    case 'function':
+      // e.g. a mapreduce map
+      return input.toString();
+    case 'string':
+      // e.g. a mapreduce built-in _reduce function
+      return input.toString();
+    default:
+      // e.g. a JSON object in the case of mango queries
+      return JSON.stringify(input);
+  }
+}
+
+/* create a string signature for a view so we can cache it and uniq it */
+function createViewSignature(mapFun, reduceFun) {
+  // the "undefined" part is for backwards compatibility
+  return stringify(mapFun) + stringify(reduceFun) + 'undefined';
+}
+
+function createView(sourceDB, viewName, mapFun, reduceFun, temporary, localDocName) {
+  var viewSignature = createViewSignature(mapFun, reduceFun);
+
+  var cachedViews;
+  if (!temporary) {
+    // cache this to ensure we don't try to update the same view twice
+    cachedViews = sourceDB._cachedViews = sourceDB._cachedViews || {};
+    if (cachedViews[viewSignature]) {
+      return cachedViews[viewSignature];
+    }
+  }
+
+  var promiseForView = sourceDB.info().then(function (info) {
+
+    var depDbName = info.db_name + '-mrview-' +
+      (temporary ? 'temp' : Object(__WEBPACK_IMPORTED_MODULE_5_pouchdb_md5__["a" /* stringMd5 */])(viewSignature));
+
+    // save the view name in the source db so it can be cleaned up if necessary
+    // (e.g. when the _design doc is deleted, remove all associated view data)
+    function diffFunction(doc) {
+      doc.views = doc.views || {};
+      var fullViewName = viewName;
+      if (fullViewName.indexOf('/') === -1) {
+        fullViewName = viewName + '/' + viewName;
+      }
+      var depDbs = doc.views[fullViewName] = doc.views[fullViewName] || {};
+      /* istanbul ignore if */
+      if (depDbs[depDbName]) {
+        return; // no update necessary
+      }
+      depDbs[depDbName] = true;
+      return doc;
+    }
+    return Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["h" /* upsert */])(sourceDB, '_local/' + localDocName, diffFunction).then(function () {
+      return sourceDB.registerDependentDatabase(depDbName).then(function (res) {
+        var db = res.db;
+        db.auto_compaction = true;
+        var view = {
+          name: depDbName,
+          db: db,
+          sourceDB: sourceDB,
+          adapter: sourceDB.adapter,
+          mapFun: mapFun,
+          reduceFun: reduceFun
+        };
+        return view.db.get('_local/lastSeq').catch(function (err) {
+          /* istanbul ignore if */
+          if (err.status !== 404) {
+            throw err;
+          }
+        }).then(function (lastSeqDoc) {
+          view.seq = lastSeqDoc ? lastSeqDoc.seq : 0;
+          if (cachedViews) {
+            view.db.once('destroyed', function () {
+              delete cachedViews[viewSignature];
+            });
+          }
+          return view;
+        });
+      });
+    });
+  });
+
+  if (cachedViews) {
+    cachedViews[viewSignature] = promiseForView;
+  }
+  return promiseForView;
+}
+
+var persistentQueues = {};
+var tempViewQueue = new TaskQueue();
+var CHANGES_BATCH_SIZE = 50;
+
+function parseViewName(name) {
+  // can be either 'ddocname/viewname' or just 'viewname'
+  // (where the ddoc name is the same)
+  return name.indexOf('/') === -1 ? [name, name] : name.split('/');
+}
+
+function isGenOne(changes) {
+  // only return true if the current change is 1-
+  // and there are no other leafs
+  return changes.length === 1 && /^1-/.test(changes[0].rev);
+}
+
+function emitError(db, e) {
+  try {
+    db.emit('error', e);
+  } catch (err) {
+    Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["d" /* guardedConsole */])('error',
+      'The user\'s map/reduce function threw an uncaught error.\n' +
+      'You can debug this error by doing:\n' +
+      'myDatabase.on(\'error\', function (err) { debugger; });\n' +
+      'Please double-check your map/reduce function.');
+    Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["d" /* guardedConsole */])('error', e);
+  }
+}
+
+/**
+ * Returns an "abstract" mapreduce object of the form:
+ *
+ *   {
+ *     query: queryFun,
+ *     viewCleanup: viewCleanupFun
+ *   }
+ *
+ * Arguments are:
+ *
+ * localDoc: string
+ *   This is for the local doc that gets saved in order to track the
+ *   "dependent" DBs and clean them up for viewCleanup. It should be
+ *   unique, so that indexer plugins don't collide with each other.
+ * mapper: function (mapFunDef, emit)
+ *   Returns a map function based on the mapFunDef, which in the case of
+ *   normal map/reduce is just the de-stringified function, but may be
+ *   something else, such as an object in the case of pouchdb-find.
+ * reducer: function (reduceFunDef)
+ *   Ditto, but for reducing. Modules don't have to support reducing
+ *   (e.g. pouchdb-find).
+ * ddocValidator: function (ddoc, viewName)
+ *   Throws an error if the ddoc or viewName is not valid.
+ *   This could be a way to communicate to the user that the configuration for the
+ *   indexer is invalid.
+ */
+function createAbstractMapReduce(localDocName, mapper, reducer, ddocValidator) {
+
+  function tryMap(db, fun, doc) {
+    // emit an event if there was an error thrown by a map function.
+    // putting try/catches in a single function also avoids deoptimizations.
+    try {
+      fun(doc);
+    } catch (e) {
+      emitError(db, e);
+    }
+  }
+
+  function tryReduce(db, fun, keys, values, rereduce) {
+    // same as above, but returning the result or an error. there are two separate
+    // functions to avoid extra memory allocations since the tryCode() case is used
+    // for custom map functions (common) vs this function, which is only used for
+    // custom reduce functions (rare)
+    try {
+      return {output : fun(keys, values, rereduce)};
+    } catch (e) {
+      emitError(db, e);
+      return {error: e};
+    }
+  }
+
+  function sortByKeyThenValue(x, y) {
+    var keyCompare = Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(x.key, y.key);
+    return keyCompare !== 0 ? keyCompare : Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(x.value, y.value);
+  }
+
+  function sliceResults(results, limit, skip) {
+    skip = skip || 0;
+    if (typeof limit === 'number') {
+      return results.slice(skip, limit + skip);
+    } else if (skip > 0) {
+      return results.slice(skip);
+    }
+    return results;
+  }
+
+  function rowToDocId(row) {
+    var val = row.value;
+    // Users can explicitly specify a joined doc _id, or it
+    // defaults to the doc _id that emitted the key/value.
+    var docId = (val && typeof val === 'object' && val._id) || row.id;
+    return docId;
+  }
+
+  function readAttachmentsAsBlobOrBuffer(res) {
+    res.rows.forEach(function (row) {
+      var atts = row.doc && row.doc._attachments;
+      if (!atts) {
+        return;
+      }
+      Object.keys(atts).forEach(function (filename) {
+        var att = atts[filename];
+        atts[filename].data = Object(__WEBPACK_IMPORTED_MODULE_3_pouchdb_binary_utils__["a" /* base64StringToBlobOrBuffer */])(att.data, att.content_type);
+      });
+    });
+  }
+
+  function postprocessAttachments(opts) {
+    return function (res) {
+      if (opts.include_docs && opts.attachments && opts.binary) {
+        readAttachmentsAsBlobOrBuffer(res);
+      }
+      return res;
+    };
+  }
+
+  function addHttpParam(paramName, opts, params, asJson) {
+    // add an http param from opts to params, optionally json-encoded
+    var val = opts[paramName];
+    if (typeof val !== 'undefined') {
+      if (asJson) {
+        val = encodeURIComponent(JSON.stringify(val));
+      }
+      params.push(paramName + '=' + val);
+    }
+  }
+
+  function coerceInteger(integerCandidate) {
+    if (typeof integerCandidate !== 'undefined') {
+      var asNumber = Number(integerCandidate);
+      // prevents e.g. '1foo' or '1.1' being coerced to 1
+      if (!isNaN(asNumber) && asNumber === parseInt(integerCandidate, 10)) {
+        return asNumber;
+      } else {
+        return integerCandidate;
+      }
+    }
+  }
+
+  function coerceOptions(opts) {
+    opts.group_level = coerceInteger(opts.group_level);
+    opts.limit = coerceInteger(opts.limit);
+    opts.skip = coerceInteger(opts.skip);
+    return opts;
+  }
+
+  function checkPositiveInteger(number) {
+    if (number) {
+      if (typeof number !== 'number') {
+        return  new __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["c" /* QueryParseError */]('Invalid value for integer: "' +
+          number + '"');
+      }
+      if (number < 0) {
+        return new __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["c" /* QueryParseError */]('Invalid value for positive integer: ' +
+          '"' + number + '"');
+      }
+    }
+  }
+
+  function checkQueryParseError(options, fun) {
+    var startkeyName = options.descending ? 'endkey' : 'startkey';
+    var endkeyName = options.descending ? 'startkey' : 'endkey';
+
+    if (typeof options[startkeyName] !== 'undefined' &&
+      typeof options[endkeyName] !== 'undefined' &&
+      Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(options[startkeyName], options[endkeyName]) > 0) {
+      throw new __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["c" /* QueryParseError */]('No rows can match your key range, ' +
+        'reverse your start_key and end_key or set {descending : true}');
+    } else if (fun.reduce && options.reduce !== false) {
+      if (options.include_docs) {
+        throw new __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["c" /* QueryParseError */]('{include_docs:true} is invalid for reduce');
+      } else if (options.keys && options.keys.length > 1 &&
+        !options.group && !options.group_level) {
+        throw new __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["c" /* QueryParseError */]('Multi-key fetches for reduce views must use ' +
+          '{group: true}');
+      }
+    }
+    ['group_level', 'limit', 'skip'].forEach(function (optionName) {
+      var error = checkPositiveInteger(options[optionName]);
+      if (error) {
+        throw error;
+      }
+    });
+  }
+
+  function httpQuery(db, fun, opts) {
+    // List of parameters to add to the PUT request
+    var params = [];
+    var body;
+    var method = 'GET';
+
+    // If opts.reduce exists and is defined, then add it to the list
+    // of parameters.
+    // If reduce=false then the results are that of only the map function
+    // not the final result of map and reduce.
+    addHttpParam('reduce', opts, params);
+    addHttpParam('include_docs', opts, params);
+    addHttpParam('attachments', opts, params);
+    addHttpParam('limit', opts, params);
+    addHttpParam('descending', opts, params);
+    addHttpParam('group', opts, params);
+    addHttpParam('group_level', opts, params);
+    addHttpParam('skip', opts, params);
+    addHttpParam('stale', opts, params);
+    addHttpParam('conflicts', opts, params);
+    addHttpParam('startkey', opts, params, true);
+    addHttpParam('start_key', opts, params, true);
+    addHttpParam('endkey', opts, params, true);
+    addHttpParam('end_key', opts, params, true);
+    addHttpParam('inclusive_end', opts, params);
+    addHttpParam('key', opts, params, true);
+    addHttpParam('update_seq', opts, params);
+
+    // Format the list of parameters into a valid URI query string
+    params = params.join('&');
+    params = params === '' ? '' : '?' + params;
+
+    // If keys are supplied, issue a POST to circumvent GET query string limits
+    // see http://wiki.apache.org/couchdb/HTTP_view_API#Querying_Options
+    if (typeof opts.keys !== 'undefined') {
+      var MAX_URL_LENGTH = 2000;
+      // according to http://stackoverflow.com/a/417184/680742,
+      // the de facto URL length limit is 2000 characters
+
+      var keysAsString =
+        'keys=' + encodeURIComponent(JSON.stringify(opts.keys));
+      if (keysAsString.length + params.length + 1 <= MAX_URL_LENGTH) {
+        // If the keys are short enough, do a GET. we do this to work around
+        // Safari not understanding 304s on POSTs (see pouchdb/pouchdb#1239)
+        params += (params[0] === '?' ? '&' : '?') + keysAsString;
+      } else {
+        method = 'POST';
+        if (typeof fun === 'string') {
+          body = {keys: opts.keys};
+        } else { // fun is {map : mapfun}, so append to this
+          fun.keys = opts.keys;
+        }
+      }
+    }
+
+    // We are referencing a query defined in the design doc
+    if (typeof fun === 'string') {
+      var parts = parseViewName(fun);
+      return db.request({
+        method: method,
+        url: '_design/' + parts[0] + '/_view/' + parts[1] + params,
+        body: body
+      }).then(
+        /* istanbul ignore next */
+        function (result) {
+          // fail the entire request if the result contains an error
+          result.rows.forEach(function (row) {
+            if (row.value && row.value.error && row.value.error === "builtin_reduce_error") {
+              throw new Error(row.reason);
+            }
+          });
+
+          return result;
+      })
+      .then(postprocessAttachments(opts));
+    }
+
+    // We are using a temporary view, terrible for performance, good for testing
+    body = body || {};
+    Object.keys(fun).forEach(function (key) {
+      if (Array.isArray(fun[key])) {
+        body[key] = fun[key];
+      } else {
+        body[key] = fun[key].toString();
+      }
+    });
+    return db.request({
+      method: 'POST',
+      url: '_temp_view' + params,
+      body: body
+    }).then(postprocessAttachments(opts));
+  }
+
+  // custom adapters can define their own api._query
+  // and override the default behavior
+  /* istanbul ignore next */
+  function customQuery(db, fun, opts) {
+    return new __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */](function (resolve, reject) {
+      db._query(fun, opts, function (err, res) {
+        if (err) {
+          return reject(err);
+        }
+        resolve(res);
+      });
+    });
+  }
+
+  // custom adapters can define their own api._viewCleanup
+  // and override the default behavior
+  /* istanbul ignore next */
+  function customViewCleanup(db) {
+    return new __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */](function (resolve, reject) {
+      db._viewCleanup(function (err, res) {
+        if (err) {
+          return reject(err);
+        }
+        resolve(res);
+      });
+    });
+  }
+
+  function defaultsTo(value) {
+    return function (reason) {
+      /* istanbul ignore else */
+      if (reason.status === 404) {
+        return value;
+      } else {
+        throw reason;
+      }
+    };
+  }
+
+  // returns a promise for a list of docs to update, based on the input docId.
+  // the order doesn't matter, because post-3.2.0, bulkDocs
+  // is an atomic operation in all three adapters.
+  function getDocsToPersist(docId, view, docIdsToChangesAndEmits) {
+    var metaDocId = '_local/doc_' + docId;
+    var defaultMetaDoc = {_id: metaDocId, keys: []};
+    var docData = docIdsToChangesAndEmits.get(docId);
+    var indexableKeysToKeyValues = docData[0];
+    var changes = docData[1];
+
+    function getMetaDoc() {
+      if (isGenOne(changes)) {
+        // generation 1, so we can safely assume initial state
+        // for performance reasons (avoids unnecessary GETs)
+        return __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */].resolve(defaultMetaDoc);
+      }
+      return view.db.get(metaDocId).catch(defaultsTo(defaultMetaDoc));
+    }
+
+    function getKeyValueDocs(metaDoc) {
+      if (!metaDoc.keys.length) {
+        // no keys, no need for a lookup
+        return __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */].resolve({rows: []});
+      }
+      return view.db.allDocs({
+        keys: metaDoc.keys,
+        include_docs: true
+      });
+    }
+
+    function processKeyValueDocs(metaDoc, kvDocsRes) {
+      var kvDocs = [];
+      var oldKeys = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__["b" /* Set */]();
+
+      for (var i = 0, len = kvDocsRes.rows.length; i < len; i++) {
+        var row = kvDocsRes.rows[i];
+        var doc = row.doc;
+        if (!doc) { // deleted
+          continue;
+        }
+        kvDocs.push(doc);
+        oldKeys.add(doc._id);
+        doc._deleted = !indexableKeysToKeyValues.has(doc._id);
+        if (!doc._deleted) {
+          var keyValue = indexableKeysToKeyValues.get(doc._id);
+          if ('value' in keyValue) {
+            doc.value = keyValue.value;
+          }
+        }
+      }
+      var newKeys = Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["f" /* mapToKeysArray */])(indexableKeysToKeyValues);
+      newKeys.forEach(function (key) {
+        if (!oldKeys.has(key)) {
+          // new doc
+          var kvDoc = {
+            _id: key
+          };
+          var keyValue = indexableKeysToKeyValues.get(key);
+          if ('value' in keyValue) {
+            kvDoc.value = keyValue.value;
+          }
+          kvDocs.push(kvDoc);
+        }
+      });
+      metaDoc.keys = Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["i" /* uniq */])(newKeys.concat(metaDoc.keys));
+      kvDocs.push(metaDoc);
+
+      return kvDocs;
+    }
+
+    return getMetaDoc().then(function (metaDoc) {
+      return getKeyValueDocs(metaDoc).then(function (kvDocsRes) {
+        return processKeyValueDocs(metaDoc, kvDocsRes);
+      });
+    });
+  }
+
+  // updates all emitted key/value docs and metaDocs in the mrview database
+  // for the given batch of documents from the source database
+  function saveKeyValues(view, docIdsToChangesAndEmits, seq) {
+    var seqDocId = '_local/lastSeq';
+    return view.db.get(seqDocId)
+      .catch(defaultsTo({_id: seqDocId, seq: 0}))
+      .then(function (lastSeqDoc) {
+        var docIds = Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["f" /* mapToKeysArray */])(docIdsToChangesAndEmits);
+        return __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */].all(docIds.map(function (docId) {
+          return getDocsToPersist(docId, view, docIdsToChangesAndEmits);
+        })).then(function (listOfDocsToPersist) {
+          var docsToPersist = Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["c" /* flatten */])(listOfDocsToPersist);
+          lastSeqDoc.seq = seq;
+          docsToPersist.push(lastSeqDoc);
+          // write all docs in a single operation, update the seq once
+          return view.db.bulkDocs({docs : docsToPersist});
+        });
+      });
+  }
+
+  function getQueue(view) {
+    var viewName = typeof view === 'string' ? view : view.name;
+    var queue = persistentQueues[viewName];
+    if (!queue) {
+      queue = persistentQueues[viewName] = new TaskQueue();
+    }
+    return queue;
+  }
+
+  function updateView(view) {
+    return Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["h" /* sequentialize */])(getQueue(view), function () {
+      return updateViewInQueue(view);
+    })();
+  }
+
+  function updateViewInQueue(view) {
+    // bind the emit function once
+    var mapResults;
+    var doc;
+
+    function emit(key, value) {
+      var output = {id: doc._id, key: Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["b" /* normalizeKey */])(key)};
+      // Don't explicitly store the value unless it's defined and non-null.
+      // This saves on storage space, because often people don't use it.
+      if (typeof value !== 'undefined' && value !== null) {
+        output.value = Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["b" /* normalizeKey */])(value);
+      }
+      mapResults.push(output);
+    }
+
+    var mapFun = mapper(view.mapFun, emit);
+
+    var currentSeq = view.seq || 0;
+
+    function processChange(docIdsToChangesAndEmits, seq) {
+      return function () {
+        return saveKeyValues(view, docIdsToChangesAndEmits, seq);
+      };
+    }
+
+    var queue = new TaskQueue();
+
+    function processNextBatch() {
+      return view.sourceDB.changes({
+        conflicts: true,
+        include_docs: true,
+        style: 'all_docs',
+        since: currentSeq,
+        limit: CHANGES_BATCH_SIZE
+      }).then(processBatch);
+    }
+
+    function processBatch(response) {
+      var results = response.results;
+      if (!results.length) {
+        return;
+      }
+      var docIdsToChangesAndEmits = createDocIdsToChangesAndEmits(results);
+      queue.add(processChange(docIdsToChangesAndEmits, currentSeq));
+      if (results.length < CHANGES_BATCH_SIZE) {
+        return;
+      }
+      return processNextBatch();
+    }
+
+    function createDocIdsToChangesAndEmits(results) {
+      var docIdsToChangesAndEmits = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__["a" /* Map */]();
+      for (var i = 0, len = results.length; i < len; i++) {
+        var change = results[i];
+        if (change.doc._id[0] !== '_') {
+          mapResults = [];
+          doc = change.doc;
+
+          if (!doc._deleted) {
+            tryMap(view.sourceDB, mapFun, doc);
+          }
+          mapResults.sort(sortByKeyThenValue);
+
+          var indexableKeysToKeyValues = createIndexableKeysToKeyValues(mapResults);
+          docIdsToChangesAndEmits.set(change.doc._id, [
+            indexableKeysToKeyValues,
+            change.changes
+          ]);
+        }
+        currentSeq = change.seq;
+      }
+      return docIdsToChangesAndEmits;
+    }
+
+    function createIndexableKeysToKeyValues(mapResults) {
+      var indexableKeysToKeyValues = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__["a" /* Map */]();
+      var lastKey;
+      for (var i = 0, len = mapResults.length; i < len; i++) {
+        var emittedKeyValue = mapResults[i];
+        var complexKey = [emittedKeyValue.key, emittedKeyValue.id];
+        if (i > 0 && Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(emittedKeyValue.key, lastKey) === 0) {
+          complexKey.push(i); // dup key+id, so make it unique
+        }
+        indexableKeysToKeyValues.set(Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])(complexKey), emittedKeyValue);
+        lastKey = emittedKeyValue.key;
+      }
+      return indexableKeysToKeyValues;
+    }
+
+    return processNextBatch().then(function () {
+      return queue.finish();
+    }).then(function () {
+      view.seq = currentSeq;
+    });
+  }
+
+  function reduceView(view, results, options) {
+    if (options.group_level === 0) {
+      delete options.group_level;
+    }
+
+    var shouldGroup = options.group || options.group_level;
+
+    var reduceFun = reducer(view.reduceFun);
+
+    var groups = [];
+    var lvl = isNaN(options.group_level) ? Number.POSITIVE_INFINITY :
+      options.group_level;
+    results.forEach(function (e) {
+      var last = groups[groups.length - 1];
+      var groupKey = shouldGroup ? e.key : null;
+
+      // only set group_level for array keys
+      if (shouldGroup && Array.isArray(groupKey)) {
+        groupKey = groupKey.slice(0, lvl);
+      }
+
+      if (last && Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["a" /* collate */])(last.groupKey, groupKey) === 0) {
+        last.keys.push([e.key, e.id]);
+        last.values.push(e.value);
+        return;
+      }
+      groups.push({
+        keys: [[e.key, e.id]],
+        values: [e.value],
+        groupKey: groupKey
+      });
+    });
+    results = [];
+    for (var i = 0, len = groups.length; i < len; i++) {
+      var e = groups[i];
+      var reduceTry = tryReduce(view.sourceDB, reduceFun, e.keys, e.values, false);
+      if (reduceTry.error && reduceTry.error instanceof __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["a" /* BuiltInError */]) {
+        // CouchDB returns an error if a built-in errors out
+        throw reduceTry.error;
+      }
+      results.push({
+        // CouchDB just sets the value to null if a non-built-in errors out
+        value: reduceTry.error ? null : reduceTry.output,
+        key: e.groupKey
+      });
+    }
+    // no total_rows/offset when reducing
+    return {rows: sliceResults(results, options.limit, options.skip)};
+  }
+
+  function queryView(view, opts) {
+    return Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["h" /* sequentialize */])(getQueue(view), function () {
+      return queryViewInQueue(view, opts);
+    })();
+  }
+
+  function queryViewInQueue(view, opts) {
+    var totalRows;
+    var shouldReduce = view.reduceFun && opts.reduce !== false;
+    var skip = opts.skip || 0;
+    if (typeof opts.keys !== 'undefined' && !opts.keys.length) {
+      // equivalent query
+      opts.limit = 0;
+      delete opts.keys;
+    }
+
+    function fetchFromView(viewOpts) {
+      viewOpts.include_docs = true;
+      return view.db.allDocs(viewOpts).then(function (res) {
+        totalRows = res.total_rows;
+        return res.rows.map(function (result) {
+
+          // implicit migration - in older versions of PouchDB,
+          // we explicitly stored the doc as {id: ..., key: ..., value: ...}
+          // this is tested in a migration test
+          /* istanbul ignore next */
+          if ('value' in result.doc && typeof result.doc.value === 'object' &&
+            result.doc.value !== null) {
+            var keys = Object.keys(result.doc.value).sort();
+            // this detection method is not perfect, but it's unlikely the user
+            // emitted a value which was an object with these 3 exact keys
+            var expectedKeys = ['id', 'key', 'value'];
+            if (!(keys < expectedKeys || keys > expectedKeys)) {
+              return result.doc.value;
+            }
+          }
+
+          var parsedKeyAndDocId = Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["c" /* parseIndexableString */])(result.doc._id);
+          return {
+            key: parsedKeyAndDocId[0],
+            id: parsedKeyAndDocId[1],
+            value: ('value' in result.doc ? result.doc.value : null)
+          };
+        });
+      });
+    }
+
+    function onMapResultsReady(rows) {
+      var finalResults;
+      if (shouldReduce) {
+        finalResults = reduceView(view, rows, opts);
+      } else {
+        finalResults = {
+          total_rows: totalRows,
+          offset: skip,
+          rows: rows
+        };
+      }
+      /* istanbul ignore if */
+      if (opts.update_seq) {
+        finalResults.update_seq = view.seq;
+      }
+      if (opts.include_docs) {
+        var docIds = Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["i" /* uniq */])(rows.map(rowToDocId));
+
+        return view.sourceDB.allDocs({
+          keys: docIds,
+          include_docs: true,
+          conflicts: opts.conflicts,
+          attachments: opts.attachments,
+          binary: opts.binary
+        }).then(function (allDocsRes) {
+          var docIdsToDocs = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__["a" /* Map */]();
+          allDocsRes.rows.forEach(function (row) {
+            docIdsToDocs.set(row.id, row.doc);
+          });
+          rows.forEach(function (row) {
+            var docId = rowToDocId(row);
+            var doc = docIdsToDocs.get(docId);
+            if (doc) {
+              row.doc = doc;
+            }
+          });
+          return finalResults;
+        });
+      } else {
+        return finalResults;
+      }
+    }
+
+    if (typeof opts.keys !== 'undefined') {
+      var keys = opts.keys;
+      var fetchPromises = keys.map(function (key) {
+        var viewOpts = {
+          startkey : Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])([key]),
+          endkey   : Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])([key, {}])
+        };
+        /* istanbul ignore if */
+        if (opts.update_seq) {
+          viewOpts.update_seq = true;
+        }
+        return fetchFromView(viewOpts);
+      });
+      return __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */].all(fetchPromises).then(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["c" /* flatten */]).then(onMapResultsReady);
+    } else { // normal query, no 'keys'
+      var viewOpts = {
+        descending : opts.descending
+      };
+      /* istanbul ignore if */
+      if (opts.update_seq) {
+        viewOpts.update_seq = true;
+      }
+      var startkey;
+      var endkey;
+      if ('start_key' in opts) {
+        startkey = opts.start_key;
+      }
+      if ('startkey' in opts) {
+        startkey = opts.startkey;
+      }
+      if ('end_key' in opts) {
+        endkey = opts.end_key;
+      }
+      if ('endkey' in opts) {
+        endkey = opts.endkey;
+      }
+      if (typeof startkey !== 'undefined') {
+        viewOpts.startkey = opts.descending ?
+          Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])([startkey, {}]) :
+          Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])([startkey]);
+      }
+      if (typeof endkey !== 'undefined') {
+        var inclusiveEnd = opts.inclusive_end !== false;
+        if (opts.descending) {
+          inclusiveEnd = !inclusiveEnd;
+        }
+
+        viewOpts.endkey = Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])(
+          inclusiveEnd ? [endkey, {}] : [endkey]);
+      }
+      if (typeof opts.key !== 'undefined') {
+        var keyStart = Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])([opts.key]);
+        var keyEnd = Object(__WEBPACK_IMPORTED_MODULE_4_pouchdb_collate__["d" /* toIndexableString */])([opts.key, {}]);
+        if (viewOpts.descending) {
+          viewOpts.endkey = keyStart;
+          viewOpts.startkey = keyEnd;
+        } else {
+          viewOpts.startkey = keyStart;
+          viewOpts.endkey = keyEnd;
+        }
+      }
+      if (!shouldReduce) {
+        if (typeof opts.limit === 'number') {
+          viewOpts.limit = opts.limit;
+        }
+        viewOpts.skip = skip;
+      }
+      return fetchFromView(viewOpts).then(onMapResultsReady);
+    }
+  }
+
+  function httpViewCleanup(db) {
+    return db.request({
+      method: 'POST',
+      url: '_view_cleanup'
+    });
+  }
+
+  function localViewCleanup(db) {
+    return db.get('_local/' + localDocName).then(function (metaDoc) {
+      var docsToViews = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__["a" /* Map */]();
+      Object.keys(metaDoc.views).forEach(function (fullViewName) {
+        var parts = parseViewName(fullViewName);
+        var designDocName = '_design/' + parts[0];
+        var viewName = parts[1];
+        var views = docsToViews.get(designDocName);
+        if (!views) {
+          views = new __WEBPACK_IMPORTED_MODULE_1_pouchdb_collections__["b" /* Set */]();
+          docsToViews.set(designDocName, views);
+        }
+        views.add(viewName);
+      });
+      var opts = {
+        keys : Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["f" /* mapToKeysArray */])(docsToViews),
+        include_docs : true
+      };
+      return db.allDocs(opts).then(function (res) {
+        var viewsToStatus = {};
+        res.rows.forEach(function (row) {
+          var ddocName = row.key.substring(8); // cuts off '_design/'
+          docsToViews.get(row.key).forEach(function (viewName) {
+            var fullViewName = ddocName + '/' + viewName;
+            /* istanbul ignore if */
+            if (!metaDoc.views[fullViewName]) {
+              // new format, without slashes, to support PouchDB 2.2.0
+              // migration test in pouchdb's browser.migration.js verifies this
+              fullViewName = viewName;
+            }
+            var viewDBNames = Object.keys(metaDoc.views[fullViewName]);
+            // design doc deleted, or view function nonexistent
+            var statusIsGood = row.doc && row.doc.views &&
+              row.doc.views[viewName];
+            viewDBNames.forEach(function (viewDBName) {
+              viewsToStatus[viewDBName] =
+                viewsToStatus[viewDBName] || statusIsGood;
+            });
+          });
+        });
+        var dbsToDelete = Object.keys(viewsToStatus).filter(
+          function (viewDBName) { return !viewsToStatus[viewDBName]; });
+        var destroyPromises = dbsToDelete.map(function (viewDBName) {
+          return Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["h" /* sequentialize */])(getQueue(viewDBName), function () {
+            return new db.constructor(viewDBName, db.__opts).destroy();
+          })();
+        });
+        return __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */].all(destroyPromises).then(function () {
+          return {ok: true};
+        });
+      });
+    }, defaultsTo({ok: true}));
+  }
+
+  function queryPromised(db, fun, opts) {
+    /* istanbul ignore next */
+    if (typeof db._query === 'function') {
+      return customQuery(db, fun, opts);
+    }
+    if (Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["e" /* isRemote */])(db)) {
+      return httpQuery(db, fun, opts);
+    }
+    
+    if (typeof fun !== 'string') {
+      // temp_view
+      checkQueryParseError(opts, fun);
+
+      tempViewQueue.add(function () {
+        var createViewPromise = createView(
+          /* sourceDB */ db,
+          /* viewName */ 'temp_view/temp_view',
+          /* mapFun */ fun.map,
+          /* reduceFun */ fun.reduce,
+          /* temporary */ true,
+          /* localDocName */ localDocName);
+        return createViewPromise.then(function (view) {
+          return Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["e" /* fin */])(updateView(view).then(function () {
+            return queryView(view, opts);
+          }), function () {
+            return view.db.destroy();
+          });
+        });
+      });
+      return tempViewQueue.finish();
+    } else {
+      // persistent view
+      var fullViewName = fun;
+      var parts = parseViewName(fullViewName);
+      var designDocName = parts[0];
+      var viewName = parts[1];
+      return db.get('_design/' + designDocName).then(function (doc) {
+        var fun = doc.views && doc.views[viewName];
+
+        if (!fun) {
+          // basic validator; it's assumed that every subclass would want this
+          throw new __WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["b" /* NotFoundError */]('ddoc ' + doc._id + ' has no view named ' +
+            viewName);
+        }
+
+        ddocValidator(doc, viewName);
+        checkQueryParseError(opts, fun);
+
+        var createViewPromise = createView(
+          /* sourceDB */ db,
+          /* viewName */ fullViewName,
+          /* mapFun */ fun.map,
+          /* reduceFun */ fun.reduce,
+          /* temporary */ false,
+          /* localDocName */ localDocName);
+        return createViewPromise.then(function (view) {
+          if (opts.stale === 'ok' || opts.stale === 'update_after') {
+            if (opts.stale === 'update_after') {
+              Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["f" /* nextTick */])(function () {
+                updateView(view);
+              });
+            }
+            return queryView(view, opts);
+          } else { // stale not ok
+            return updateView(view).then(function () {
+              return queryView(view, opts);
+            });
+          }
+        });
+      });
+    }
+  }
+
+  function abstractQuery(fun, opts, callback) {
+    var db = this;
+    if (typeof opts === 'function') {
+      callback = opts;
+      opts = {};
+    }
+    opts = opts ? coerceOptions(opts) : {};
+
+    if (typeof fun === 'function') {
+      fun = {map : fun};
+    }
+
+    var promise = __WEBPACK_IMPORTED_MODULE_0_pouchdb_promise__["a" /* default */].resolve().then(function () {
+      return queryPromised(db, fun, opts);
+    });
+    Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["g" /* promisedCallback */])(promise, callback);
+    return promise;
+  }
+
+  var abstractViewCleanup = Object(__WEBPACK_IMPORTED_MODULE_6_pouchdb_mapreduce_utils__["d" /* callbackify */])(function () {
+    var db = this;
+    /* istanbul ignore next */
+    if (typeof db._viewCleanup === 'function') {
+      return customViewCleanup(db);
+    }
+    if (Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["e" /* isRemote */])(db)) {
+      return httpViewCleanup(db);
+    }
+    return localViewCleanup(db);
+  });
+
+  return {
+    query: abstractQuery,
+    viewCleanup: abstractViewCleanup
+  };
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (createAbstractMapReduce);
+
+
+/***/ }),
+/* 702 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return uniq; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return sequentialize; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return fin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return callbackify; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return promisedCallback; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return mapToKeysArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return QueryParseError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return NotFoundError; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BuiltInError; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_pouchdb_collections__ = __webpack_require__(694);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_argsarray__ = __webpack_require__(686);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_argsarray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_argsarray__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__ = __webpack_require__(692);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_inherits__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_inherits__);
+
+
+
+
+
+function QueryParseError(message) {
+  this.status = 400;
+  this.name = 'query_parse_error';
+  this.message = message;
+  this.error = true;
+  try {
+    Error.captureStackTrace(this, QueryParseError);
+  } catch (e) {}
+}
+
+__WEBPACK_IMPORTED_MODULE_3_inherits___default()(QueryParseError, Error);
+
+function NotFoundError(message) {
+  this.status = 404;
+  this.name = 'not_found';
+  this.message = message;
+  this.error = true;
+  try {
+    Error.captureStackTrace(this, NotFoundError);
+  } catch (e) {}
+}
+
+__WEBPACK_IMPORTED_MODULE_3_inherits___default()(NotFoundError, Error);
+
+function BuiltInError(message) {
+  this.status = 500;
+  this.name = 'invalid_value';
+  this.message = message;
+  this.error = true;
+  try {
+    Error.captureStackTrace(this, BuiltInError);
+  } catch (e) {}
+}
+
+__WEBPACK_IMPORTED_MODULE_3_inherits___default()(BuiltInError, Error);
+
+function promisedCallback(promise, callback) {
+  if (callback) {
+    promise.then(function (res) {
+      Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["f" /* nextTick */])(function () {
+        callback(null, res);
+      });
+    }, function (reason) {
+      Object(__WEBPACK_IMPORTED_MODULE_2_pouchdb_utils__["f" /* nextTick */])(function () {
+        callback(reason);
+      });
+    });
+  }
+  return promise;
+}
+
+function callbackify(fun) {
+  return __WEBPACK_IMPORTED_MODULE_1_argsarray___default()(function (args) {
+    var cb = args.pop();
+    var promise = fun.apply(this, args);
+    if (typeof cb === 'function') {
+      promisedCallback(promise, cb);
+    }
+    return promise;
+  });
+}
+
+// Promise finally util similar to Q.finally
+function fin(promise, finalPromiseFactory) {
+  return promise.then(function (res) {
+    return finalPromiseFactory().then(function () {
+      return res;
+    });
+  }, function (reason) {
+    return finalPromiseFactory().then(function () {
+      throw reason;
+    });
+  });
+}
+
+function sequentialize(queue, promiseFactory) {
+  return function () {
+    var args = arguments;
+    var that = this;
+    return queue.add(function () {
+      return promiseFactory.apply(that, args);
+    });
+  };
+}
+
+// uniq an array of strings, order not guaranteed
+// similar to underscore/lodash _.uniq
+function uniq(arr) {
+  var theSet = new __WEBPACK_IMPORTED_MODULE_0_pouchdb_collections__["b" /* Set */](arr);
+  var result = new Array(theSet.size);
+  var index = -1;
+  theSet.forEach(function (value) {
+    result[++index] = value;
+  });
+  return result;
+}
+
+function mapToKeysArray(map) {
+  var result = new Array(map.size);
+  var index = -1;
+  map.forEach(function (value, key) {
+    result[++index] = key;
+  });
+  return result;
+}
+
+
 
 
 /***/ })
