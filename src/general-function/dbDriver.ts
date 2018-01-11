@@ -32,7 +32,7 @@ interface IAlldocs{
 
 export type TSink = IPut | IGet | IAlldocs
 
-export type TSource = O<PouchDB.Core.Response>
+export type TSource = O<PouchDB.Core.Response | PouchDB.Find.FindResponse<{}>>
 
 export default function createDbDriver(dbname: string) {
     const db = new PouchDB(dbname,{ revs_limit: 1, auto_compaction: true })
