@@ -44,17 +44,11 @@ export default function main(sources: Sources): Sinks {
 
     const result$ = submitFieldAction.withLatestFrom(O.combineLatest(questionFieldValue,answerField.value)).map(([,v]) => ({_id:Date.now().toString(),question:v[0],answers:v[1]}))
     const DBRequest = result$.map<any,DBSink>(payload => ({command:'put',collection:collectionName,id,payload}))
-    db.subscribe(console.log)
     const view$ = O.combineLatest(questionField.DOM,answerField.DOM,addField.DOM,removeField.DOM,submitField.DOM).map(doms => p(doms))
+    const a:DBSink = {command:'alldocs',collection:'math',payload:{},id:'qlist'}
     return {
         DOM: view$,
         db:DBRequest
     }
 }
 
-
-function view():O<VNode>{
-    return O.of(div([
-
-    ]))
-}

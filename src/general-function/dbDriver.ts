@@ -32,7 +32,7 @@ interface IAlldocs{
 
 export type TSink = IPut | IGet | IAlldocs
 
-export type TSource = O<PouchDB.Core.Response | PouchDB.Find.FindResponse<{}>>
+export type TSource = O<{response:PouchDB.Core.Response | PouchDB.Find.FindResponse<any>,id:string}>
 
 export default function createDbDriver(dbname: string) {
     const db = new PouchDB(dbname,{ revs_limit: 1, auto_compaction: true })
@@ -42,25 +42,24 @@ export default function createDbDriver(dbname: string) {
             start: (listener) => {
                 sink.subscribe({
                     next: (sink) => {
-                        console.log(sink.command)
                         if (sink.collection == void 0) return
                         if (sink.command == 'put') {
                             if(confirm('Do you want to submit the question?')){
-                                db.put({...sink.payload,collection:sink.collection}).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.error({ response: e, id: sink.id }) })
+                                db.put({...sink.payload,collection:sink.collection}).then(response => listener.next({ response, id: sink.id })).catch((e) => { listener.next({ response: e, id: sink.id }) })
                             }
                         }
                         if (sink.command == 'get') {
                             db.find({selector:{collection:sink.collection,_id:{$eq:sink.payload._id}}}).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.next({ response: e, id: sink.id }) })
                         }
                         if (sink.command == 'alldocs') {
-                            db.find({...sink.payload,selector:{collection:sink.collection}}).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.error({ response: e, id: sink.id }) })
+                            db.find({...sink.payload,selector:{collection:sink.collection}}).then(response => listener.next({ response, id: sink.id })).catch(e => { listener.next({ response: e, id: sink.id }) })
                         }
                     },
                     complete: () => { },
                     error: () => { }
                 })
             },
-            stop: () => { db.close() }
+            stop: () => {}
         })
         return adapt(source)
     }

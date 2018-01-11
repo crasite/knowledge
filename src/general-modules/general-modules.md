@@ -4,6 +4,7 @@
  3. [Input Field](#inputfield)
  4. [Input Array](#inputarray)
  5. [Questionaire](#questionaire)
+ 6. [Tester](#tester)
 
 ## InfoSection
 --------------
@@ -100,11 +101,35 @@ Question Creator
 ```typescript
 export interface Sources{
   DOM:DOMSource
+  db:DBSource
+  id:string
+  collectionName:string
 }
 
 export interface Sinks{
   DOM:O<VNode>
+  db:O<DBSink>
 }
 ```
 
 ![Questionaire](./docs/questionaire.png)
+
+## Tester
+---------------
+Tester
+
+```typescript
+export interface Sources{
+  DOM:DOMSource
+  db:DBSource
+  questionSet:string
+  update:O<number>
+}
+
+export interface Sinks{
+  DOM:O<VNode>
+  db:O<DBSink>
+}
+```
+
+![Questionaire](./docs/tester.png)
