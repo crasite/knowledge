@@ -17,7 +17,7 @@ app.get('/info', (req, res) => {
     res.render('info');
 });
 app.get('/*', (req, res) => {
-    res.render('info');
+    res.render('main');
 });
 app.listen(CONFIG.port, () => {
     console.log(`Server start on ${CONFIG.port}`);
