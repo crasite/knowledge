@@ -4,6 +4,7 @@ import { VNode,DOMSource,makeDOMDriver,h,nav, p, h1, header, div, a} from "@cycl
 import { run } from "@cycle/rxjs-run";
 import { Stream } from "xstream";
 import { AjaxResponse } from "rxjs/observable/dom/AjaxObservable";
+import InfoSection from "./general-modules/InfoSection";
 
 export interface Sources{
   DOM:DOMSource;
@@ -27,17 +28,19 @@ export default function main({ DOM }: Sources): Sinks {
             // Create Nav Elements
             function toLink(key:string,fileName:string){
                 const displayName = fileName.match(/[A-Z][a-z]+/g).reduce((acc,val) => acc+" "+val)
-                return a({attrs:{href:`/markdowns/${key}-${fileName}`}},displayName)
+                return a({dataset:{source:`/markdowns/${key}-${fileName}`}},displayName)
             }
             return Object.keys(obj).map(keys => {
                 const childs = obj[keys].map(fileName => toLink(keys,fileName))
                 return div([keys,div(childs)])
             })
-        }).map(elements => nav(elements))
+    }).map(elements => nav(elements))
+    const SSelection = DOM.select('a').events("click").map(event => event.target as HTMLAnchorElement).map(element => ({source:element.dataset.source})).startWith({source:'/markdowns/sample.md'})
 
+    const infoSection = InfoSection({DOM,props:O.from(SSelection)})
     const mainContent = h("main",[p("main")])
-    const view = navigation.map(navElement => 
-        div("#main-container",[header(h1("Header")),navElement,h("main",[p("main")])])
+    const view = navigation.combineLatest(infoSection.DOM).map(([navElement,infoSection]) => 
+        div("#main-container",[header(h1("Header")),navElement,infoSection])
     )
     return {
         DOM:view
@@ -45,4 +48,3 @@ export default function main({ DOM }: Sources): Sinks {
 }
 
 run(main,{DOM:makeDOMDriver('#main-container')})
-console.log('tes')

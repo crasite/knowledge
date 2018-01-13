@@ -7,17 +7,17 @@ import { MarkdownIt } from "markdown-it";
 
 export interface Sources{
   DOM:DOMSource
-  props:{
+  props:O<{
       source: string
-  }
+  }>
 }
 
 export interface Sinks{
   DOM:O<VNode>
 }
 
-export default function main(sources:Sources):Sinks{
-    const vdom = O.ajax({method:'GET',url:sources.props.source,responseType:'text'}).map(v => {
+export default function main({DOM,props}:Sources):Sinks{
+    const vdom = props.flatMap(props => O.ajax({method:'GET',url:props.source,responseType:'text'})).map(v => {
         const md = require('markdown-it')() as MarkdownIt
         md.use(require('markdown-it-texmath').use(require('katex')))
         return view(createVNode(md.render(v.response)))

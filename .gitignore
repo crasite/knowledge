@@ -1,3 +1,4 @@
 node_modules
 .fusebox
+**/*.js.map
 public/javascripts/*.bundle.js
