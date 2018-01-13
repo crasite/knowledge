@@ -21,8 +21,11 @@ app.get('/math', (req, res) => {
 app.get('/info', (req, res) => {
     res.render('info');
 });
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
     res.render('main');
+});
+app.get('/*', (req, res) => {
+    res.status(404).send("not found");
 });
 app.listen(CONFIG.port, () => {
     console.log(`Server start on ${CONFIG.port}`);

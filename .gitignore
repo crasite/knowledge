@@ -1,2 +1,3 @@
 node_modules
+.fusebox
 public/javascripts/*.bundle.js
