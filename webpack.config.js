@@ -5,7 +5,8 @@ module.exports = {
     entry:{
         math: './src/math/math.ts',
         offline:'./src/general-modules/offline.ts',
-        info: './src/info.ts'
+        info: './src/info.ts',
+        main: './src/main.ts'
     } ,
     output: {
         path: path.join(__dirname,'public/javascripts'),
