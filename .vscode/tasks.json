@@ -14,7 +14,6 @@
         },
         {
             "type": "shell",
-            "label": "webpack: watch",
             "command": "webpack --watch",
             "problemMatcher": []
         },
@@ -27,7 +26,6 @@
         {
             "type": "npm",
             "script": "test",
-            "label": "testing",
             "problemMatcher": []
         }
     ]

@@ -5,6 +5,7 @@ import { run } from "@cycle/rxjs-run";
 import { Stream } from "xstream";
 import { AjaxResponse } from "rxjs/observable/dom/AjaxObservable";
 import InfoSection from "./general-modules/InfoSection";
+import isolate from '@cycle/isolate';
 
 export interface Sources{
   DOM:DOMSource;
@@ -37,7 +38,7 @@ export default function main({ DOM }: Sources): Sinks {
     }).map(elements => nav(elements))
     const SSelection = DOM.select('a').events("click").map(event => event.target as HTMLAnchorElement).map(element => ({source:element.dataset.source})).startWith({source:'/markdowns/sample.md'})
 
-    const infoSection = InfoSection({DOM,props:O.from(SSelection)})
+    const infoSection = isolate(InfoSection)({DOM,props:O.from(SSelection)})
     const mainContent = h("main",[p("main")])
     const view = navigation.combineLatest(infoSection.DOM).map(([navElement,infoSection]) => 
         div("#main-container",[header(h1("Header")),navElement,infoSection])
