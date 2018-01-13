@@ -1,3 +1,4 @@
+import './style.styl'
 import { Observable as O } from "rxjs";
 import { VNode,DOMSource,makeDOMDriver,h,nav, p, h1, header, div, a} from "@cycle/DOM";
 import { run } from "@cycle/rxjs-run";
@@ -44,3 +45,4 @@ export default function main({ DOM }: Sources): Sinks {
 }
 
 run(main,{DOM:makeDOMDriver('#main-container')})
+console.log('tes')
