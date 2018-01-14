@@ -1,5 +1,5 @@
-import  PouchDB from 'pouchdb'
-import PouchDBFind from 'pouchdb-find'
+import * as PouchDB from 'pouchdb'
+import * as PouchDBFind from 'pouchdb-find'
 import {adapt} from '@cycle/run/lib/adapt'
 import { Observable as O } from "rxjs";
 import xs from "xstream";
