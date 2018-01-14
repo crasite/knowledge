@@ -11,7 +11,7 @@ import { Stream } from "xstream";
 export interface Sources{
   DOM:DOMSource
   db:DBSource
-  questionSet:string
+  questionSet:O<string>
   update:O<number>
 }
 
@@ -21,9 +21,10 @@ export interface Sinks{
 }
 
 export default function main({DOM,db,questionSet,update}:Sources):Sinks{
-    const requestForQuestion = update.mapTo({command:'alldocs',collection:questionSet,payload:{},id:'qlist'}) as O<DBSink>
+    const requestForQuestion = update.combineLatest(questionSet).map(([,questionSet]) => ({command:'alldocs',collection:questionSet,payload:{},id:'qlist'})) as O<DBSink>
     const md = require('markdown-it')() as MarkdownIt
     md.use(require('markdown-it-texmath').use(require('katex')))
+    questionSet.subscribe(console.log)
 
     const checkButtonProps:InputFieldSource['props'] = O.of({name:'checkButton',type:'button',propList:{value:'Check'}})
     const checkButton = isolate(InputField)({DOM,props:checkButtonProps}) as InputFieldSink
@@ -62,9 +63,9 @@ export default function main({DOM,db,questionSet,update}:Sources):Sinks{
             if(cur == answer[ind]) return "Richtig"
             return cur
         })
-    }).map(v => div(v.map(a => span(a)))).startWith(null)
+    }).map(v => div(v.map(a => span(a)))).startWith(null).merge(nextAction.mapTo(null),update.mapTo(null))
 
-    const resultField = answerFieldsDOM.combineLatest(checkAnswer.merge(nextAction.mapTo(null))).map(v => div('.result',v))
+    const resultField = answerFieldsDOM.combineLatest(checkAnswer).map(v => div('.result',v))
 
     const view = currentQuestion.map(res => {
             return createVNode(md.render(res.question))

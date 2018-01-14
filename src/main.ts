@@ -47,13 +47,15 @@ export default function main({ DOM,db }: Sources): Sinks {
     }).map(elements => nav(elements))
     const markdownSelection = DOM.select('a').events("click").map(event => event.target as HTMLAnchorElement).map(element => ({source:element.dataset.source})).startWith({source:'/markdowns/sample.md'})
 
-    const infoSectionProp = O.from(markdownSelection).combineLatest(sectionSelection).flatMap(([markdownSelection,sectionSelection]) => (sectionSelection == 'content')?O.of(markdownSelection):O.empty())
+    const infoSectionProp:O<{source:string}> = O.from(markdownSelection).combineLatest(sectionSelection).flatMap(([markdownSelection,sectionSelection]) => (sectionSelection == 'content')?O.of(markdownSelection):O.empty())
     const infoSection = isolate(InfoSection)({DOM,props:infoSectionProp})
-    const questionerDB = O.from(markdownSelection.map(link => /\/([A-z-]+?).md$/.exec(link.source)[1]))
-    const questioner = Questioner({DOM,db,id:'q1',collectionName:questionerDB})
+    const collectionName = O.from(markdownSelection.map(link => /\/([A-z-]+?).md$/.exec(link.source)[1]))
+    const questioner = Questioner({DOM,db,id:'q1',collectionName})
+    const tester = Tester({DOM,db,questionSet:collectionName, update:questioner.db.mapTo(1).startWith(1).merge(markdownSelection.mapTo(1))})
 
-    const mainContent = O.combineLatest(sectionSelection,infoSection.DOM,questioner.DOM).map(([section,infoSection,questioner]) => {
+    const mainContent = O.combineLatest(sectionSelection,infoSection.DOM,questioner.DOM,tester.DOM).map(([section,infoSection,questioner,tester]) => {
         if(section == 'content') return infoSection
+        if(section == 'tester') return tester
         else return questioner
     }).map(infoSection => {
         return h("main",[
@@ -68,7 +70,7 @@ export default function main({ DOM,db }: Sources): Sinks {
     db.subscribe(console.log)
     return {
         DOM:view,
-        db:questioner.db
+        db:questioner.db.merge(tester.db)
     }
 }
 
