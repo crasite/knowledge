@@ -4,6 +4,7 @@ import { VNode,DOMSource,makeDOMDriver, div, button, p, input, source} from "@cy
 import { Stream, MemoryStream } from "xstream";
 import { MarkdownIt } from "markdown-it"; 
  import createVNode from "../general-function/createVNode";
+import { AjaxResponse } from "rxjs/observable/dom/AjaxObservable";
 
 export interface Sources{
   DOM:DOMSource
@@ -18,8 +19,7 @@ export interface Sinks{
 
 export default function main({DOM,props}:Sources):Sinks{
     const element = O.of(1).flatMap(v => DOM.select('.info').elements() as MemoryStream<Element[]>).take(1)
-    DOM.select('.info').elements().map(el => console.log("heht"))
-    const vdom = props.flatMap(props => O.ajax({method:'GET',url:props.source,responseType:'text'})).map(v => {
+    const vdom = props.flatMap(props => O.ajax({method:'GET',url:props.source,responseType:'text'}).startWith<AjaxResponse|any>({response:"loading"})).map(v => {
         const md = require('markdown-it')() as MarkdownIt
         md.use(require('markdown-it-texmath').use(require('katex')))
         return md.render(v.response)

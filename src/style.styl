@@ -6,10 +6,10 @@ body{
 }
 #main-container{
     display: grid;
+    margin: 0 2em;
     grid-gap: 3em;
-    @media (min-width:34em){
+    @media(min-width:48em){
         grid-template-columns:1fr 4fr
-
         >header {
             grid-column:1/3;
         }
@@ -17,19 +17,13 @@ body{
 
     >nav {
         >div{
-            &:nth-of-type(odd){
-                background-color: aquamarine;
-            }
-            &:nth-of-type(even){
-                background-color: aqua;
-            }
+
             &:hover{
                 >div{
                     overflow: auto
                     max-height: 5em
                 }
             }
-
             >div{
                     transition-property: all
                     display: flex
@@ -37,6 +31,23 @@ body{
                     transition-duration: 300ms
                     overflow: hidden
                     max-height: 0em
+            }
+
+            &:hover{
+                >span{
+                    display: inline-block
+                    margin-bottom: 0.3em
+                }
+            }
+            >span{
+                text-transform: capitalize
+                border-bottom-style: dashed 
+                font-weight: bold
+                font-size: 1.2em
+            }
+
+            a{
+                color:rgb(92,148,242)
             }
         } 
     }

@@ -1,4 +1,5 @@
 import * as Express from 'express'
+import * as compression from 'compression'
 import * as fs from "fs";
 
 const CONFIG = {
@@ -8,6 +9,7 @@ const CONFIG = {
 
 const app = Express()
 
+app.use(compression())
 app.use(Express.static('./public'))
 app.set('view engine', 'pug')
 

@@ -1,11 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const Express = require("express");
+const compression = require("compression");
 const fs = require("fs");
 const CONFIG = {
     port: process.env.PORT || 3000
 };
 const app = Express();
+app.use(compression());
 app.use(Express.static('./public'));
 app.set('view engine', 'pug');
 app.get('/offline', (req, res) => {

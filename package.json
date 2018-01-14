@@ -17,6 +17,7 @@
     "@types/markdown-it": "0.0.4",
     "@types/pouchdb": "^6.3.2",
     "@types/pouchdb-find": "^6.3.2",
+    "compression": "^1.7.1",
     "cycle-onionify": "^5.0.0",
     "express": "^4.16.2",
     "fuse-box": "^3.0.2",

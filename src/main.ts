@@ -1,6 +1,6 @@
 import './style.styl'
 import { Observable as O } from "rxjs";
-import { VNode,DOMSource,makeDOMDriver,h,nav, p, h1, header, div, a} from "@cycle/DOM";
+import { VNode,DOMSource,makeDOMDriver,h,nav, p, h1, header, div, a, span} from "@cycle/DOM";
 import { run } from "@cycle/rxjs-run";
 import { Stream } from "xstream";
 import { AjaxResponse } from "rxjs/observable/dom/AjaxObservable";
@@ -33,7 +33,7 @@ export default function main({ DOM }: Sources): Sinks {
             }
             return Object.keys(obj).map(keys => {
                 const childs = obj[keys].map(fileName => toLink(keys,fileName))
-                return div([keys,div(childs)])
+                return div([span(keys),div(childs)])
             })
     }).map(elements => nav(elements))
     const SSelection = DOM.select('a').events("click").map(event => event.target as HTMLAnchorElement).map(element => ({source:element.dataset.source})).startWith({source:'/markdowns/sample.md'})

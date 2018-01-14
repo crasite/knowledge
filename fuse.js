@@ -4,8 +4,10 @@ const { src, task, context, tsc, watch } = require('fuse-box/sparky');
 const isProduction = false;
 
 task('default',async context => {
-    const fuse = context.getConfig();
-    context.createBundle(fuse,"public/javascripts/main");
+    // context.isProduction = true;
+    const bundleName = "public/javascripts/main"
+    const fuse = context.getConfig(bundleName);
+    context.createBundle(fuse,bundleName);
     await fuse.run();
 });
 
@@ -20,7 +22,7 @@ task('runServer', () => {
 task('whole',["&transpile","&runServer","default"])
 
 context(class {
-    getConfig() {
+    getConfig(bundleName) {
         return FuseBox.init({
             homeDir: "src",
             target: 'browser@es6',
@@ -28,9 +30,10 @@ context(class {
             sourceMaps: true,
             plugins: [
                 [StylusPlugin(), CSSPlugin()],
-                isProduction && QuantumPlugin({
-                    bakeApiIntoBundle: 'app',
-                    uglify: true
+                this.isProduction && QuantumPlugin({
+                    bakeApiIntoBundle:bundleName,
+                    containedAPI:true,
+                    uglify:true
                 })
             ]
         })
