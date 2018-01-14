@@ -5,3 +5,19 @@
     border: 1px; 
     border-style: groove;
 }
+
+.result {
+    display: flex;
+    justify-content: space-between;
+}
+
+.result div {
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
+    flex-basis: 47%
+}
+
+.result div * {
+    flex: 1;
+}
