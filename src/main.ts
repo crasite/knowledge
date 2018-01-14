@@ -39,9 +39,16 @@ export default function main({ DOM }: Sources): Sinks {
     const SSelection = DOM.select('a').events("click").map(event => event.target as HTMLAnchorElement).map(element => ({source:element.dataset.source})).startWith({source:'/markdowns/sample.md'})
 
     const infoSection = isolate(InfoSection)({DOM,props:O.from(SSelection)})
-    const mainContent = h("main",[p("main")])
-    const view = navigation.combineLatest(infoSection.DOM).map(([navElement,infoSection]) => 
-        div("#main-container",[header(h1("Header")),navElement,infoSection])
+
+    const mainContent = infoSection.DOM.map(infoSection => {
+        return h("main",[
+            nav([p("1"),p("2"),p("3")]),
+            infoSection
+        ])
+    }).startWith(p("Loading"))
+
+    const view = navigation.combineLatest(mainContent).map(([navElement,mainContent]) => 
+        div("#main-container",[header(h1("Header")),navElement,mainContent])
     )
     return {
         DOM:view

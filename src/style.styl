@@ -51,4 +51,21 @@ body{
             }
         } 
     }
+
+    >main {
+        >nav{
+            display: flex
+
+            >p{
+                &:nth-child(even){
+                    background-color: aquamarine;
+                }
+                &:nth-child(odd){
+                    background-color: aqua;
+                }
+                text-align: center
+                flex:1
+            }
+        }
+    }
 }
