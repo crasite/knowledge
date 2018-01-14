@@ -28,7 +28,7 @@ app.get('/',(req,res) => {
     res.render('main')
 })
 app.get('/*',(req,res) =>{
-    res.status(404).send("not found")
+    res.status(404).send("Not Found")
 })
 app.listen(CONFIG.port,() => {
     console.log(`Server start on ${CONFIG.port}`) 
