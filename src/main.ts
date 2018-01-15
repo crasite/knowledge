@@ -54,20 +54,19 @@ export default function main({ DOM,db }: Sources): Sinks {
     const tester = Tester({DOM,db,questionSet:collectionName, update:questioner.db.mapTo(1).startWith(1).merge(markdownSelection.mapTo(1))})
 
     const mainContent = O.combineLatest(sectionSelection,infoSection.DOM,questioner.DOM,tester.DOM).map(([section,infoSection,questioner,tester]) => {
-        if(section == 'content') return infoSection
-        if(section == 'tester') return tester
-        else return questioner
-    }).map(infoSection => {
-        return h("main",[
-            nav([p("#content","Content"),p("#question","Question"),p("#tester","Tester")]),
-            infoSection
-        ])
+            if(section == 'content') return infoSection
+            if(section == 'tester') return tester
+            else return questioner
+        }).map(infoSection => {
+            return h("main",[
+                nav([p("#content","Content"),p("#question","Question"),p("#tester","Tester")]),
+                infoSection
+            ])
     }).startWith(p("Loading"))
 
     const view = navigationElement.combineLatest(mainContent).map(([navElement,mainContent]) => 
-        div("#main-container",[header(h1("Header")),navElement,mainContent])
+        div("#main-container",[header(h1("Knowledge")),navElement,mainContent])
     )
-    db.subscribe(console.log)
     return {
         DOM:view,
         db:questioner.db.merge(tester.db)

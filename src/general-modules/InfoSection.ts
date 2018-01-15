@@ -3,7 +3,6 @@ import { Observable as O } from "rxjs";
 import { VNode,DOMSource,makeDOMDriver, div, button, p, input, source} from "@cycle/DOM";
 import { Stream, MemoryStream } from "xstream";
 import { MarkdownIt } from "markdown-it"; 
-import createVNode from "../general-function/createVNode";
 import { AjaxResponse } from "rxjs/observable/dom/AjaxObservable";
 const md = require('markdown-it')() as MarkdownIt
 md.use(require('markdown-it-texmath').use(require('katex')))

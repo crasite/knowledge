@@ -24,7 +24,6 @@ export default function main({DOM,db,questionSet,update}:Sources):Sinks{
     const requestForQuestion = update.combineLatest(questionSet).map(([,questionSet]) => ({command:'alldocs',collection:questionSet,payload:{},id:'qlist'})) as O<DBSink>
     const md = require('markdown-it')() as MarkdownIt
     md.use(require('markdown-it-texmath').use(require('katex')))
-    questionSet.subscribe(console.log)
 
     const checkButtonProps:InputFieldSource['props'] = O.of({name:'checkButton',type:'button',propList:{value:'Check'}})
     const checkButton = isolate(InputField)({DOM,props:checkButtonProps}) as InputFieldSink
