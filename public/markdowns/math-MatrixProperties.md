@@ -8,19 +8,3 @@
     - A(B + C) = AB + AC $\textcolor{blue} {\therefore\text{Distributiv}}$ \
       (A + B)C = AC + BC 
 4. $(\text{AB})^T = \text B^T \text A^T$
-
-## Inverse
-
-* 2x2 matrix
-
-$$
-A = \begin{pmatrix}
-a_{11} & a_{12} \\
-a_{21} & a_{22}
-\end{pmatrix}
-\therefore
-A^{-1} = \frac{1}{\det A}\begin{pmatrix}
-a_{22} & -a_{12} \\
--a_{21} & a_{11}
-\end{pmatrix}
-$$
