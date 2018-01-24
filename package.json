@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./dist/app.js",
-    "test": "ava-ts --watch"
+    "test": "ava-ts --watch",
+    "postinstall": "node fuse.js production"
   },
   "author": "Thanu Poptiphueng",
   "license": "ISC",
