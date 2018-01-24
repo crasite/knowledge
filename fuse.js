@@ -1,3 +1,6 @@
+const { UglifyESPlugin } = require("fuse-box/plugins/UglifyESPlugin");
+const { UglifyJSPlugin } = require("fuse-box/plugins/UglifyJSPlugin");
+
 const {exec} = require("child_process")
 const { FuseBox, WebIndexPlugin, QuantumPlugin,StylusPlugin,CSSPlugin, Sparky } = require("fuse-box");
 const { src, task, context, tsc, watch } = require('fuse-box/sparky');
@@ -33,15 +36,11 @@ context(class {
     getConfig(bundleName) {
         return FuseBox.init({
             homeDir: "src",
-            target: 'browser@es6',
+            target: 'browser@es5',
             output: "$name.bundle.js",
-            sourceMaps: true,
             plugins: [
                 [StylusPlugin(), CSSPlugin()],
-                this.isProduction && QuantumPlugin({
-                    bakeApiIntoBundle:bundleName,
-                    uglify:true
-                })
+                this.isProduction && UglifyJSPlugin()
             ]
         })
     };

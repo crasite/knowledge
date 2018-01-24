@@ -20,5 +20,6 @@ module.exports = {
         loaders: [
             { test: /\.tsx?$/, loader: "ts-loader" }
         ]
-    }
+    },
+    postinstall : "node fuse.js production"
 }
