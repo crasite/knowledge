@@ -11,6 +11,14 @@ task('default',async context => {
     await fuse.run();
 });
 
+task('production',async context => {
+    context.isProduction = true;
+    const bundleName = "public/javascripts/main"
+    const fuse = context.getConfig(bundleName);
+    context.createBundle(fuse,bundleName);
+    await fuse.run();
+});
+
 task('transpile', () => {
     exec("tsc --watch")
 });
@@ -32,7 +40,6 @@ context(class {
                 [StylusPlugin(), CSSPlugin()],
                 this.isProduction && QuantumPlugin({
                     bakeApiIntoBundle:bundleName,
-                    containedAPI:true,
                     uglify:true
                 })
             ]
