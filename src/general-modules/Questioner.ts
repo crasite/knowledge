@@ -10,7 +10,7 @@ export interface Sources{
   DOM:DOMSource
   db:DBSource
   id:string
-  collectionName:string
+  collectionName:O<string>
 }
 
 export interface Sinks{
@@ -41,11 +41,9 @@ export default function main(sources: Sources): Sinks {
         return (acc+val > 0)? acc+val: 0
     },1).startWith(1)
     const answerField = InputArray({DOM,size:fieldSizeAction,type:O.of('text'),className:'inputField'})
-
     const result$ = submitFieldAction.withLatestFrom(O.combineLatest(questionFieldValue,answerField.value)).map(([,v]) => ({_id:Date.now().toString(),question:v[0],answers:v[1]}))
-    const DBRequest = result$.map<any,DBSink>(payload => ({command:'put',collection:collectionName,id,payload}))
+    const DBRequest = result$.withLatestFrom(collectionName).map<any,DBSink>(( [payload,collectionName] ) => ({command:'put',collection:collectionName,id,payload}))
     const view$ = O.combineLatest(questionField.DOM,answerField.DOM,addField.DOM,removeField.DOM,submitField.DOM).map(doms => p(doms))
-    const a:DBSink = {command:'alldocs',collection:'math',payload:{},id:'qlist'}
     return {
         DOM: view$,
         db:DBRequest

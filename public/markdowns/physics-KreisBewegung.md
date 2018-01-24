@@ -5,13 +5,13 @@ $v = \omega r$\
 $a = \alpha r = \omega^2r$
 
 ## Zentripetal Kraft
-![Zentripetalkraft Darstellung](./images/kreis.jpg)
+![Zentripetalkraft Darstellung](markdowns/images/kreis.jpg)
 
 $F_z = m\omega^2r = \frac{mv^2}{r}$
 
 ## Kraftzerlegung
 
-![Zentripetal Zerlegung](./images/centripetal.gif)
+![Zentripetal Zerlegung](markdowns/images/centripetal.gif)
 
 $mg\sin\theta = \frac{mv^2}{R^2}\cos\theta$\
 $\tan\theta = \frac{mv^2}{R^2mg}$\
