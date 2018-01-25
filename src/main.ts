@@ -76,3 +76,7 @@ export default function main({ DOM,db }: Sources): Sinks {
 }
 
 run(main,{DOM:makeDOMDriver('#main-container'),db:dbDriver('main')})
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+}

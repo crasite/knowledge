@@ -1,11 +1,11 @@
-const CACHE_LIST = [
-                '/offline',
-                '/javascripts/offline.bundle.js'
-]
+// const CACHE_LIST = [
+//                 '/offline',
+//                 '/javascripts/offline.bundle.js'
+// ]
 self.addEventListener('install', function (e) {
     e.waitUntil(
         caches.open('erky').then(function (cache) {
-            return cache.addAll(CACHE_LIST);
+            // return cache.addAll(CACHE_LIST);
         }).then(function() {
             return self.skipWaiting();
         })
@@ -20,12 +20,12 @@ self.addEventListener('fetch', function (event) {
             return response || fetch(event.request);
         })
     );
-    event.waitUntil(
-        caches.open('erky').then(function (cache) {
-            return cache.addAll(CACHE_LIST);
-        })
-    );
-    //event.waitUntil(update(event.request))
+    // event.waitUntil(
+    //     caches.open('erky').then(function (cache) {
+    //         return cache.addAll(CACHE_LIST);
+    //     })
+    // );
+    event.waitUntil(update(event.request))
 });
 
 function update(request) {
@@ -33,7 +33,7 @@ function update(request) {
     return fetch(request).then(function (response) {
       return cache.put(request, response.clone()).then(function () {
         return response;
-      });
+      }).catch(e => e);
     });
   });
 }
