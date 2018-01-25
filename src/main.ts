@@ -9,6 +9,7 @@ import InfoSection from "./general-modules/InfoSection";
 import Questioner from "./general-modules/Questioner";
 import Tester from "./general-modules/tester";
 import isolate from '@cycle/isolate';
+import GaussJordan from "./math/math";
 
 export interface Sources{
   DOM:DOMSource;
@@ -52,6 +53,7 @@ export default function main({ DOM,db }: Sources): Sinks {
     const collectionName = O.from(markdownSelection.map(link => /\/([A-z-]+?).md$/.exec(link.source)[1]))
     const questioner = Questioner({DOM,db,id:'q1',collectionName})
     const tester = Tester({DOM,db,questionSet:collectionName, update:questioner.db.mapTo(1).startWith(1).merge(markdownSelection.mapTo(1))})
+    const Gauss = GaussJordan({DOM})
 
     const mainContent = O.combineLatest(sectionSelection,infoSection.DOM,questioner.DOM,tester.DOM).map(([section,infoSection,questioner,tester]) => {
             if(section == 'content') return infoSection
@@ -64,8 +66,8 @@ export default function main({ DOM,db }: Sources): Sinks {
             ])
     }).startWith(p("Loading"))
 
-    const view = navigationElement.combineLatest(mainContent).map(([navElement,mainContent]) => 
-        div("#main-container",[header(h1("Knowledge")),navElement,mainContent])
+    const view = navigationElement.combineLatest(mainContent,Gauss.DOM).map(([navElement,mainContent,gauss]) => 
+        div("#main-container",[header(h1("Knowledge")),navElement,mainContent,gauss])
     )
     return {
         DOM:view,

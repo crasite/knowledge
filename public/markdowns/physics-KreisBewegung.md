@@ -1,8 +1,7 @@
 ## Algemein Kreisbewegung Formula
 
-$s = \theta r$\
-$v = \omega r$\
-$a = \alpha r = \omega^2r$
+$\vec{s} = \theta \vec{r}$\
+$\vec{v} = \vec{\omega} \times \vec{r}$
 
 ## Zentripetal Kraft
 ![Zentripetalkraft Darstellung](markdowns/images/kreis.jpg)

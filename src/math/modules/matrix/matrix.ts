@@ -3,6 +3,7 @@ import toFraction from "../numberToFraction";
 import { div, p } from "@cycle/DOM";
 import  toVNode from "snabbdom/tovnode";
 import { renderToString } from "katex";
+import * as math from "mathjs"
 
 /**
  * gaussJordan
@@ -49,7 +50,7 @@ function eliminate(matrix:number[][],index:number){
         let newMatrix = matrix.map((rowMatrix,currentRow,arr) => {
             if(currentRow == index) return rowMatrix
             return rowMatrix.map((value,column) => {
-                return value - (matrix[index][column]*rowMatrix[index])
+                return math.round(value - (matrix[index][column]*rowMatrix[index]),14)
             })
         })
         return O.of({matrix:newMatrix,index,row:row+1})

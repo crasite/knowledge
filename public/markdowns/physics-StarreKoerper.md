@@ -25,3 +25,7 @@ $I_2 = I_1+md^2$ ; $d$ ist der Abstand zwischen $I_1 \text{und } I_2$
 ### Bedienungen
 1. $I_2 \parallel I_1$
 2. Drehachse von $I_1$ geht durch SP 
+
+## Rollender Körper (Ohne Schlupf)
+
+![Rollender Körper](markdowns/images/roll.jpg)
