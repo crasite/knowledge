@@ -25,10 +25,7 @@
     "katex": "^0.9.0-alpha2",
     "markdown-it": "^8.4.0",
     "markdown-it-texmath": "^0.4.5",
-<<<<<<< Updated upstream
-=======
     "mathjs": "^3.20.1",
->>>>>>> Stashed changes
     "pouchdb": "^6.4.2",
     "pouchdb-find": "^6.4.1",
     "pug": "^2.0.0-rc.4",
